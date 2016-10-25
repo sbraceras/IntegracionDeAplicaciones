@@ -137,7 +137,6 @@ public class Venta {
 		
 		Venta venta = new Venta();
 		
-		//DEBEMOS BUSCAR EL MODULO EN LA BD CADA VEZ QUE HAYA UNA VENTA HABLAR
 		
 		venta.setCliente(cliente);
 		venta.setFechaHora(dto.getFechaHora());
