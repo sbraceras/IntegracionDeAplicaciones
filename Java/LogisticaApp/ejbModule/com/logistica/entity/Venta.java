@@ -28,7 +28,7 @@ public class Venta {
 	
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	@JoinColumn(name="idVenta")
-	private ArrayList<ItemVenta> itemsVenta;
+	private List<ItemVenta> itemsVenta;
 	private Date fechaHora;
 	private float montoTotal;
 	
@@ -68,10 +68,10 @@ public class Venta {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public ArrayList<ItemVenta> getItemsVenta() {
+	public List<ItemVenta> getItemsVenta() {
 		return itemsVenta;
 	}
-	public void setItemsVenta(ArrayList<ItemVenta> itemsVenta) {
+	public void setItemsVenta(List<ItemVenta> itemsVenta) {
 		this.itemsVenta = itemsVenta;
 	}
 	public Date getFechaHora() {
@@ -136,14 +136,25 @@ public class Venta {
 	public Venta fromDTO(VentaDTO dto, Cliente cliente){
 		
 		Venta venta = new Venta();
+		
 		//DEBEMOS BUSCAR EL MODULO EN LA BD CADA VEZ QUE HAYA UNA VENTA HABLAR
 		
 		venta.setCliente(cliente);
 		venta.setFechaHora(dto.getFechaHora());
 		venta.setMontoTotal(dto.getMontoTotal());
 		venta.setId(dto.getId());
-		venta.setModulo(dto.getModulo());
-		venta.set
+		List<ItemVenta> items = new ArrayList<ItemVenta>();
+		ItemVenta item;
+		Articulo articulo = new Articulo();
+		for(ItemVentaDTO itemDTO: dto.getItemsVenta())
+		{
+			item= new ItemVenta();
+			item.setArticulo(articulo.fromDTO(itemDTO.getArticulo()));
+			item.setCantidad(itemDTO.getCantidad());
+			item.setId(itemDTO.getId());
+			items.add(item);
+		}
+		venta.setItemsVenta(items);
 		return venta;
 		
 		

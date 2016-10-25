@@ -8,9 +8,5 @@
         <dependent-module archiveName="LogisticaAppClient.jar" deploy-path="/" handle="module:/resource/LogisticaAppClient/LogisticaAppClient">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="LogisticaWebProject.war" deploy-path="/" handle="module:/resource/LogisticaWebProject/LogisticaWebProject">
-            <dependent-object/>
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
     </wb-module>
 </project-modules>
