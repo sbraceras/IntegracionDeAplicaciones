@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/LogisticaAppClient"/>
-	<classpathentry kind="lib" path="C:/Users/Agustin/Desktop/Cosas Facu Segundo Cuatrimestre 2016/Integración Aplicaciones/Wildfly 10 Usar/wildfly-10.1.0.CR1/bin/client/jboss-client.jar"/>
+	<classpathentry kind="lib" path="C:/Users/gaston/Desktop/Integración Aplicaciones/tools/wildfly-10.1.0.CR1/bin/client/jboss-client.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
