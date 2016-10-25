@@ -16,12 +16,12 @@ public class Articulo {
 	private int id;
 	private float precio;
 	private String descripcion;
-	private int ventasAcumuladas;
+	private double ventasAcumuladas;
 	
 	public Articulo() {
 	}
 
-	public Articulo(int id, float precio, String descripcion, int ventasAcumuladas) {
+	public Articulo(int id, float precio, String descripcion, double ventasAcumuladas) {
 		this.id = id;
 		this.precio = precio;
 		this.descripcion = descripcion;
@@ -46,10 +46,10 @@ public class Articulo {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-	public int getVentasAcumuladas() {
+	public double getVentasAcumuladas() {
 		return ventasAcumuladas;
 	}
-	public void setVentasAcumuladas(int ventasAcumuladas) {
+	public void setVentasAcumuladas(double ventasAcumuladas) {
 		this.ventasAcumuladas = ventasAcumuladas;
 	}
 	
@@ -58,8 +58,16 @@ public class Articulo {
 		dto.setDescripcion(this.descripcion);
 		dto.setId(this.id);
 		dto.setPrecio(this.precio);
-		dto.setVentasAcumuladas(ventasAcumuladas);
 		return dto;
+	}
+	
+	public Articulo fromDTO (ArticuloDTO dto){
+		
+		Articulo articulo = new Articulo();
+		articulo.setDescripcion(dto.getDescripcion());
+		articulo.setId(dto.getId());
+		articulo.setPrecio(dto.getPrecio());
+		return articulo;
 	}
 	
 	

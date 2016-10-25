@@ -5,6 +5,7 @@
 	<projects>
 		<project>LogisticaApp</project>
 		<project>LogisticaAppClient</project>
+		<project>LogisticaWebProject</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

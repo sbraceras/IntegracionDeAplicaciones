@@ -14,12 +14,15 @@ import com.logistica.dto.ClienteDTO;
 @Entity
 @Table(name="Clientes")
 public class Cliente {
+	//Para que nos afecte que un cliente este registrado en diferentes
+	//Portales, lo que hacemos es tener el dni como pk para tenerlo por
+	//Unica vez, y cada vez que recibimos una venta actualizamos sus
+	//Coordenadas
 	@Id
-	@Column(name="idCliente")
-	private int id;
+	private int dni;
+//	private int id;
 	private String nombre;
 	private String apellido;
-	private int dni;
 	private String mail;
 	
 	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
@@ -27,9 +30,8 @@ public class Cliente {
 	private Direccion direccion;
 	
 	
-	public Cliente(int id, String nombre, String apellido, int dni,
+	public Cliente(int id, String nombre, String apellido,
 			String mail, Direccion direccion) {
-		this.id = id;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.dni = dni;
@@ -39,16 +41,6 @@ public class Cliente {
 
 
 	public Cliente() {
-	}
-
-
-	public int getId() {
-		return id;
-	}
-
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 
@@ -109,6 +101,23 @@ public class Cliente {
 		dto.setMail(this.mail);
 		dto.setNombre(this.nombre);
 		return dto;
+	}
+	
+	public Cliente fromDTO (ClienteDTO dto) {
+	
+		// Cliente: nombre, apellido, latidud, longitud.
+		
+		Cliente cliente = new Cliente();
+		Direccion direccion = new Direccion();
+		Coordenada coordenada = new Coordenada();
+		cliente.setNombre(dto.getNombre());
+		cliente.setApellido(dto.getApellido());
+		cliente.setDni(dto.getDni());
+		coordenada.setLatitud(dto.getDireccion().getCoordenada().getLatitud());
+		coordenada.setLongitud(dto.getDireccion().getCoordenada().getLongitud());
+		direccion.setCoordenada(coordenada);
+		cliente.setDireccion(direccion);
+		return cliente;
 	}
 	
 }

@@ -18,9 +18,12 @@ import com.logistica.dto.OrdenDespachoDTO;
 @Table(name="OrdenesDespacho")
 public class OrdenDespacho {
 	
+	//No vamos a hacer que sea generated, ya que la va a generar el modulo
+	//De despacho al que le mandemos y recibimos la pk compuesta que ellos
+	//Digan, analizar si esto va a ser una pk compuesta de nuestro lado.
 	@Id
 	@Column(name="idOrdenDespacho")
-	@GeneratedValue(strategy=GenerationType.AUTO)
+//	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	private Date fecha;
 	private EstadoOrdenDespacho estado;

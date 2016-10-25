@@ -132,4 +132,20 @@ public class Venta {
 		ventaDTO.setOrdenDespacho(ordenDespacho.toDTO());
 		return ventaDTO;
 	}
+	
+	public Venta fromDTO(VentaDTO dto, Cliente cliente){
+		
+		Venta venta = new Venta();
+		//DEBEMOS BUSCAR EL MODULO EN LA BD CADA VEZ QUE HAYA UNA VENTA HABLAR
+		
+		venta.setCliente(cliente);
+		venta.setFechaHora(dto.getFechaHora());
+		venta.setMontoTotal(dto.getMontoTotal());
+		venta.setId(dto.getId());
+		venta.setModulo(dto.getModulo());
+		venta.set
+		return venta;
+		
+		
+	}
 }
