@@ -1,5 +1,5 @@
 *.classpath
 *.xml
-*.classpath
 Java/LogisticaAppClient/.classpath
 Java/LogisticaApp/.classpath
+*.class
