@@ -5,25 +5,17 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import com.logistica.dto.EstandarDTO;
-import com.logistica.dto.ItemVentaDTO;
-import com.logistica.dto.VentaDTO;
-import com.logistica.entity.Articulo;
-import com.logistica.entity.Cliente;
-import com.logistica.entity.EstadoVenta;
-import com.logistica.entity.Estandar;
-import com.logistica.entity.Modulo;
-import com.logistica.entity.Venta;
+import com.logistica.dtos.*;
+import com.logistica.entities.*;
 
 
 @Stateless
 @LocalBean
 public class AdministradorVentas {
-	
-	@PersistenceContext(unitName="MyPU")
+
+	@PersistenceContext(unitName="MyPersistenceUnit")
 	private EntityManager em;
 	
-
 		
 // fecha de venta,cliente, hora, monto, descripcion/identificacion del portal,lista de itemsventa
 // Cliente: dni, nombre, apellido, latidud, longitud.

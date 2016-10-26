@@ -6,6 +6,8 @@ import java.net.URL;
 
 import org.apache.commons.io.IOUtils;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 public class JAXRSClient {
 
 	public static void main(String[] args) {
@@ -102,6 +104,12 @@ public class JAXRSClient {
 
 */
 
+			//ALTERNATIVA JACKSON
+			
+			ObjectMapper mapper = new ObjectMapper();
+			Persona p = new Persona(1759, "John Doe", "");
+			String jsonInString = mapper.writeValueAsString(p);
+			System.out.println(jsonInString);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
