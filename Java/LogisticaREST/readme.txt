@@ -1,0 +1,1 @@
+NOTA: REST JAX-RS está pensado para ser usado solo dentro de un proyecto web, no dentro de contenedores EJB.

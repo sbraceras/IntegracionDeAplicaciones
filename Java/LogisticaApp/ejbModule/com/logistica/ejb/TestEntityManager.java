@@ -8,7 +8,7 @@ import javax.persistence.PersistenceContext;
 import com.logistica.entities.Articulo;
 
 /**
- * Session Bean implementation class LogisticaHelloService
+ * Session Bean implementation class TestEntityManager
  */
 @Stateless
 @LocalBean
