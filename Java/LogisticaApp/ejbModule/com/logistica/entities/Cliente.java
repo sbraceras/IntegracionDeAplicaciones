@@ -27,8 +27,8 @@ public class Cliente {
 	private String mail;
 	
 	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-	@PrimaryKeyJoinColumn(name="idDireccion")
-//	@JoinColumn(name="idCliente")
+//	@PrimaryKeyJoinColumn(name="idDireccion")
+	@JoinColumn(name="idDireccion")
 	private Direccion direccion;
 
 	public Cliente(int dni, String nombre, String apellido,

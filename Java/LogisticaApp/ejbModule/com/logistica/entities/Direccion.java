@@ -26,7 +26,8 @@ public class Direccion {
 	private String dpto;
 
 	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-	@PrimaryKeyJoinColumn(name = "idCoordenada")
+//	@PrimaryKeyJoinColumn(name = "idCoordenada")
+	@JoinColumn (name = "idCoordenada")
 	private Coordenada coordenada;
 	
 	public Direccion() {

@@ -1,0 +1,9 @@
+API KEY = AIzaSyBrrSMBrm1CLgq1bgBjOM_Zyp6xwUHLVko
+
+URL DOCUMENTACION: https://developers.google.com/maps/documentation/distance-matrix/intro?hl=es-419
+
+
+https://maps.googleapis.com/maps/api/distancematrix/json?origins=-34.610359,%20-58.374992&destinations=-34.610583,%20-58.379535&language=es&mode=walking&key=AIzaSyBrrSMBrm1CLgq1bgBjOM_Zyp6xwUHLVko
+
+
+EJEMPLO: https://maps.googleapis.com/maps/api/distancematrix/json?origins=-34.610359, -58.374992&destinations=-34.610583, -58.379535&mode=bicycling&language=fr-FR&key=YOUR_API_KEY
