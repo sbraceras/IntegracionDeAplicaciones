@@ -5,8 +5,14 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import com.logistica.dtos.*;
-import com.logistica.entities.*;
+import com.logistica.dtos.ItemVentaDTO;
+import com.logistica.dtos.VentaDTO;
+import com.logistica.entities.Articulo;
+import com.logistica.entities.Cliente;
+import com.logistica.entities.Estandar;
+import com.logistica.entities.Modulo;
+import com.logistica.entities.Venta;
+import com.logistica.enums.EstadoVenta;
 
 
 @Stateless

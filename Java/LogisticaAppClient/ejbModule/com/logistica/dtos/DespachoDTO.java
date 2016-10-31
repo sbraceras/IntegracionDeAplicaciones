@@ -1,6 +1,11 @@
 package com.logistica.dtos;
 
-public class DespachoDTO {
+import java.io.Serializable;
+
+public class DespachoDTO implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
+	
 	private int id;
 	private DireccionDTO direccion;
 	private String descripcion;

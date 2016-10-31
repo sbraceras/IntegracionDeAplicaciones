@@ -1,11 +1,14 @@
 package com.logistica.dtos;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-import com.logistica.entities.EstadoVenta;
+import com.logistica.enums.EstadoVenta;
 
-public class VentaDTO {
+public class VentaDTO implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 	
 	private int id;
 	private List<ItemVentaDTO> itemsVenta;

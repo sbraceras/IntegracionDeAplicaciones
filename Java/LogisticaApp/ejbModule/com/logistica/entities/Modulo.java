@@ -9,6 +9,8 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
+import com.logistica.enums.TipoModulo;
+
 @Entity
 @Table(name = "Modulos")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)

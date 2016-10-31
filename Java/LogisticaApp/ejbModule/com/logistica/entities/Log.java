@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.logistica.dtos.LogDTO;
+import com.logistica.enums.TipoLog;
 
 @Entity
 @Table(name="Logs")

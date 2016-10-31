@@ -1,4 +1,4 @@
-package com.logistica.entities;
+package com.logistica.enums;
 
 public enum EstadoVenta {
 	EnProceso,

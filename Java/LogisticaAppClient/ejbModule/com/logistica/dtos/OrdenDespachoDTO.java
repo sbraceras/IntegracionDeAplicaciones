@@ -1,10 +1,13 @@
 package com.logistica.dtos;
 
+import java.io.Serializable;
 import java.util.Date;
 
-import com.logistica.entities.EstadoOrdenDespacho;
+import com.logistica.enums.EstadoOrdenDespacho;
 
-public class OrdenDespachoDTO {
+public class OrdenDespachoDTO implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 	
 	private int id;
 	private Date fecha;

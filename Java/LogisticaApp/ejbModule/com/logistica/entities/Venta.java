@@ -17,6 +17,7 @@ import javax.persistence.Table;
 
 import com.logistica.dtos.ItemVentaDTO;
 import com.logistica.dtos.VentaDTO;
+import com.logistica.enums.EstadoVenta;
 
 @Entity
 @Table(name="Ventas")

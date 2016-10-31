@@ -1,6 +1,11 @@
 package com.logistica.dtos;
 
-public class ArticuloDTO {
+import java.io.Serializable;
+
+public class ArticuloDTO implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
+	
 	private int id;
 	private float precio;
 	private String descripcion;
