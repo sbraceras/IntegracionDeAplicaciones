@@ -145,18 +145,17 @@ public class Venta {
 		venta.setId(dto.getId());
 		List<ItemVenta> items = new ArrayList<ItemVenta>();
 		ItemVenta item;
-		Articulo articulo = new Articulo();
+
 		for(ItemVentaDTO itemDTO: dto.getItemsVenta())
 		{
 			item= new ItemVenta();
-			item.setArticulo(articulo.fromDTO(itemDTO.getArticulo()));
+			item.setArticulo(Articulo.fromDTO(itemDTO.getArticulo()));
 			item.setCantidad(itemDTO.getCantidad());
 			item.setId(itemDTO.getId());
 			items.add(item);
 		}
 		venta.setItemsVenta(items);
 		return venta;
-		
 		
 	}
 }

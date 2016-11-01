@@ -11,7 +11,6 @@ public class DespachoDTO implements Serializable{
 	private String descripcion;
 	private boolean estado;
 	private String ip;
-	private static String tipo = "Despacho";
 	
 	public DespachoDTO() {
 	}

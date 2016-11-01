@@ -3,6 +3,8 @@
 	<name>LogisticaREST</name>
 	<comment></comment>
 	<projects>
+		<project>LogisticaApp</project>
+		<project>LogisticaAppClient</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

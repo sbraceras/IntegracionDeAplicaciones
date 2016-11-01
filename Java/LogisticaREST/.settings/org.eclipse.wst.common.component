@@ -2,6 +2,12 @@
     <wb-module deploy-name="LogisticaREST">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <dependent-module archiveName="LogisticaApp.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/LogisticaApp/LogisticaApp">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="LogisticaAppClient.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/LogisticaAppClient/LogisticaAppClient">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="context-root" value="LogisticaREST"/>
         <property name="java-output-path" value="/LogisticaREST/bin"/>
     </wb-module>
