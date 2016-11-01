@@ -18,7 +18,6 @@ import com.logistica.dtos.DireccionDTO;
 import com.logistica.dtos.ItemVentaDTO;
 import com.logistica.dtos.VentaDTO;
 import com.logistica.ejb.StatelessAdministradorVentasRemote;
-import com.logistica.ejb.TestEntityManagerRemote;
 
 public class Test {
 
@@ -74,7 +73,7 @@ public class Test {
 
 		
 		// enviamos la venta al Session Bean!
-		mbr.recepcionDeVenta(venta);
+//		mbr.recepcionDeVenta(venta);
 
 		String apiKey= "AIzaSyBrrSMBrm1CLgq1bgBjOM_Zyp6xwUHLVko";
 		String latitudOrigen= "-34.610359";
