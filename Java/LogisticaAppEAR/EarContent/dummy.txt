@@ -1,0 +1,1 @@
+Este archivo es para que el git suba la carpeta 'EarContent'. NO BORRAR
