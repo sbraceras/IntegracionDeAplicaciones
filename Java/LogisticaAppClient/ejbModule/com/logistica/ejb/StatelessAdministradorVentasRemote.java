@@ -8,5 +8,7 @@ import com.logistica.dtos.VentaDTO;
 public interface StatelessAdministradorVentasRemote {
 	
 	public boolean recepcionDeVenta (VentaDTO ventaDTO);
+	
+	public void agregarPortalWeb ();
 
 }

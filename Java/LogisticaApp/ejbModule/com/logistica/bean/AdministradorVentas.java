@@ -13,6 +13,7 @@ import com.logistica.entities.Estandar;
 import com.logistica.entities.Modulo;
 import com.logistica.entities.Venta;
 import com.logistica.enums.EstadoVenta;
+import com.logistica.enums.TipoModulo;
 
 
 @Stateless
@@ -85,6 +86,26 @@ public class AdministradorVentas {
 		em.persist(venta);
 		
 		return true;
+	}
+	
+	
+	//Borrar!!
+	
+	public void agregarPortalWeb (){
+		
+		Estandar estandar = new Estandar();
+		estandar.setNombre("Mercadolibre");
+		estandar.setIp("192.168.1.0");
+		estandar.setTipoModulo(TipoModulo.PortalWeb);
+		em.persist(estandar);
+		
+		estandar = new Estandar();
+		estandar.setNombre("Al Mundo");
+		estandar.setIp("192.168.1.50");
+		estandar.setTipoModulo(TipoModulo.PortalWeb);
+		
+		em.persist(estandar);
+		
 	}
 	
 }

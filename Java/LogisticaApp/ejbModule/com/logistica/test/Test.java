@@ -42,6 +42,10 @@ public class Test {
 		
 		StatelessAdministradorVentasRemote mbr = (StatelessAdministradorVentasRemote) context.lookup(lookupName);
 
+		
+		//Borrar!!
+		
+		mbr.agregarPortalWeb();
 
 		VentaDTO venta = new VentaDTO();
 		ClienteDTO cliente = new ClienteDTO();
@@ -66,14 +70,14 @@ public class Test {
 		venta.setCliente(cliente);
 		venta.setFechaHora(Calendar.getInstance().getTime());
 		venta.setId(2);
-		venta.setIpModulo("192.168.1.2");
+		venta.setIpModulo("192.168.1.0");
 		venta.setItemsVenta(itemsVenta);
-		venta.setModulo("PortalWeb1");
+		venta.setModulo("Mercadolibre");
 		venta.setMontoTotal(2150);
 
 		
 		// enviamos la venta al Session Bean!
-//		mbr.recepcionDeVenta(venta);
+		mbr.recepcionDeVenta(venta);
 
 		String apiKey= "AIzaSyBrrSMBrm1CLgq1bgBjOM_Zyp6xwUHLVko";
 		String latitudOrigen= "-34.610359";
