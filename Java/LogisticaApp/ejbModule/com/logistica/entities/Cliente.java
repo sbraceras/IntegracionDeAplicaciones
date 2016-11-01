@@ -111,13 +111,23 @@ public class Cliente {
 		Cliente cliente = new Cliente();
 		Direccion direccion = new Direccion();
 		Coordenada coordenada = new Coordenada();
+
 		cliente.setNombre(dto.getNombre());
 		cliente.setApellido(dto.getApellido());
 		cliente.setDni(dto.getDni());
+		cliente.setMail(dto.getMail());
+
 		coordenada.setLatitud(dto.getDireccion().getCoordenada().getLatitud());
 		coordenada.setLongitud(dto.getDireccion().getCoordenada().getLongitud());
+
+		direccion.setAltura(dto.getDireccion().getAltura());
+		direccion.setCalle(dto.getDireccion().getCalle());
+		direccion.setDpto(dto.getDireccion().getDpto());
+		direccion.setPiso(dto.getDireccion().getPiso());
 		direccion.setCoordenada(coordenada);
+
 		cliente.setDireccion(direccion);
+
 		return cliente;
 	}
 	

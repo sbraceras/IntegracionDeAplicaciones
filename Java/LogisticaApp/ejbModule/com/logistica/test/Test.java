@@ -86,11 +86,20 @@ public class Test {
 		String longitudDestino="-58.379535";
 		String medioTransporte= "driving";
 //		String medioTransporte= "walking";
-		URL url = new URL("https://maps.googleapis.com/maps/api/distancematrix/json?origins="+latitudOrigen+",%20"+longitudOrigen+"&destinations="+latitudDestino+",%20"+longitudDestino+"&language=es&mode="+medioTransporte+"&key="+apiKey);
+
+		URL url = new URL("https://maps.googleapis.com/maps/api/distancematrix/json?"
+				+ "origins=" + latitudOrigen + ",%20" + longitudOrigen + "&"
+				+ "destinations=" + latitudDestino + ",%20" + longitudDestino + "&"
+				+ "language=es" + "&"
+				+ "mode=" + medioTransporte + "&"
+				+ "key=" + apiKey);
+
 		HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+
 		if(urlConnection.getResponseCode() != 200) {
-		throw new RuntimeException("Error de conexión: " + urlConnection.getResponseCode());
+			throw new RuntimeException("Error de conexión: " + urlConnection.getResponseCode());
 		}
+
 		ObjectMapper mapper = new ObjectMapper();
 		String response = IOUtils.toString(urlConnection.getInputStream());
 		Response maps = mapper.readValue(response, Response.class);
