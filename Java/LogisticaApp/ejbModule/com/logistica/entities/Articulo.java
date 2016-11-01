@@ -61,7 +61,7 @@ public class Articulo {
 		return dto;
 	}
 	
-	public Articulo fromDTO (ArticuloDTO dto){
+	public static Articulo fromDTO (ArticuloDTO dto){
 		
 		Articulo articulo = new Articulo();
 		articulo.setDescripcion(dto.getDescripcion());

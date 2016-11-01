@@ -134,7 +134,7 @@ public class Venta {
 		return ventaDTO;
 	}
 	
-	public Venta fromDTO(VentaDTO dto, Cliente cliente){
+	public static Venta fromDTO(VentaDTO dto, Cliente cliente){
 		
 		Venta venta = new Venta();
 		

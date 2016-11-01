@@ -104,7 +104,7 @@ public class Cliente {
 		return dto;
 	}
 	
-	public Cliente fromDTO (ClienteDTO dto) {
+	public static Cliente fromDTO (ClienteDTO dto) {
 	
 		// Cliente: nombre, apellido, latidud, longitud.
 		

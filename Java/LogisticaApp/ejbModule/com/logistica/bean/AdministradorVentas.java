@@ -7,6 +7,8 @@ import javax.persistence.PersistenceContext;
 
 import com.logistica.dtos.ItemVentaDTO;
 import com.logistica.dtos.VentaDTO;
+import com.logistica.ejb.StatelessAdministradorVentasLocal;
+import com.logistica.ejb.StatelessAdministradorVentasRemote;
 import com.logistica.entities.Articulo;
 import com.logistica.entities.Cliente;
 import com.logistica.entities.Estandar;
@@ -18,7 +20,7 @@ import com.logistica.enums.TipoModulo;
 
 @Stateless
 @LocalBean
-public class AdministradorVentas {
+public class AdministradorVentas implements StatelessAdministradorVentasRemote, StatelessAdministradorVentasLocal {
 
 	@PersistenceContext(unitName="MyPersistenceUnit")
 	private EntityManager em;
@@ -47,7 +49,7 @@ public class AdministradorVentas {
 			//El cliente no existe, debemos persistirlo
 			
 			//Llamamos a este metodo que se ocupa de convertir de DTO a object
-			cliente = cliente.fromDTO(ventaDTO.getCliente());
+			cliente = Cliente.fromDTO(ventaDTO.getCliente());
 			em.persist(cliente);			
 		}
 		else
@@ -63,7 +65,7 @@ public class AdministradorVentas {
 			if(articulo == null)
 			{
 				//El articulo no existe, debemos persistirlo
-				articulo = articulo.fromDTO(item.getArticulo());
+				articulo = Articulo.fromDTO(item.getArticulo());
 				articulo.setVentasAcumuladas(item.getCantidad());
 				em.persist(articulo);
 			}
@@ -77,7 +79,7 @@ public class AdministradorVentas {
 		}
 		
 		Venta venta = new Venta();
-		venta = venta.fromDTO(ventaDTO, cliente);
+		venta = Venta.fromDTO(ventaDTO, cliente);
 		venta.setEstado(EstadoVenta.EnProceso);
 		venta.setModulo((Modulo) portalWeb);
 
