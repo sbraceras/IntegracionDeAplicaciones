@@ -38,7 +38,7 @@ public class Venta {
 	private OrdenDespacho ordenDespacho;
 	
 	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="idModulo")
+	@JoinColumn(name="nombreModulo")
 	private Modulo modulo;
 	
 	@ManyToOne(fetch=FetchType.EAGER)

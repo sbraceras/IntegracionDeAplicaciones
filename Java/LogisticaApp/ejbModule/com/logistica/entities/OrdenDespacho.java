@@ -28,7 +28,7 @@ public class OrdenDespacho {
 	private EstadoOrdenDespacho estado;
 	
 	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="idDespacho")
+	@JoinColumn(name="nombreModulo")
 	private Despacho despacho;
 	
 	@OneToOne(fetch=FetchType.EAGER)

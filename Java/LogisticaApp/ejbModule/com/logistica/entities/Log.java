@@ -28,7 +28,7 @@ public class Log {
 	private String descripcion;
 	
 	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="idModulo")
+	@JoinColumn(name="nombreModulo")
 	private Modulo modulo;
 	
 	public Log() {

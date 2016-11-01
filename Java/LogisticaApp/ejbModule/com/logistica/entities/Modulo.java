@@ -17,30 +17,24 @@ import com.logistica.enums.TipoModulo;
 @DiscriminatorColumn(name = "tipo", discriminatorType = DiscriminatorType.STRING)
 public abstract class Modulo {
 
+	//Segun como fue conversado el identificador unico de un modulo no es el id sino el nombre
+	//Por ese motivo ahora el nombre del modulo es su nueva pk
+	
 	@Id
-	@Column(name = "idModulo")
-	protected int id;
+	@Column(name = "nombreModulo")
+	protected String nombre;
+//	protected int id;
 	protected String ip;
 	protected TipoModulo tipoModulo;
-	protected String nombre;
 
 	public Modulo() {
 
 	}
 
 	public Modulo(int id, String ip, TipoModulo tipoModulo, String nombre) {
-		this.id = id;
 		this.ip = ip;
 		this.tipoModulo = tipoModulo;
 		this.nombre = nombre;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public String getIp() {

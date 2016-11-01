@@ -14,15 +14,14 @@ import com.logistica.dtos.DespachoDTO;
 public class Despacho extends Modulo{
 	
 	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-	@JoinColumn(name="idModulo")
+	@JoinColumn(name="nombreModulo")
 	private Direccion direccion;
 	private String descripcion;
 	private boolean estado;
 	
 	
-	public Despacho(int id, Direccion direccion, String descripcion,
+	public Despacho(Direccion direccion, String descripcion,
 			boolean estado) {
-		this.id = id;
 		this.direccion = direccion;
 		this.descripcion = descripcion;
 		this.estado = estado;
@@ -30,16 +29,6 @@ public class Despacho extends Modulo{
 
 
 	public Despacho() {
-	}
-
-
-	public int getId() {
-		return id;
-	}
-
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 
@@ -76,7 +65,6 @@ public class Despacho extends Modulo{
 		DespachoDTO dto = new DespachoDTO();
 		dto.setDescripcion(this.descripcion);
 		dto.setDireccion(direccion.toDTO());
-		dto.setId(this.id);
 		dto.setEstado(this.estado);
 		dto.setIp(this.ip);
 		return dto;
