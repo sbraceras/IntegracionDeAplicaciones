@@ -1,11 +1,13 @@
-package com.logistica.ejb;
+package com.logistica.sessionBeans.examples;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import com.logistica.entities.Articulo;
+import com.logistica.ejb.TestEntityManagerLocal;
+import com.logistica.ejb.TestEntityManagerRemote;
+import com.logistica.entityBeans.Articulo;
 
 /**
  * Session Bean implementation class TestEntityManager

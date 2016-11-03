@@ -6,9 +6,10 @@ import java.util.List;
 
 import com.logistica.enums.EstadoVenta;
 
-public class VentaDTO implements Serializable{
+public class VentaDTO implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
+
 	private int id;
 	private List<ItemVentaDTO> itemsVenta;
 	private Date fechaHora;

@@ -1,4 +1,4 @@
-package com.logistica.entities;
+package com.logistica.entityBeans;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;

@@ -17,7 +17,7 @@ import com.logistica.dtos.CoordenadaDTO;
 import com.logistica.dtos.DireccionDTO;
 import com.logistica.dtos.ItemVentaDTO;
 import com.logistica.dtos.VentaDTO;
-import com.logistica.ejb.StatelessAdministradorVentasRemote;
+import com.logistica.ejb.FacadeEJBRemote;
 
 public class Test {
 
@@ -33,14 +33,14 @@ public class Test {
 		final String ejbModuleName = "LogisticaApp";
 		final String distinctName = "";
 		final String ejbClassName = "AdministradorVentas";
-		final String fullInterfaceName = StatelessAdministradorVentasRemote.class.getName();
+		final String fullInterfaceName = FacadeEJBRemote.class.getName();
 
 		String lookupName = "ejb:" + earName + "/" + ejbModuleName + "/" + distinctName + "/" + ejbClassName + "!"
 				+ fullInterfaceName;
 
 		System.out.println("Conectando a " + lookupName);
 		
-		StatelessAdministradorVentasRemote mbr = (StatelessAdministradorVentasRemote) context.lookup(lookupName);
+		FacadeEJBRemote mbr = (FacadeEJBRemote) context.lookup(lookupName);
 
 		
 		//Borrar!!

@@ -1,4 +1,4 @@
-package com.logistica.entities;
+package com.logistica.entityBeans;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;

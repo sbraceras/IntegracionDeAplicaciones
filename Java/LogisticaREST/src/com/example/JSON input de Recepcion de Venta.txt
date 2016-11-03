@@ -1,0 +1,41 @@
+JSON input de Recepcion de Venta:
+
+{
+        "id": 1,
+        "cliente": 
+        {
+                "dni": 36213120,
+                "nombre": "Lucas",
+                "apellido": "Rivela"
+        },
+        "latitud": -34.581529,
+        "longitud": -58.494099,
+        "fechaHoraVenta": "2002-05-30T09:00:00",
+        "monto": 948,
+        "nombrePortal": "MercadoLibre",
+        "itemsVenta": 
+        [
+                {
+                "articulo":
+                        {
+                                "idProducto": 1755725,
+                                "nombreDeposito":"DepositoX",
+                                "descripcion": "Centrifugador QV 5.5",
+                                "marca": "Drean",
+                                "precio": 749                                
+                        },
+                "cantidad" : 1
+                },
+                {
+                "articulo": 
+                        {
+                                "idProducto":1754721,
+                                "nombreDeposito":"DepositoY",
+                                "descripcion":"Afeitadora PQ222/17",
+                                "marca":"Philips",
+                                "precio":199                        
+                        },
+                "cantidad" : 1
+                }
+        ]                                
+}

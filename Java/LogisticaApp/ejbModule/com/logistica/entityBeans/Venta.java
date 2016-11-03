@@ -1,4 +1,4 @@
-package com.logistica.entities;
+package com.logistica.entityBeans;
 
 import java.util.ArrayList;
 import java.util.Date;
