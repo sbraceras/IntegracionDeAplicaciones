@@ -1,7 +1,6 @@
 package com.logistica.sessionBeans;
 
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,12 +16,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.logistica.dtos.DespachoDTO;
 import com.logistica.dtos.EstandarDTO;
 import com.logistica.dtos.VentaDTO;
-import com.logistica.entities.Cliente;
-import com.logistica.entities.Coordenada;
-import com.logistica.entities.Despacho;
-import com.logistica.entities.Direccion;
-import com.logistica.entities.Estandar;
-import com.logistica.entities.Venta;
+import com.logistica.entityBeans.*;
 import com.logistica.enums.TipoModulo;
 import com.logistica.interfaces.StatelessAdmDespachosBeanLocal;
 import com.logistica.interfaces.StatelessAdmDespachosBeanRemote;

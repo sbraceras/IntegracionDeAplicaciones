@@ -10,13 +10,15 @@ import com.logistica.dtos.VentaDTO;
 
 @Local
 public interface StatelessAdmDespachosBeanLocal {
-	
+
 	public List<VentaDTO> listarVentasSinOrdenDespacho();
+
 	public DespachoDTO obtenerDespachoCercanoCliente(VentaDTO venta) throws Exception;
-	
-	//Borrar
+
+	// Borrar
 	public EstandarDTO obetenerModulo();
-	//Borrar
+
+	// Borrar
 	public void cargarDespachos();
 
 }
