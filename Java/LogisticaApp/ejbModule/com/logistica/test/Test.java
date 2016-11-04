@@ -59,7 +59,7 @@ public class Test {
 		final String earName = "LogisticaAppEAR";
 		final String ejbModuleName = "LogisticaApp";
 		final String distinctName = "";
-		final String ejbClassName = "AdministradorVentas";
+		final String ejbClassName = "FacadeEJB";
 		final String fullInterfaceName = FacadeEJBRemote.class.getName();
 
 		String lookupName = "ejb:" + earName + "/" + ejbModuleName + "/" + distinctName + "/" + ejbClassName + "!"
@@ -108,12 +108,10 @@ public class Test {
 //		mbr2.obetenerModulo();
 //		mbr2.cargarDespachos();
 		//Levanto las ventas sin Orden Asociada
-		int a= 0;
-		System.out.println(a);
-		List<VentaDTO> ventasSinDespacho = mbr2.listarVentasSinOrdenDespacho();
-		mbr2.obtenerDespachoCercanoCliente(venta);
+//		List<VentaDTO> ventasSinDespacho = mbr2.listarVentasSinOrdenDespacho();
 
 			
+		mbr2.obtenerDespachoCercanoCliente(venta);
 		
 		String apiKey= "AIzaSyBrrSMBrm1CLgq1bgBjOM_Zyp6xwUHLVko";
 		String latitudOrigen= "-34.610359";
@@ -140,6 +138,7 @@ public class Test {
 		String response = IOUtils.toString(urlConnection.getInputStream());
 		Response maps = mapper.readValue(response, Response.class);
 		System.out.println("La distancia es: "+ maps.getRows()[0].getElements()[0].getDistance().getValue());	
+		
 	}
 
 }

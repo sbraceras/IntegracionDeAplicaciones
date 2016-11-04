@@ -39,8 +39,7 @@ public class FacadeEJB implements FacadeEJBLocal, FacadeEJBRemote {
 
 	@Override
 	public void agregarPortalWeb() {
-		// TODO Auto-generated method stub
-		
+		av.agregarPortalWeb();
 	}
 
 }

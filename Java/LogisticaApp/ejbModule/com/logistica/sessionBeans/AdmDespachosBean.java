@@ -17,9 +17,11 @@ import com.logistica.dtos.DespachoDTO;
 import com.logistica.dtos.EstandarDTO;
 import com.logistica.dtos.VentaDTO;
 import com.logistica.entityBeans.*;
+import com.logistica.enums.EstadoVenta;
 import com.logistica.enums.TipoModulo;
 import com.logistica.interfaces.StatelessAdmDespachosBeanLocal;
 import com.logistica.interfaces.StatelessAdmDespachosBeanRemote;
+import com.logistica.test.CalculoDistancia;
 import com.logistica.test.Response;
 
 /**
@@ -35,9 +37,8 @@ public class AdmDespachosBean implements StatelessAdmDespachosBeanRemote, Statel
 	
 	public List<VentaDTO> listarVentasSinOrdenDespacho (){
 		
-//		List<Venta> ventas = em.createQuery("Select venta from Venta venta where venta.estado =:estado").setParameter("estado", EstadoVenta.EnProceso).getResultList();
 		@SuppressWarnings("unchecked")
-		List<Venta> ventas = em.createQuery("Select venta from Venta venta").getResultList();
+		List<Venta> ventas = em.createQuery("Select venta from Venta venta where venta.estado =:estado").setParameter("estado", EstadoVenta.EnProceso).getResultList();
 		if(ventas != null){
 			//Encontro ventas
 			List<VentaDTO> devolver = new ArrayList<VentaDTO>();
@@ -84,15 +85,18 @@ public class AdmDespachosBean implements StatelessAdmDespachosBeanRemote, Statel
 				//Hago la peticion a Google Maps
 				HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
 
-				//Verifico si no ha habido un error de conexion
-				if(urlConnection.getResponseCode() != 200) {
-					throw new RuntimeException("Error de conexion: " + urlConnection.getResponseCode());
-				}
-
-				//Obtengo el JSON que me devolvio Google Maps
-				ObjectMapper mapper = new ObjectMapper();
-				String response = IOUtils.toString(urlConnection.getInputStream());
-				Response maps = mapper.readValue(response, Response.class);
+//				//Verifico si no ha habido un error de conexion
+//				if(urlConnection.getResponseCode() != 200) {
+//					throw new RuntimeException("Error de conexion: " + urlConnection.getResponseCode());
+//				}
+//
+//				//Obtengo el JSON que me devolvio Google Maps
+//				ObjectMapper mapper = new ObjectMapper();
+//				String response = IOUtils.toString(urlConnection.getInputStream());
+//				Response maps = mapper.readValue(response, Response.class);
+				
+				
+				Response maps = CalculoDistancia.obtenerDistancia(urlConnection);
 				//Controlo si es el primer Despacho que recorri o si es otro que esta mas cercano
 				if((cercano == null) || (maps.getRows()[0].getElements()[0].getDistance().getValue() < distanciaMenor)){
 					distanciaMenor = maps.getRows()[0].getElements()[0].getDistance().getValue();
@@ -123,44 +127,44 @@ public class AdmDespachosBean implements StatelessAdmDespachosBeanRemote, Statel
 		Direccion direccion = new Direccion();
 		Despacho despacho = new Despacho();
 		Coordenada coordenada = new Coordenada();
-//		coordenada.setLatitud(-32.953529);
-//		coordenada.setLongitud(-60.6715342);
-//		despacho.setDescripcion("Macro");
-//		despacho.setEstado(true);
-//		despacho.setIp("192.168.1.40");
-//		despacho.setNombre("Macro Supermercados");
-//		despacho.setTipoModulo(TipoModulo.Despacho);
-//		direccion.setCoordenada(coordenada);
-//		direccion.setAltura(1111);
-//		direccion.setCalle("Av. Ricardo Balbin");
-//		direccion.setDpto("Ninguno");
-//		direccion.setPiso(0);
-//		
-//		despacho.setDireccion(direccion);
-//		
-//		em.persist(despacho);
+		coordenada.setLatitud(-32.953529);
+		coordenada.setLongitud(-60.6715342);
+		despacho.setDescripcion("Macro");
+		despacho.setEstado(true);
+		despacho.setIp("192.168.1.40");
+		despacho.setNombre("Macro Supermercados");
+		despacho.setTipoModulo(TipoModulo.Despacho);
+		direccion.setCoordenada(coordenada);
+		direccion.setAltura(1111);
+		direccion.setCalle("Av. Ricardo Balbin");
+		direccion.setDpto("Ninguno");
+		direccion.setPiso(0);
 		
-//		despacho = new Despacho();
-//		coordenada.setLatitud(-34.6179003);
-//		coordenada.setLongitud(-58.3874423);
-//		despacho.setDescripcion("Diarco");
-//		despacho.setEstado(true);
-//		despacho.setIp("192.168.1.39");
-//		despacho.setNombre("Mayorista Diarco");
-//		despacho.setTipoModulo(TipoModulo.Despacho);
-//		direccion.setCoordenada(coordenada);
-//		
-//		direccion.setAltura(3040);
-//		direccion.setCalle("Av. Gral Paz");
-//		direccion.setDpto("Ninguno");
-//		direccion.setPiso(0);
-//		
-//		direccion.setCoordenada(coordenada);
-//		
-//		despacho.setDireccion(direccion);
-//		
-//		em.persist(despacho);
-//		
+		despacho.setDireccion(direccion);
+		
+		em.persist(despacho);
+		
+		despacho = new Despacho();
+		coordenada.setLatitud(-34.6179003);
+		coordenada.setLongitud(-58.3874423);
+		despacho.setDescripcion("Diarco");
+		despacho.setEstado(true);
+		despacho.setIp("192.168.1.39");
+		despacho.setNombre("Mayorista Diarco");
+		despacho.setTipoModulo(TipoModulo.Despacho);
+		direccion.setCoordenada(coordenada);
+		
+		direccion.setAltura(3040);
+		direccion.setCalle("Av. Gral Paz");
+		direccion.setDpto("Ninguno");
+		direccion.setPiso(0);
+		
+		direccion.setCoordenada(coordenada);
+		
+		despacho.setDireccion(direccion);
+		
+		em.persist(despacho);
+		
 		despacho = new Despacho();
 		despacho.setDescripcion("WallMart");
 		despacho.setEstado(true);
