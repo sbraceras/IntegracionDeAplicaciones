@@ -5,8 +5,8 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
 import com.logistica.dtos.VentaDTO;
-import com.logistica.ejb.FacadeEJBLocal;
-import com.logistica.ejb.FacadeEJBRemote;
+import com.logistica.interfaces.FacadeEJBLocal;
+import com.logistica.interfaces.FacadeEJBRemote;
 import com.logistica.sessionBeans.AdministradorVentas;
 
 /**

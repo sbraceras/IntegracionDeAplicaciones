@@ -4,12 +4,13 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-//import com.logistica.enums.EstadoVenta;
+import com.logistica.enums.EstadoVenta;
 
 public class VentaDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	/* ***** Atributos del JSON ***** */
 	private int id;
 	private ClienteDTO cliente;
 	private double latitud;
@@ -17,12 +18,12 @@ public class VentaDTO implements Serializable {
 	private Date fechaHoraVenta;
 	private float monto;
 	private String nombrePortal;
-	private List<ItemVentaDTO> itemsVenta; // CONTINUAR CON 'ItemVentaDTO'
+	private List<ItemVentaDTO> itemsVenta;
+	/* ****************************** */
 
 	private OrdenDespachoDTO ordenDespacho;
 	private String ipModulo; // Debatir grupo
-
-	// private EstadoVenta estado;
+	private EstadoVenta estado;
 
 	public int getId() {
 		return id;
@@ -104,8 +105,6 @@ public class VentaDTO implements Serializable {
 		this.cliente.getDireccion().getCoordenada().setLongitud(longitud);
 	}
 
-/*
-
 	public EstadoVenta getEstado() {
 		return estado;
 	}
@@ -113,7 +112,5 @@ public class VentaDTO implements Serializable {
 	public void setEstado(EstadoVenta estado) {
 		this.estado = estado;
 	}
-
-*/
 
 }

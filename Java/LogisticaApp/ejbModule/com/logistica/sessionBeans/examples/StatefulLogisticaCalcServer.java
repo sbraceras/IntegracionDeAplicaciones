@@ -3,8 +3,8 @@ package com.logistica.sessionBeans.examples;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateful;
 
-import com.logistica.ejb.StatefulLogisticaCalcServerLocal;
-import com.logistica.ejb.StatefulLogisticaCalcServerRemote;
+import com.logistica.interfaces.StatefulLogisticaCalcServerLocal;
+import com.logistica.interfaces.StatefulLogisticaCalcServerRemote;
 
 /**
  * Session Bean implementation class StatefulLogisticaCalcServer

@@ -55,20 +55,22 @@ public class Articulo {
 	
 	public ArticuloDTO toDTO() {
 		ArticuloDTO dto = new ArticuloDTO();
+
 		dto.setDescripcion(this.descripcion);
-		dto.setId(this.id);
+		dto.setIdProducto(this.id);
 		dto.setPrecio(this.precio);
+
 		return dto;
 	}
 	
-	public static Articulo fromDTO (ArticuloDTO dto){
-		
+	public static Articulo fromDTO (ArticuloDTO dto) {
 		Articulo articulo = new Articulo();
+
 		articulo.setDescripcion(dto.getDescripcion());
-		articulo.setId(dto.getId());
+		articulo.setId(dto.getIdProducto());
 		articulo.setPrecio(dto.getPrecio());
+
 		return articulo;
 	}
-	
-	
+
 }

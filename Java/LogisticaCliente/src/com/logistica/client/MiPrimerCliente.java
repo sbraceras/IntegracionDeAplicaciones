@@ -5,7 +5,7 @@ import java.util.Hashtable;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 
-import com.logistica.ejb.TestEntityManagerRemote;
+import com.logistica.interfaces.TestEntityManagerRemote;
 
 public class MiPrimerCliente {
 

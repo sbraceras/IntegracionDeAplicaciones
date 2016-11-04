@@ -1,4 +1,4 @@
-package com.logistica.ejb;
+package com.logistica.interfaces;
 
 import javax.ejb.Local;
 

@@ -17,7 +17,7 @@ import com.logistica.dtos.CoordenadaDTO;
 import com.logistica.dtos.DireccionDTO;
 import com.logistica.dtos.ItemVentaDTO;
 import com.logistica.dtos.VentaDTO;
-import com.logistica.ejb.FacadeEJBRemote;
+import com.logistica.interfaces.FacadeEJBRemote;
 
 public class Test {
 
@@ -68,12 +68,12 @@ public class Test {
 		cliente.setDireccion(direccion);
 		 
 		venta.setCliente(cliente);
-		venta.setFechaHora(Calendar.getInstance().getTime());
+		venta.setFechaHoraVenta(Calendar.getInstance().getTime());
 		venta.setId(2);
 		venta.setIpModulo("192.168.1.0");
 		venta.setItemsVenta(itemsVenta);
-		venta.setModulo("Mercadolibre");
-		venta.setMontoTotal(2150);
+		venta.setNombrePortal("Mercadolibre");
+		venta.setMonto(2150);
 
 		
 		// enviamos la venta al Session Bean!
@@ -103,9 +103,7 @@ public class Test {
 		ObjectMapper mapper = new ObjectMapper();
 		String response = IOUtils.toString(urlConnection.getInputStream());
 		Response maps = mapper.readValue(response, Response.class);
-		System.out.println("La distancia es: "+ maps.getRows()[0].getElements()[0].getDistance().getValue());
-	
-		
+		System.out.println("La distancia es: "+ maps.getRows()[0].getElements()[0].getDistance().getValue());	
 	}
 
 }

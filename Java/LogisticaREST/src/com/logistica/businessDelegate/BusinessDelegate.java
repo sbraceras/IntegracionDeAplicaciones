@@ -11,7 +11,7 @@ import com.logistica.interfaces.FacadeEJBRemote;
 public class BusinessDelegate {
 
 	private static BusinessDelegate instancia = null;
-	private FacadeEJBRemote stub = null;
+	private static FacadeEJBRemote stub = null;
 
 	private BusinessDelegate() {
 		try {

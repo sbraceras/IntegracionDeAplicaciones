@@ -1,0 +1,48 @@
+<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://integracion/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="SrvEstadoEntregaBeanService" targetNamespace="http://integracion/">
+<wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://integracion/" elementFormDefault="unqualified" targetNamespace="http://integracion/" version="1.0">
+<xs:element name="notificarEstadoDespacho" type="tns:notificarEstadoDespacho"/>
+<xs:element name="notificarEstadoDespachoResponse" type="tns:notificarEstadoDespachoResponse"/>
+<xs:complexType name="notificarEstadoDespacho">
+<xs:sequence>
+<xs:element name="arg0" type="xs:int"/>
+<xs:element minOccurs="0" name="arg1" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="notificarEstadoDespachoResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="return" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:schema>
+</wsdl:types>
+<wsdl:message name="notificarEstadoDespacho">
+<wsdl:part element="tns:notificarEstadoDespacho" name="parameters"></wsdl:part>
+</wsdl:message>
+<wsdl:message name="notificarEstadoDespachoResponse">
+<wsdl:part element="tns:notificarEstadoDespachoResponse" name="parameters"></wsdl:part>
+</wsdl:message>
+<wsdl:portType name="SrvEstadoEntregaBean">
+<wsdl:operation name="notificarEstadoDespacho">
+<wsdl:input message="tns:notificarEstadoDespacho" name="notificarEstadoDespacho"></wsdl:input>
+<wsdl:output message="tns:notificarEstadoDespachoResponse" name="notificarEstadoDespachoResponse"></wsdl:output>
+</wsdl:operation>
+</wsdl:portType>
+<wsdl:binding name="SrvEstadoEntregaBeanServiceSoapBinding" type="tns:SrvEstadoEntregaBean">
+<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+<wsdl:operation name="notificarEstadoDespacho">
+<soap:operation soapAction="" style="document"/>
+<wsdl:input name="notificarEstadoDespacho">
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output name="notificarEstadoDespachoResponse">
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+</wsdl:binding>
+<wsdl:service name="SrvEstadoEntregaBeanService">
+<wsdl:port binding="tns:SrvEstadoEntregaBeanServiceSoapBinding" name="SrvEstadoEntregaBeanPort">
+<soap:address location="http://localhost:8080/TPO_Grupo13_EJB/SrvEstadoEntregaBean"/>
+</wsdl:port>
+</wsdl:service>
+</wsdl:definitions>

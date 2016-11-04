@@ -5,9 +5,9 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import com.logistica.ejb.TestEntityManagerLocal;
-import com.logistica.ejb.TestEntityManagerRemote;
 import com.logistica.entityBeans.Articulo;
+import com.logistica.interfaces.TestEntityManagerLocal;
+import com.logistica.interfaces.TestEntityManagerRemote;
 
 /**
  * Session Bean implementation class TestEntityManager

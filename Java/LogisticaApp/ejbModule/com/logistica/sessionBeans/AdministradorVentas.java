@@ -32,7 +32,7 @@ public class AdministradorVentas {
 	public void recepcionDeVenta(VentaDTO ventaDTO) throws Exception{
 		
 		//El nombre del portal es univoco
-		Estandar portalWeb = em.find(Estandar.class, ventaDTO.getModulo());
+		Estandar portalWeb = em.find(Estandar.class, ventaDTO.getNombrePortal());
 
 		if (portalWeb == null)
 			//Si el portal no existe, falla la recepcion de la venta
@@ -46,7 +46,7 @@ public class AdministradorVentas {
 				
 				//Llamamos a este metodo que se ocupa de convertir de DTO a object
 				cliente = Cliente.fromDTO(ventaDTO.getCliente());
-				em.persist(cliente);			
+				em.persist(cliente);
 			}
 			else
 			{
@@ -57,7 +57,7 @@ public class AdministradorVentas {
 			}
 			
 			for(ItemVentaDTO item: ventaDTO.getItemsVenta()){
-				Articulo articulo = em.find(Articulo.class, item.getArticulo().getId());
+				Articulo articulo = em.find(Articulo.class, item.getArticulo().getIdProducto());
 				if(articulo == null)
 				{
 					//El articulo no existe, debemos persistirlo
