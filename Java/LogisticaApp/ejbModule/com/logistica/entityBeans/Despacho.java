@@ -14,7 +14,7 @@ import com.logistica.dtos.DespachoDTO;
 public class Despacho extends Modulo{
 	
 	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-	@JoinColumn(name="nombreModulo")
+	@JoinColumn(name="idModulo")
 	private Direccion direccion;
 	private String descripcion;
 	private boolean estado;

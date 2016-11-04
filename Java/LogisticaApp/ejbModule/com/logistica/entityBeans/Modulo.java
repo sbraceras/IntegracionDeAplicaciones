@@ -4,6 +4,8 @@ import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -17,13 +19,12 @@ import com.logistica.enums.TipoModulo;
 @DiscriminatorColumn(name = "tipo", discriminatorType = DiscriminatorType.STRING)
 public abstract class Modulo {
 
-	//Segun como fue conversado el identificador unico de un modulo no es el id sino el nombre
-	//Por ese motivo ahora el nombre del modulo es su nueva pk
 	
 	@Id
-	@Column(name = "nombreModulo")
+	@Column(name = "idModulo")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	protected int id;
 	protected String nombre;
-//	protected int id;
 	protected String ip;
 	protected TipoModulo tipoModulo;
 

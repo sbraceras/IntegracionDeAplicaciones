@@ -2,6 +2,7 @@ package com.logistica.entityBeans;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -21,6 +22,7 @@ public class Coordenada {
 
 	@Id
 	@Column(name = "idCoordenada")
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 
 	private double latitud;

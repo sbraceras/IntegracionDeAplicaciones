@@ -1,9 +1,11 @@
 package com.logistica.entityBeans;
 
+import javax.annotation.Generated;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
@@ -18,6 +20,7 @@ public class Direccion {
 	
 	@Id
 	@Column(name="idDireccion")
+	@GeneratedValue
 	private int id;
 
 	private String calle;

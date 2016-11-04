@@ -5,25 +5,54 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Hashtable;
+import java.util.List;
 
+import javax.ejb.EJB;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 
 import org.apache.commons.io.IOUtils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.logistica.bean.AdmDespachosBean;
 import com.logistica.dtos.ClienteDTO;
 import com.logistica.dtos.CoordenadaDTO;
 import com.logistica.dtos.DireccionDTO;
 import com.logistica.dtos.ItemVentaDTO;
 import com.logistica.dtos.VentaDTO;
 import com.logistica.interfaces.FacadeEJBRemote;
+import com.logistica.ejb.StatelessAdmDespachosBeanRemote;
+import com.logistica.ejb.StatelessAdministradorVentasRemote;
+import com.logistica.entities.Estandar;
+
 
 public class Test {
 
 	
+	@EJB
+	AdmDespachosBean despachos;
 	public static void main(String[] args) throws Exception {
 
+		
+		final Hashtable jndiProperties2 = new Hashtable();
+		jndiProperties2.put(Context.URL_PKG_PREFIXES, "org.jboss.ejb.client.naming");
+		jndiProperties2.put("jboss.naming.client.ejb.context", true);
+
+		final Context context2 = new InitialContext(jndiProperties2);
+		final String earName2 = "LogisticaAppEAR";
+		final String ejbModuleName2 = "LogisticaApp";
+		final String distinctName2 = "";
+		final String ejbClassName2 = "AdmDespachosBean";
+		final String fullInterfaceName2 = StatelessAdmDespachosBeanRemote.class.getName();
+
+		String lookupName2 = "ejb:" + earName2 + "/" + ejbModuleName2 + "/" + distinctName2 + "/" + ejbClassName2 + "!"
+				+ fullInterfaceName2;
+
+		System.out.println("Conectando a " + lookupName2);
+		
+		StatelessAdmDespachosBeanRemote mbr2 = (StatelessAdmDespachosBeanRemote) context2.lookup(lookupName2);
+
+		
 		final Hashtable jndiProperties = new Hashtable();
 		jndiProperties.put(Context.URL_PKG_PREFIXES, "org.jboss.ejb.client.naming");
 		jndiProperties.put("jboss.naming.client.ejb.context", true);
@@ -45,7 +74,7 @@ public class Test {
 		
 		//Borrar!!
 		
-		mbr.agregarPortalWeb();
+//		mbr.agregarPortalWeb();
 
 		VentaDTO venta = new VentaDTO();
 		ClienteDTO cliente = new ClienteDTO();
@@ -75,10 +104,19 @@ public class Test {
 		venta.setNombrePortal("Mercadolibre");
 		venta.setMonto(2150);
 
-		
-		// enviamos la venta al Session Bean!
-		mbr.recepcionDeVenta(venta);
 
+		// enviamos la venta al Session Bean!
+//		mbr.recepcionDeVenta(venta);
+//		mbr2.obetenerModulo();
+//		mbr2.cargarDespachos();
+		//Levanto las ventas sin Orden Asociada
+		int a= 0;
+		System.out.println(a);
+		List<VentaDTO> ventasSinDespacho = mbr2.listarVentasSinOrdenDespacho();
+		mbr2.obtenerDespachoCercanoCliente(venta);
+
+			
+		
 		String apiKey= "AIzaSyBrrSMBrm1CLgq1bgBjOM_Zyp6xwUHLVko";
 		String latitudOrigen= "-34.610359";
 		String longitudOrigen= "-58.374992";
