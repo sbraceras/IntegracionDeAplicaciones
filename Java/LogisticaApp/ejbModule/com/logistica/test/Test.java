@@ -14,16 +14,14 @@ import javax.naming.InitialContext;
 import org.apache.commons.io.IOUtils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.logistica.bean.AdmDespachosBean;
 import com.logistica.dtos.ClienteDTO;
 import com.logistica.dtos.CoordenadaDTO;
 import com.logistica.dtos.DireccionDTO;
 import com.logistica.dtos.ItemVentaDTO;
 import com.logistica.dtos.VentaDTO;
 import com.logistica.interfaces.FacadeEJBRemote;
-import com.logistica.ejb.StatelessAdmDespachosBeanRemote;
-import com.logistica.ejb.StatelessAdministradorVentasRemote;
-import com.logistica.entities.Estandar;
+import com.logistica.interfaces.StatelessAdmDespachosBeanRemote;
+import com.logistica.sessionBeans.AdmDespachosBean;
 
 
 public class Test {
