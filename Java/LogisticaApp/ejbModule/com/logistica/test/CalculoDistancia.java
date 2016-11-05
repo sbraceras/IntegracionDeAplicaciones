@@ -9,10 +9,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class CalculoDistancia {
 
-	public static Response obtenerDistancia (HttpURLConnection urlConnection) throws IOException{
+	public static Response obtenerDistancia (String response) throws IOException{
 	
 		ObjectMapper mapper = new ObjectMapper();
-		String response = IOUtils.toString(urlConnection.getInputStream());
+//		String response = IOUtils.toString(urlConnection.getInputStream());
 		Response maps = mapper.readValue(response, Response.class);
 		return maps;
 	}

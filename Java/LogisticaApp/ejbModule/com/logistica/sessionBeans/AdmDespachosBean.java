@@ -1,7 +1,11 @@
 package com.logistica.sessionBeans;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,13 +14,15 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.apache.commons.io.IOUtils;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.logistica.dtos.DespachoDTO;
 import com.logistica.dtos.EstandarDTO;
 import com.logistica.dtos.VentaDTO;
-import com.logistica.entityBeans.*;
+import com.logistica.entityBeans.Cliente;
+import com.logistica.entityBeans.Coordenada;
+import com.logistica.entityBeans.Despacho;
+import com.logistica.entityBeans.Direccion;
+import com.logistica.entityBeans.Estandar;
+import com.logistica.entityBeans.Venta;
 import com.logistica.enums.EstadoVenta;
 import com.logistica.enums.TipoModulo;
 import com.logistica.interfaces.StatelessAdmDespachosBeanLocal;
@@ -94,9 +100,26 @@ public class AdmDespachosBean implements StatelessAdmDespachosBeanRemote, Statel
 //				ObjectMapper mapper = new ObjectMapper();
 //				String response = IOUtils.toString(urlConnection.getInputStream());
 //				Response maps = mapper.readValue(response, Response.class);
+//				 URL url = new URL(args[0]);
+			        URLConnection connection = url.openConnection();
+			        connection.setDoOutput(true);
+
+			        OutputStreamWriter out = new OutputStreamWriter(
+			                                         connection.getOutputStream());
+			        out.write("string=");
+			        out.close();
+
+			        BufferedReader in = new BufferedReader(
+			                                    new InputStreamReader(
+			                                    connection.getInputStream()));
+			        String decodedString;
+			        StringBuffer response = new StringBuffer();
+			        while ((decodedString = in.readLine()) != null) {
+			            response.append(decodedString);
+			        }
+			        in.close();
 				
-				
-				Response maps = CalculoDistancia.obtenerDistancia(urlConnection);
+				Response maps = CalculoDistancia.obtenerDistancia(response.toString());
 				//Controlo si es el primer Despacho que recorri o si es otro que esta mas cercano
 				if((cercano == null) || (maps.getRows()[0].getElements()[0].getDistance().getValue() < distanciaMenor)){
 					distanciaMenor = maps.getRows()[0].getElements()[0].getDistance().getValue();
@@ -145,6 +168,7 @@ public class AdmDespachosBean implements StatelessAdmDespachosBeanRemote, Statel
 		em.persist(despacho);
 		
 		despacho = new Despacho();
+		coordenada = new Coordenada();
 		coordenada.setLatitud(-34.6179003);
 		coordenada.setLongitud(-58.3874423);
 		despacho.setDescripcion("Diarco");
@@ -177,6 +201,7 @@ public class AdmDespachosBean implements StatelessAdmDespachosBeanRemote, Statel
 		direccion.setCalle("Av. Constituyentes");
 		direccion.setDpto("Ninguno");
 		direccion.setPiso(0);
+		coordenada = new Coordenada();
 		coordenada.setLatitud(-31.4027010);
 		coordenada.setLongitud(-64.1644477);
 		despacho.setDireccion(direccion);

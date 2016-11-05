@@ -16,6 +16,7 @@ import org.apache.commons.io.IOUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.logistica.dtos.ClienteDTO;
 import com.logistica.dtos.CoordenadaDTO;
+import com.logistica.dtos.DespachoDTO;
 import com.logistica.dtos.DireccionDTO;
 import com.logistica.dtos.ItemVentaDTO;
 import com.logistica.dtos.VentaDTO;
@@ -111,7 +112,7 @@ public class Test {
 //		List<VentaDTO> ventasSinDespacho = mbr2.listarVentasSinOrdenDespacho();
 
 			
-		mbr2.obtenerDespachoCercanoCliente(venta);
+		DespachoDTO despacho = mbr2.obtenerDespachoCercanoCliente(venta);
 		
 		String apiKey= "AIzaSyBrrSMBrm1CLgq1bgBjOM_Zyp6xwUHLVko";
 		String latitudOrigen= "-34.610359";
