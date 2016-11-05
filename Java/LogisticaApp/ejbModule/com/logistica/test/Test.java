@@ -113,6 +113,7 @@ public class Test {
 
 			
 		DespachoDTO despacho = mbr2.obtenerDespachoCercanoCliente(venta);
+		String auxiliar = despacho.getIp();
 		
 		String apiKey= "AIzaSyBrrSMBrm1CLgq1bgBjOM_Zyp6xwUHLVko";
 		String latitudOrigen= "-34.610359";

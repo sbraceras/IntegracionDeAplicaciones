@@ -91,16 +91,7 @@ public class AdmDespachosBean implements StatelessAdmDespachosBeanRemote, Statel
 				//Hago la peticion a Google Maps
 				HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
 
-//				//Verifico si no ha habido un error de conexion
-//				if(urlConnection.getResponseCode() != 200) {
-//					throw new RuntimeException("Error de conexion: " + urlConnection.getResponseCode());
-//				}
-//
-//				//Obtengo el JSON que me devolvio Google Maps
-//				ObjectMapper mapper = new ObjectMapper();
-//				String response = IOUtils.toString(urlConnection.getInputStream());
-//				Response maps = mapper.readValue(response, Response.class);
-//				 URL url = new URL(args[0]);
+
 			        URLConnection connection = url.openConnection();
 			        connection.setDoOutput(true);
 
@@ -169,6 +160,7 @@ public class AdmDespachosBean implements StatelessAdmDespachosBeanRemote, Statel
 		
 		despacho = new Despacho();
 		coordenada = new Coordenada();
+		direccion = new Direccion();
 		coordenada.setLatitud(-34.6179003);
 		coordenada.setLongitud(-58.3874423);
 		despacho.setDescripcion("Diarco");
@@ -190,6 +182,8 @@ public class AdmDespachosBean implements StatelessAdmDespachosBeanRemote, Statel
 		em.persist(despacho);
 		
 		despacho = new Despacho();
+		direccion = new Direccion();
+		coordenada = new Coordenada();
 		despacho.setDescripcion("WallMart");
 		despacho.setEstado(true);
 		
@@ -201,10 +195,11 @@ public class AdmDespachosBean implements StatelessAdmDespachosBeanRemote, Statel
 		direccion.setCalle("Av. Constituyentes");
 		direccion.setDpto("Ninguno");
 		direccion.setPiso(0);
-		coordenada = new Coordenada();
 		coordenada.setLatitud(-31.4027010);
 		coordenada.setLongitud(-64.1644477);
+		direccion.setCoordenada(coordenada);
 		despacho.setDireccion(direccion);
+		
 		
 		em.persist(despacho);
 	}
