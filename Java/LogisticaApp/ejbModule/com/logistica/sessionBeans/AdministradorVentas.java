@@ -32,7 +32,7 @@ public class AdministradorVentas {
 	public void recepcionDeVenta(VentaDTO ventaDTO) throws Exception{
 		
 		//El nombre del portal es univoco
-		Estandar portalWeb = em.find(Estandar.class, ventaDTO.getNombrePortal());
+		Estandar portalWeb = (Estandar) buscarModulo(ventaDTO.getNombrePortal());
 
 		if (portalWeb == null)
 			//Si el portal no existe, falla la recepcion de la venta
@@ -103,6 +103,13 @@ public class AdministradorVentas {
 		estandar.setTipoModulo(TipoModulo.PortalWeb);
 		
 		em.persist(estandar);
+	}
+	
+	private Modulo buscarModulo (String nombreModulo){
+		
+		Modulo modulo = (Modulo) em.createQuery("Select modulo from Modulo modulo where modulo.nombre =:nombre").setParameter("nombre", nombreModulo).getSingleResult();
+		return modulo;
+		
 	}
 	
 }

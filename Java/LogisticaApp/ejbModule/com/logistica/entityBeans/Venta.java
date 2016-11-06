@@ -38,7 +38,7 @@ public class Venta {
 	private OrdenDespacho ordenDespacho;
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "nombreModulo")
+	@JoinColumn(name = "idModulo")
 	private Modulo modulo;
 
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -144,7 +144,8 @@ public class Venta {
 		ventaDTO.setItemsVenta(itemsVentaDTO);
 		ventaDTO.setNombrePortal(this.getModulo().getNombre());
 		ventaDTO.setMonto(this.montoTotal);
-		ventaDTO.setOrdenDespacho(ordenDespacho.toDTO());
+		if(this.ordenDespacho!=null)
+			ventaDTO.setOrdenDespacho(ordenDespacho.toDTO());
 		return ventaDTO;
 	}
 
