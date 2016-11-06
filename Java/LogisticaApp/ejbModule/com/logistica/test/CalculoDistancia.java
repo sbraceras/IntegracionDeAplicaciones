@@ -1,19 +1,17 @@
 package com.logistica.test;
 
 import java.io.IOException;
-import java.net.HttpURLConnection;
-
-import org.apache.commons.io.IOUtils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.logistica.jsons.GoogleRespuestaJSON;
 
 public class CalculoDistancia {
 
-	public static Response obtenerDistancia (String response) throws IOException{
+	public static GoogleRespuestaJSON obtenerDistancia (String response) throws IOException{
 	
 		ObjectMapper mapper = new ObjectMapper();
 //		String response = IOUtils.toString(urlConnection.getInputStream());
-		Response maps = mapper.readValue(response, Response.class);
+		GoogleRespuestaJSON maps = mapper.readValue(response, GoogleRespuestaJSON.class);
 		return maps;
 	}
 }

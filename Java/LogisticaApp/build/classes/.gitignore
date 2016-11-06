@@ -1,4 +1,3 @@
-/com/
-/sessionBeans/
-/facades/
 /META-INF/
+/com/
+/jboss-ejb-client.properties

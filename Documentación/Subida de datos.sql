@@ -1,25 +1,25 @@
+use TPIntegracion
 
-insert into Coordenadas (idCoordenada, latitud, longitud)
-values (1, -34.6166938, -58.3815892)
+insert into Coordenadas (latitud, longitud)
+values (-34.6166938, -58.3815892)
 
+insert into Coordenadas (latitud, longitud)
+values (-38.9550088,-68.0633561)
 
-insert into Coordenadas (idCoordenada, latitud, longitud)
-values (2,-38.9550088,-68.0633561)
+insert into Coordenadas (latitud, longitud)
+values (-31.4029447,-64.1726701)
 
-insert into Coordenadas (idCoordenada, latitud, longitud)
-values (3, -31.4029447,-64.1726701)
-
-insert into Direcciones (idDireccion, altura, calle, dpto, piso, idCoordenada)
+insert into Direcciones (altura, calle, dpto, piso, idCoordenada)
 values
-(1, 2632, 'Av Independencia', 'A', 12, 1);
+(2632, 'Av Independencia', 'A', 12, 1);
 
-insert into Direcciones (idDireccion, altura, calle, dpto, piso, idCoordenada)
+insert into Direcciones (altura, calle, dpto, piso, idCoordenada)
 values
-(2, 1983, 'Av Belgrano', 'B', 3, 2);
+(1983, 'Av Belgrano', 'B', 3, 2);
 
-insert into Direcciones (idDireccion, altura, calle, dpto, piso, idCoordenada)
+insert into Direcciones (altura, calle, dpto, piso, idCoordenada)
 values
-(3, 300, 'Av Callao', 'C', 4, 3);
+(300, 'Av Callao', 'C', 4, 3);
 
 insert into Modulos
 (tipo, idModulo, ip, nombre, tipoModulo, descripcion, estado, idDireccion)

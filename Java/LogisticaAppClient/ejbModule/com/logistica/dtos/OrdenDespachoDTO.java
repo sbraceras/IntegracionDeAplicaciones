@@ -10,6 +10,7 @@ public class OrdenDespachoDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private int id;
+	private int idExterna;
 	private Date fecha;
 	private EstadoOrdenDespacho estado;
 	private DespachoDTO despacho;
@@ -45,6 +46,13 @@ public class OrdenDespachoDTO implements Serializable {
 	public void setVenta(int venta) {
 		this.venta = venta;
 	}
+	public int getIdExterna() {
+		return idExterna;
+	}
+	public void setIdExterna(int idExterna) {
+		this.idExterna = idExterna;
+	}
+	
 	
 	
 }

@@ -67,6 +67,7 @@ public class Despacho extends Modulo{
 		dto.setDireccion(direccion.toDTO());
 		dto.setEstado(this.estado);
 		dto.setIp(this.ip);
+		dto.setNombre(super.getNombre());
 		return dto;
 	}
 	

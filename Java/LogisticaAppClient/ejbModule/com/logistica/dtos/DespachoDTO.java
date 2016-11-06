@@ -11,6 +11,7 @@ public class DespachoDTO implements Serializable{
 	private String descripcion;
 	private boolean estado;
 	private String ip;
+	private String nombre;
 	
 	public DespachoDTO() {
 	}
@@ -54,5 +55,15 @@ public class DespachoDTO implements Serializable{
 	public void setIp(String ip) {
 		this.ip = ip;
 	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+	
+	
 	
 }

@@ -1,6 +1,6 @@
-package com.logistica.test;
+package com.logistica.jsons;
 
-public class Duration {
+public class DistanceJSON {
 
 	private String text;
 	private int value;
@@ -16,7 +16,7 @@ public class Duration {
 	public void setValue(int value) {
 		this.value = value;
 	}
-	public Duration() {
+	public DistanceJSON() {
 	}
 	
 	

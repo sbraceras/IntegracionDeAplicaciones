@@ -5,6 +5,8 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -22,8 +24,11 @@ public class OrdenDespacho {
 	//Digan, analizar si esto va a ser una pk compuesta de nuestro lado.
 	@Id
 	@Column(name="idOrdenDespacho")
-//	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
+	
+	//Esta ID la genera el modulo de despacho
+	private int idExterna;
 	private Date fecha;
 	private EstadoOrdenDespacho estado;
 	
@@ -36,7 +41,7 @@ public class OrdenDespacho {
 	private Venta venta;
 	
 	public OrdenDespacho() {
-		
+		this.idExterna = -1;
 	}
 	
 	public OrdenDespacho(int id, Date fecha, EstadoOrdenDespacho estado, Despacho despacho, Venta venta) {
@@ -45,6 +50,7 @@ public class OrdenDespacho {
 		this.estado = estado;
 		this.despacho = despacho;
 		this.venta = venta;
+		this.idExterna = -1;
 	}
 	
 	
@@ -79,6 +85,15 @@ public class OrdenDespacho {
 		this.venta = venta;
 	}
 	
+	
+	public int getIdExterna() {
+		return idExterna;
+	}
+
+	public void setIdExterna(int idExterna) {
+		this.idExterna = idExterna;
+	}
+
 	public OrdenDespachoDTO toDTO(){
 		OrdenDespachoDTO ordenDespachoDTO = new OrdenDespachoDTO();
 		ordenDespachoDTO.setDespacho(this.despacho.toDTO());
@@ -86,6 +101,7 @@ public class OrdenDespacho {
 		ordenDespachoDTO.setFecha(this.fecha);
 		ordenDespachoDTO.setId(this.id);
 		ordenDespachoDTO.setVenta(this.venta.getId());
+		ordenDespachoDTO.setIdExterna(this.idExterna);
 		return ordenDespachoDTO;
 	}
 	

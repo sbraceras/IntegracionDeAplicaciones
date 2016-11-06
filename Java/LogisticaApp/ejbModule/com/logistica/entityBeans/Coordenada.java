@@ -23,7 +23,7 @@ public class Coordenada {
 
 	@Id
 	@Column(name = "idCoordenada")
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
 	private double latitud;

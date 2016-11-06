@@ -4,9 +4,11 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.ejb.LocalBean;
@@ -14,6 +16,9 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.apache.commons.io.IOUtils;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.logistica.dtos.DespachoDTO;
 import com.logistica.dtos.EstandarDTO;
 import com.logistica.dtos.VentaDTO;
@@ -22,13 +27,17 @@ import com.logistica.entityBeans.Coordenada;
 import com.logistica.entityBeans.Despacho;
 import com.logistica.entityBeans.Direccion;
 import com.logistica.entityBeans.Estandar;
+import com.logistica.entityBeans.ItemVenta;
+import com.logistica.entityBeans.Modulo;
+import com.logistica.entityBeans.OrdenDespacho;
 import com.logistica.entityBeans.Venta;
+import com.logistica.enums.EstadoOrdenDespacho;
 import com.logistica.enums.EstadoVenta;
 import com.logistica.enums.TipoModulo;
 import com.logistica.interfaces.StatelessAdmDespachosBeanLocal;
 import com.logistica.interfaces.StatelessAdmDespachosBeanRemote;
 import com.logistica.test.CalculoDistancia;
-import com.logistica.test.Response;
+import com.logistica.jsons.*;
 
 /**
  * Session Bean implementation class AdmDespachosBean
@@ -65,7 +74,7 @@ public class AdmDespachosBean implements StatelessAdmDespachosBeanRemote, Statel
 		Cliente cliente = em.find(Cliente.class, venta.getCliente().getDni());
 		if(cliente != null){
 			//El cliente Existe en nuestra base
-			List<Despacho> despachos = em.createQuery("Select despacho from Despacho despacho").getResultList();
+			List<Despacho> despachos = em.createQuery("Select despacho from Despacho despacho where despacho.estado = true").getResultList();
 			Despacho cercano = null;
 			int distanciaMenor = 0;
 			for(Despacho despacho: despachos){
@@ -110,7 +119,9 @@ public class AdmDespachosBean implements StatelessAdmDespachosBeanRemote, Statel
 			        }
 			        in.close();
 				
-				Response maps = CalculoDistancia.obtenerDistancia(response.toString());
+			        ObjectMapper mapper = new ObjectMapper();
+			        GoogleRespuestaJSON maps = mapper.readValue(response.toString(), GoogleRespuestaJSON.class);
+			        
 				//Controlo si es el primer Despacho que recorri o si es otro que esta mas cercano
 				if((cercano == null) || (maps.getRows()[0].getElements()[0].getDistance().getValue() < distanciaMenor)){
 					distanciaMenor = maps.getRows()[0].getElements()[0].getDistance().getValue();
@@ -204,6 +215,151 @@ public class AdmDespachosBean implements StatelessAdmDespachosBeanRemote, Statel
 		em.persist(despacho);
 	}
 	
+	
+	//En esta funcionalidad me llega la ventaDTO solo con el ID de la venta y una ordenDespachoDTO dentro de ella con el Despacho Elegido
+	public void emitirOrdenDespacho (VentaDTO dto){
+		
+		//Obtengo de la BD la venta Persistente
+		Venta venta = em.find(Venta.class, dto.getId());
+		
+		//Creo la orden de Despacho en Estado Emitida
+		OrdenDespacho orden = new OrdenDespacho();
+		Despacho despacho = obtenerModuloPorNombre(dto.getOrdenDespacho().getDespacho().getNombre());
+		orden.setDespacho(despacho);
+		orden.setEstado(EstadoOrdenDespacho.Emitida);
+		orden.setFecha(Calendar.getInstance().getTime());
+		orden.setVenta(venta);
+		
+		//Se guarda la Nueva Orden de Despacho en la Base sin ID
+		//No vamos a hacer que sea generated, ya que la va a generar el modulo
+		//De despacho al que le mandemos y recibimos la pk compuesta que ellos
+		//Digan, analizar si esto va a ser una pk compuesta de nuestro lado.
+		
+		em.persist(orden);		
+		
+	}
+	
+	
+	public Despacho obtenerModuloPorNombre (String nombre){
+		
+		Despacho despacho = (Despacho) em.createQuery("Select despacho from Despacho despacho where despacho.nombre =:nombre").setParameter("nombre", nombre).getSingleResult();
+		if(despacho != null){
+			return despacho;
+		}
+		
+		else
+		{
+			//Deberia mandar una exception
+			return null;
+		}
+	}
+	
+
+	@SuppressWarnings({ "unchecked" })
+	public void enviarOrdenesEmitidas () throws Exception{
+		
+		List<OrdenDespacho> ordenesEmitidas = em.createQuery("Select orden from OrdenDespacho orden where orden.estado =:estado").setParameter("estado", EstadoOrdenDespacho.Emitida).getResultList();
+		
+		if(ordenesEmitidas != null){
+			
+			
+			//Genero el contenido necesario para enviar JSON
+			
+			URL url;
+			HttpURLConnection urlConnection;
+			ObjectMapper mapper;
+			String jsonInString;
+			StringBuffer response;
+			URLConnection connection;
+			DespachoRespuestaJSON respuestaDespacho;
+			
+			//Genero el JSON
+			
+			DespachoEnviarJSON json;
+			ItemDespachoEnviarJSON itemJson;
+			List<ItemDespachoEnviarJSON> itemsJson = new ArrayList<ItemDespachoEnviarJSON>();
+			for(OrdenDespacho orden: ordenesEmitidas){
+				//Ahora le tengo que pegar a cada Rest de los modulos
+				
+				//Cargo el JSON
+				
+				json = new DespachoEnviarJSON();
+				json.setNombrePortal(orden.getVenta().getModulo().getNombre());
+				json.setIdVenta(orden.getVenta().getId());
+				
+				for(ItemVenta itemVenta: orden.getVenta().getItemsVenta()){
+					itemJson = new ItemDespachoEnviarJSON(itemVenta.getArticulo().getId(), itemVenta.getCantidad());
+					itemsJson.add(itemJson);
+					}
+				json.setDetalles(itemsJson);
+				
+				//Enviamos el JSON al Despacho Correspondiente
+				
+//				url = new URL("http://"+orden.getDespacho().getIp()+":8080/DespachoREST/rest/services/recepcionOrdenDespacho");
+				
+				//ESTO ES PARA PROBAR EN LA CASA DE SOFFIAN
+				url = new URL("http://192.168.0.11:8080/LogisticaREST/rest/services/recepcionOrdenDespacho");
+
+				urlConnection = (HttpURLConnection) url.openConnection();
+
+				urlConnection.setDoOutput(true);
+				urlConnection.setRequestMethod("POST");
+				urlConnection.setRequestProperty("Content-Type", "application/json");
+				mapper = new ObjectMapper();
+				
+				//Convierto el json a string con el JACKSON
+				jsonInString = mapper.writeValueAsString(json);
+				
+				IOUtils.write(jsonInString, urlConnection.getOutputStream()); // Envío de un string en formato Json
+
+				connection = url.openConnection();
+		        connection.setDoOutput(true);
+				
+				OutputStreamWriter out = new OutputStreamWriter(
+                        connection.getOutputStream());
+//					out.write("string=");
+					out.close();
+
+				BufferedReader in = new BufferedReader(
+					new InputStreamReader(
+                	connection.getInputStream()));
+					String decodedString;
+					
+				response = new StringBuffer();
+				
+				while ((decodedString = in.readLine()) != null) {
+				response.append(decodedString);
+				}
+				in.close();
+				
+
+				
+				mapper = new ObjectMapper();
+		        respuestaDespacho = mapper.readValue(response.toString(), DespachoRespuestaJSON.class);
+		        
+		      
+		        if(respuestaDespacho.getProcesado().equalsIgnoreCase("true")){
+		        	//El despacho la recibio correctamente
+		        	
+		        	orden.setEstado(EstadoOrdenDespacho.Enviada);
+		        	//Me guardo el Id Externo que me dio el Despacho
+		        	orden.setIdExterna(respuestaDespacho.getIdOrdenDespacho());
+		        	em.merge(orden);
+		        }
+		        
+		        else
+		        {
+		        	//No se pudo procesar el despacho por algun motivo
+		        	orden.setEstado(EstadoOrdenDespacho.Rechazada);
+		        	em.merge(orden);
+		        }
+						
+				
+			}
+		}
+		
+		
+	}
 	
     
 }

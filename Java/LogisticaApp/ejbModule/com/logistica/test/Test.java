@@ -5,7 +5,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Hashtable;
-import java.util.List;
 
 import javax.ejb.EJB;
 import javax.naming.Context;
@@ -22,6 +21,7 @@ import com.logistica.dtos.ItemVentaDTO;
 import com.logistica.dtos.VentaDTO;
 import com.logistica.interfaces.FacadeEJBRemote;
 import com.logistica.interfaces.StatelessAdmDespachosBeanRemote;
+import com.logistica.jsons.GoogleRespuestaJSON;
 import com.logistica.sessionBeans.AdmDespachosBean;
 
 
@@ -82,7 +82,6 @@ public class Test {
 		ArrayList<ItemVentaDTO> itemsVenta = new ArrayList<ItemVentaDTO>();
 		coordenada.setLatitud(-34.6166938);
 		coordenada.setLongitud(-58.3815892);
-		coordenada.setId(1);
 		direccion.setAltura(4444);
 		direccion.setCalle("Larralde");
 		direccion.setDpto("A");
@@ -100,7 +99,7 @@ public class Test {
 		venta.setId(2);
 		venta.setIpModulo("192.168.1.0");
 		venta.setItemsVenta(itemsVenta);
-		venta.setNombrePortal("Mercadolibre");
+		venta.setNombrePortal("PORTAL_WEB_GRUPO_3");
 		venta.setMonto(2150);
 
 
@@ -138,7 +137,7 @@ public class Test {
 
 		ObjectMapper mapper = new ObjectMapper();
 		String response = IOUtils.toString(urlConnection.getInputStream());
-		Response maps = mapper.readValue(response, Response.class);
+		GoogleRespuestaJSON maps = mapper.readValue(response, GoogleRespuestaJSON.class);
 		System.out.println("La distancia es: "+ maps.getRows()[0].getElements()[0].getDistance().getValue());	
 		
 	}
