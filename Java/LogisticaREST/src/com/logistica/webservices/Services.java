@@ -1,6 +1,10 @@
 package com.logistica.webservices;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -8,6 +12,7 @@ import javax.ws.rs.Produces;
 import com.logistica.businessDelegate.BusinessDelegate;
 import com.logistica.dtos.LogDTO;
 import com.logistica.dtos.VentaDTO;
+import com.logistica.jsons.LogJSON;
 
 
 @Path("/services")
@@ -35,15 +40,32 @@ public class Services {
 	@Path("/guardarLog")
 	@Consumes({ "application/json" })	// Indica que consume (recibe) un objeto Json en el POST. Lo parsea a un objeto de tipo LogDTO
 	@Produces({"text/plain"})
-	public String guardarLog(LogDTO log){
+	public String guardarLog(LogJSON log){
 		try {
-			BusinessDelegate.getInstance().registrarLog(log);
-			return  "recepcion ok";
+			LogDTO logDTO = new LogDTO();
+			logDTO.setFecha(log.getFecha());
+			logDTO.setNombreModulo(log.getModulo());
+			logDTO.setDescripcion(log.getDescripcion());
+			BusinessDelegate.getInstance().registrarLog(logDTO);
+			return  "Log guardado correctamente";
 		} catch (Exception e) {
 			e.printStackTrace();
-			return "recepcion error: " + e.getMessage();
+			return "El log no pudo guardarse correctamente debido a: " + e.getMessage();
 		}
-		
+	}
+	
+	@GET
+	@Path("/buscarLogs")
+	@Produces({ "application/json" })
+	public List<LogDTO> buscarLogs(){
+		List<LogDTO> logsDTO = new ArrayList<LogDTO>();
+		try {
+			logsDTO = BusinessDelegate.getInstance().buscarLogs();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return logsDTO;
+		}
+		return logsDTO;
 	}
 
 }

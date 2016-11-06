@@ -107,7 +107,7 @@ public class Test {
 		// enviamos la venta al Session Bean!
 //		mbr.recepcionDeVenta(venta);
 //		mbr2.obetenerModulo();
-//		mbr2.cargarDespachos();
+		mbr2.cargarDespachos();
 		//Levanto las ventas sin Orden Asociada
 //		List<VentaDTO> ventasSinDespacho = mbr2.listarVentasSinOrdenDespacho();
 

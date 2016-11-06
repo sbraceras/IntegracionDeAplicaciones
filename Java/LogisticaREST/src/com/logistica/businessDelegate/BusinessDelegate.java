@@ -1,6 +1,8 @@
 package com.logistica.businessDelegate;
 
+import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -41,8 +43,19 @@ public class BusinessDelegate {
 		try {
 			stub.recepcionDeLog(log);
 		} catch (Exception e) {
-			throw new Exception("Se ha producido un error al registrar la venta. " + e.getMessage());
+			throw new Exception("Se ha producido un error al guardar el log. " + e.getMessage());
 		}
+	}
+	
+	public List<LogDTO> buscarLogs() throws Exception {
+		List<LogDTO> logsDTO = new ArrayList<LogDTO>();
+		try {
+			logsDTO = stub.buscarLogs();
+			
+		} catch (Exception e) {
+			throw new Exception("Se ha producido un erra. " + e.getMessage());
+		}
+		return logsDTO;
 	}
 
 	private static FacadeEJBRemote getStub() throws Exception {

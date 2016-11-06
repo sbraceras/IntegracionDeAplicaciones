@@ -1,5 +1,7 @@
 package com.logistica.sessionBeans.facades;
 
+import java.util.List;
+
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -48,8 +50,13 @@ public class FacadeEJB implements FacadeEJBLocal, FacadeEJBRemote {
 	}
 	
 	@Override
-	public void recepcionDeLog(LogDTO logDTO) throws Exception{
+	public void recepcionDeLog(LogDTO logDTO) throws Exception {
 		al.guardarLog(logDTO);
+	}
+	
+	@Override
+	public List<LogDTO> buscarLogs() throws Exception{
+		return al.buscarLogs();
 	}
 
 }
