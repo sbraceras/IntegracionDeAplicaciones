@@ -5,6 +5,7 @@ import java.util.Hashtable;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 
+import com.logistica.dtos.LogDTO;
 import com.logistica.dtos.VentaDTO;
 import com.logistica.interfaces.FacadeEJBRemote;
 
@@ -31,6 +32,14 @@ public class BusinessDelegate {
 	public void registrarVenta(VentaDTO venta) throws Exception {
 		try {
 			stub.recepcionDeVenta(venta);
+		} catch (Exception e) {
+			throw new Exception("Se ha producido un error al registrar la venta. " + e.getMessage());
+		}
+	}
+	
+	public void registrarLog(LogDTO log) throws Exception {
+		try {
+			stub.recepcionDeLog(log);
 		} catch (Exception e) {
 			throw new Exception("Se ha producido un error al registrar la venta. " + e.getMessage());
 		}

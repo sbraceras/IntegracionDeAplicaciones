@@ -4,9 +4,11 @@ import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
+import com.logistica.dtos.LogDTO;
 import com.logistica.dtos.VentaDTO;
 import com.logistica.interfaces.FacadeEJBLocal;
 import com.logistica.interfaces.FacadeEJBRemote;
+import com.logistica.sessionBeans.AdministradorLog;
 import com.logistica.sessionBeans.AdministradorVentas;
 
 /**
@@ -18,6 +20,9 @@ public class FacadeEJB implements FacadeEJBLocal, FacadeEJBRemote {
 
 	@EJB
 	AdministradorVentas av;
+	
+	@EJB
+	AdministradorLog al;
 
 	// @EJB
 	// DespachosManager dm;
@@ -39,8 +44,12 @@ public class FacadeEJB implements FacadeEJBLocal, FacadeEJBRemote {
 
 	@Override
 	public void agregarPortalWeb() {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub	
+	}
+	
+	@Override
+	public void recepcionDeLog(LogDTO logDTO) throws Exception{
+		al.guardarLog(logDTO);
 	}
 
 }

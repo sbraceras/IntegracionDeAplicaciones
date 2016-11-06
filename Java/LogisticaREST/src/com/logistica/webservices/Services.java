@@ -6,6 +6,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
 import com.logistica.businessDelegate.BusinessDelegate;
+import com.logistica.dtos.LogDTO;
 import com.logistica.dtos.VentaDTO;
 
 
@@ -28,6 +29,21 @@ public class Services {
 
 			return "recepcion error: " + e.getMessage();
 		}
+	}
+	
+	@POST
+	@Path("/guardarLog")
+	@Consumes({ "application/json" })	// Indica que consume (recibe) un objeto Json en el POST. Lo parsea a un objeto de tipo LogDTO
+	@Produces({"text/plain"})
+	public String guardarLog(LogDTO log){
+		try {
+			BusinessDelegate.getInstance().registrarLog(log);
+			return  "recepcion ok";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "recepcion error: " + e.getMessage();
+		}
+		
 	}
 
 }
