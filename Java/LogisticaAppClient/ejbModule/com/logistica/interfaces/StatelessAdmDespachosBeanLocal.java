@@ -20,5 +20,9 @@ public interface StatelessAdmDespachosBeanLocal {
 
 	// Borrar
 	public void cargarDespachos();
+	
+	public void emitirOrdenDespacho (VentaDTO dto);
+	
+	public void enviarOrdenesEmitidas () throws Exception;
 
 }

@@ -37,7 +37,7 @@ public class OrdenDespacho {
 	private Despacho despacho;
 	
 	@OneToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="idOrdenDespacho") //Debatir grupo
+	@JoinColumn(name = "idVenta") 
 	private Venta venta;
 	
 	public OrdenDespacho() {

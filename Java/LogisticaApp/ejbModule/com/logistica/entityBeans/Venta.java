@@ -33,8 +33,7 @@ public class Venta {
 	private Date fechaHora;
 	private float montoTotal;
 
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "idVenta") // Debatir grupo
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "venta")
 	private OrdenDespacho ordenDespacho;
 
 	@ManyToOne(fetch = FetchType.EAGER)

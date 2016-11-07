@@ -18,6 +18,7 @@ import com.logistica.dtos.CoordenadaDTO;
 import com.logistica.dtos.DespachoDTO;
 import com.logistica.dtos.DireccionDTO;
 import com.logistica.dtos.ItemVentaDTO;
+import com.logistica.dtos.OrdenDespachoDTO;
 import com.logistica.dtos.VentaDTO;
 import com.logistica.interfaces.FacadeEJBRemote;
 import com.logistica.interfaces.StatelessAdmDespachosBeanRemote;
@@ -70,10 +71,13 @@ public class Test {
 		
 		FacadeEJBRemote mbr = (FacadeEJBRemote) context.lookup(lookupName);
 
+		mbr2.enviarOrdenesEmitidas();
 		
 		//Borrar!!
 		
 //		mbr.agregarPortalWeb();
+		
+				
 
 		VentaDTO venta = new VentaDTO();
 		ClienteDTO cliente = new ClienteDTO();
@@ -104,15 +108,27 @@ public class Test {
 
 
 		// enviamos la venta al Session Bean!
-//		mbr.recepcionDeVenta(venta);
+		mbr.recepcionDeVenta(venta);
 //		mbr2.obetenerModulo();
-		mbr2.cargarDespachos();
+//		mbr2.cargarDespachos();
 		//Levanto las ventas sin Orden Asociada
 //		List<VentaDTO> ventasSinDespacho = mbr2.listarVentasSinOrdenDespacho();
+		
+		
+		OrdenDespachoDTO ordenDTO = new OrdenDespachoDTO();
+		DespachoDTO despachoDTO = new DespachoDTO();
+		despachoDTO.setNombre("DESPACHO_GRUPO_5");
+		ordenDTO.setDespacho(despachoDTO);
+		
+		venta.setOrdenDespacho(ordenDTO);
+		
+//		mbr2.emitirOrdenDespacho(venta);
 
+		
 			
 		DespachoDTO despacho = mbr2.obtenerDespachoCercanoCliente(venta);
 		String auxiliar = despacho.getIp();
+		
 		
 		String apiKey= "AIzaSyBrrSMBrm1CLgq1bgBjOM_Zyp6xwUHLVko";
 		String latitudOrigen= "-34.610359";
