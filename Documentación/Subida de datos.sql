@@ -23,72 +23,72 @@ values
 insert into Modulos
 (tipo, idModulo, ip, nombre, tipoModulo, descripcion, estado, idDireccion)
 values
-('Des', 1, ' ', 'DESPACHO_GRUPO_5', 2, 'Despacho grupo 5', 1, 1); 
+('Des', 1, ' ', 'G05', 2, 'Despacho grupo 5', 1, 1); 
 
 insert into Modulos
 (tipo, idModulo, ip, nombre, tipoModulo, descripcion, estado, idDireccion)
 values
-('Des', 2, ' ', 'DESPACHO_GRUPO_8', 2, 'Despacho grupo 8', 1, 2); 
+('Des', 2, ' ', 'G08', 2, 'Despacho grupo 8', 1, 2); 
 
 insert into Modulos
 (tipo, idModulo, ip, nombre, tipoModulo, descripcion, estado, idDireccion)
 values
-('Des', 3, ' ', 'DESPACHO_GRUPO_11', 2, 'Despacho grupo 11', 1, 3); 
+('Des', 3, ' ', 'G11', 2, 'Despacho grupo 11', 1, 3); 
 
 insert into Modulos
 (tipo, idModulo, ip, nombre, tipoModulo, descripcion)
 values
-('Est', 4, ' ', 'DEPOSITO_GRUPO_1', 3, 'Deposito grupo 1'); 
+('Est', 4, ' ', 'G01', 3, 'Deposito grupo 1'); 
 
 insert into Modulos
 (tipo, idModulo, ip, nombre, tipoModulo, descripcion)
 values
-('Est', 5, ' ', 'DEPOSITO_GRUPO_6', 3, 'Deposito grupo 6'); 
+('Est', 5, ' ', 'G06', 3, 'Deposito grupo 6'); 
 
 insert into Modulos
 (tipo, idModulo, ip, nombre, tipoModulo, descripcion)
 values
-('Est', 6, ' ', 'DEPOSITO_GRUPO_9', 3, 'Deposito grupo 9'); 
+('Est', 6, ' ', 'G09', 3, 'Deposito grupo 9'); 
 
 insert into Modulos
 (tipo, idModulo, ip, nombre, tipoModulo, descripcion)
 values
-('Est', 7, ' ', 'DEPOSITO_GRUPO_12', 3, 'Deposito grupo 12'); 
-
-
-insert into Modulos
-(tipo, idModulo, ip, nombre, tipoModulo, descripcion)
-values
-('Est', 8, ' ', 'DEPOSITO_GRUPO_14', 3, 'Deposito grupo 14'); 
-
-insert into Modulos
-(tipo, idModulo, ip, nombre, tipoModulo, descripcion)
-values
-('Est', 9, ' ', 'PORTAL_WEB_GRUPO_3', 0, 'Portal web grupo 3');
-
-insert into Modulos
-(tipo, idModulo, ip, nombre, tipoModulo, descripcion)
-values
-('Est', 10, ' ', 'PORTAL_WEB_GRUPO_7', 0, 'Portal web grupo 7');
-
-insert into Modulos
-(tipo, idModulo, ip, nombre, tipoModulo, descripcion)
-values
-('Est', 11, ' ', 'PORTAL_WEB_GRUPO_10', 0, 'Portal web grupo 10');
-
-insert into Modulos
-(tipo, idModulo, ip, nombre, tipoModulo, descripcion)
-values
-('Est', 12, ' ', 'PORTAL_WEB_GRUPO_13', 0, 'Portal web grupo 13');
+('Est', 7, ' ', 'G12', 3, 'Deposito grupo 12'); 
 
 
 insert into Modulos
 (tipo, idModulo, ip, nombre, tipoModulo, descripcion)
 values
-('Est', 13, ' ', 'LOGISTICA_Y_MONITOREO_GRUPO_2', 1, 'Logistica y monitoreo grupo 2');
+('Est', 8, ' ', 'G14', 3, 'Deposito grupo 14'); 
+
+insert into Modulos
+(tipo, idModulo, ip, nombre, tipoModulo, descripcion)
+values
+('Est', 9, ' ', 'G03', 0, 'Portal web grupo 3');
+
+insert into Modulos
+(tipo, idModulo, ip, nombre, tipoModulo, descripcion)
+values
+('Est', 10, ' ', 'G07', 0, 'Portal web grupo 7');
+
+insert into Modulos
+(tipo, idModulo, ip, nombre, tipoModulo, descripcion)
+values
+('Est', 11, ' ', 'G10', 0, 'Portal web grupo 10');
+
+insert into Modulos
+(tipo, idModulo, ip, nombre, tipoModulo, descripcion)
+values
+('Est', 12, ' ', 'G13', 0, 'Portal web grupo 13');
 
 
 insert into Modulos
 (tipo, idModulo, ip, nombre, tipoModulo, descripcion)
 values
-('Est', 14, ' ', 'LOGISTICA_Y_MONITOREO_GRUPO_4', 1, 'Logistica y monitoreo grupo 4');
+('Est', 13, ' ', 'G02', 1, 'Logistica y monitoreo grupo 2');
+
+
+insert into Modulos
+(tipo, idModulo, ip, nombre, tipoModulo, descripcion)
+values
+('Est', 14, ' ', 'G04', 1, 'Logistica y monitoreo grupo 4');

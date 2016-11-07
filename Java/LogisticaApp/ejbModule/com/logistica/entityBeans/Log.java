@@ -21,7 +21,7 @@ public class Log {
 	
 	@Id
 	@Column(name="idLog")
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	private Date fecha;
 	private TipoLog tipo;
