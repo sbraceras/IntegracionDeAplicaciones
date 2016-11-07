@@ -1,4 +1,3 @@
-use TPIntegracion
 
 insert into Coordenadas (latitud, longitud)
 values (-34.6166938, -58.3815892)
@@ -93,6 +92,3 @@ insert into Modulos
 (tipo, idModulo, ip, nombre, tipoModulo, descripcion)
 values
 ('Est', 14, ' ', 'LOGISTICA_Y_MONITOREO_GRUPO_4', 1, 'Logistica y monitoreo grupo 4');
-
-
-

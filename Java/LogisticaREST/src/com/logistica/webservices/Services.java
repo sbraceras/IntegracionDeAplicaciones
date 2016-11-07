@@ -43,17 +43,20 @@ public class Services {
 	public String guardarLog(LogJSON log){
 		try {
 			LogDTO logDTO = new LogDTO();
+
 			logDTO.setFecha(log.getFecha());
 			logDTO.setNombreModulo(log.getModulo());
 			logDTO.setDescripcion(log.getDescripcion());
+
 			BusinessDelegate.getInstance().registrarLog(logDTO);
+
 			return  "Log guardado correctamente";
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "El log no pudo guardarse correctamente debido a: " + e.getMessage();
 		}
 	}
-	
+
 	@GET
 	@Path("/buscarLogs")
 	@Produces({ "application/json" })
@@ -61,11 +64,12 @@ public class Services {
 		List<LogDTO> logsDTO = new ArrayList<LogDTO>();
 		try {
 			logsDTO = BusinessDelegate.getInstance().buscarLogs();
+
+			return logsDTO;
 		} catch (Exception e) {
 			e.printStackTrace();
-			return logsDTO;
+			return null;
 		}
-		return logsDTO;
 	}
 
 }
