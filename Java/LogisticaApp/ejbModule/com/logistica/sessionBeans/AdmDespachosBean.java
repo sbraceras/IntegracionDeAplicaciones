@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -22,22 +21,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.logistica.dtos.DespachoDTO;
 import com.logistica.dtos.EstandarDTO;
 import com.logistica.dtos.VentaDTO;
-import com.logistica.entityBeans.Cliente;
-import com.logistica.entityBeans.Coordenada;
-import com.logistica.entityBeans.Despacho;
-import com.logistica.entityBeans.Direccion;
-import com.logistica.entityBeans.Estandar;
-import com.logistica.entityBeans.ItemVenta;
-import com.logistica.entityBeans.Modulo;
-import com.logistica.entityBeans.OrdenDespacho;
-import com.logistica.entityBeans.Venta;
-import com.logistica.enums.EstadoOrdenDespacho;
-import com.logistica.enums.EstadoVenta;
-import com.logistica.enums.TipoModulo;
+import com.logistica.entityBeans.*;
+import com.logistica.enums.*;
+import com.logistica.jsons.*;
 import com.logistica.interfaces.StatelessAdmDespachosBeanLocal;
 import com.logistica.interfaces.StatelessAdmDespachosBeanRemote;
-import com.logistica.test.CalculoDistancia;
-import com.logistica.jsons.*;
 
 /**
  * Session Bean implementation class AdmDespachosBean
