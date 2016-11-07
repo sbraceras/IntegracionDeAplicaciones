@@ -72,4 +72,24 @@ public class Services {
 		}
 	}
 
+	//PRUEBA RECEPCION ORDEN DESPACHO. Simulamos ser modulo Despacho. 
+	@POST
+	@Path("/recepcionOrdenDespacho")
+	@Consumes({ "application/json" })	// Indica que consume (recibe) un objeto Json en el POST. Lo parsea a un objeto de tipo LogDTO
+	@Produces({ "application/json" })
+	public String recepcionOrdenDespacho(DespachoEnviarJSON despachoEnviar) {
+
+		try {
+//			throw new Exception();
+			int i = 0;
+			System.out.println("hola");
+
+			return "{\"procesado\" : \"true\" , \"idOrdenDespacho\" : \"1234\" }";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "{\"procesado\" : \"false\" }";
+		}
+
+	}
+
 }
