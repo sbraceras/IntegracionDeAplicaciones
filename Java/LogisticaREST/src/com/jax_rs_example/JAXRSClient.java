@@ -1,4 +1,4 @@
-package com.example;
+package com.jax_rs_example;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;

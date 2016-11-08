@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import com.logistica.entityBeans.Articulo;
+import com.logistica.entityBeans.IdArticulo;
 import com.logistica.interfaces.TestEntityManagerLocal;
 import com.logistica.interfaces.TestEntityManagerRemote;
 
@@ -27,8 +28,17 @@ public class TestEntityManager implements TestEntityManagerRemote, TestEntityMan
 	}
 
 	public void nuevoArticulo() {
-		Articulo articulo  = new Articulo(100, (float) 58.95, "MOCHILA KARPATOS 2KG", 34);
-		Articulo articulo2 = new Articulo(101, (float) 99.17, "CARTUCHERA BOMBUCHA", 12);
+		IdArticulo idArticulo = new IdArticulo();
+		idArticulo.setId(100);
+		idArticulo.setNombreDeposito("G06");
+
+		Articulo articulo  = new Articulo(idArticulo, (float) 58.95, "MOCHILA KARPATOS 2KG", 34);
+
+		idArticulo.setId(101);
+		idArticulo.setNombreDeposito("G12");
+
+		Articulo articulo2 = new Articulo(idArticulo, (float) 99.17, "CARTUCHERA BOMBUCHA", 12);
+
 		try {
 			manager.persist(articulo);
 			manager.persist(articulo2);
