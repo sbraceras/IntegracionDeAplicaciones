@@ -13,6 +13,7 @@ import javax.naming.InitialContext;
 import org.apache.commons.io.IOUtils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.logistica.dtos.ArticuloDTO;
 import com.logistica.dtos.ClienteDTO;
 import com.logistica.dtos.CoordenadaDTO;
 import com.logistica.dtos.DespachoDTO;
@@ -20,6 +21,7 @@ import com.logistica.dtos.DireccionDTO;
 import com.logistica.dtos.ItemVentaDTO;
 import com.logistica.dtos.OrdenDespachoDTO;
 import com.logistica.dtos.VentaDTO;
+import com.logistica.entityBeans.ItemVenta;
 import com.logistica.interfaces.FacadeEJBRemote;
 import com.logistica.interfaces.StatelessAdmDespachosBeanRemote;
 import com.logistica.jsons.GoogleRespuestaJSON;
@@ -71,7 +73,7 @@ public class Test {
 		
 		FacadeEJBRemote mbr = (FacadeEJBRemote) context.lookup(lookupName);
 
-		mbr2.enviarOrdenesEmitidas();
+//		mbr2.enviarOrdenesEmitidas();
 		
 		//Borrar!!
 		
@@ -84,6 +86,17 @@ public class Test {
 		DireccionDTO direccion = new DireccionDTO();
 		CoordenadaDTO coordenada = new CoordenadaDTO();
 		ArrayList<ItemVentaDTO> itemsVenta = new ArrayList<ItemVentaDTO>();
+		ArticuloDTO articuloDTO = new ArticuloDTO();
+		ItemVentaDTO itemDTO = new ItemVentaDTO();
+		itemDTO.setCantidad(5);
+		articuloDTO.setDescripcion("Latita 600 gr");
+		articuloDTO.setMarca("Coca Cola");
+		articuloDTO.setIdProducto(123456);
+		articuloDTO.setNombreDeposito("G01");
+		articuloDTO.setPrecio(20.05F);
+		itemDTO.setArticulo(articuloDTO);
+		itemsVenta.add(itemDTO);
+		
 		coordenada.setLatitud(-34.6166938);
 		coordenada.setLongitud(-58.3815892);
 		direccion.setAltura(4444);
@@ -103,8 +116,9 @@ public class Test {
 		venta.setId(2);
 		venta.setIpModulo("192.168.1.0");
 		venta.setItemsVenta(itemsVenta);
-		venta.setNombrePortal("PORTAL_WEB_GRUPO_3");
+		venta.setNombrePortal("G10");
 		venta.setMonto(2150);
+		venta.setItemsVenta(itemsVenta);
 
 
 		// enviamos la venta al Session Bean!

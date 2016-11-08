@@ -1,6 +1,7 @@
 package com.logistica.entityBeans;
 
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -11,9 +12,8 @@ import com.logistica.dtos.ArticuloDTO;
 @Table(name="Articulos")
 public class Articulo {
 	
-	@Id
-	@Column(name="idArticulo")
-	private int id;
+	@EmbeddedId
+	private IdArticulo idArticulo;
 	private float precio;
 	private String descripcion;
 	private double ventasAcumuladas;
@@ -21,18 +21,18 @@ public class Articulo {
 	public Articulo() {
 	}
 
-	public Articulo(int id, float precio, String descripcion, double ventasAcumuladas) {
-		this.id = id;
+	public Articulo(IdArticulo id, float precio, String descripcion, double ventasAcumuladas) {
+		this.idArticulo = id;
 		this.precio = precio;
 		this.descripcion = descripcion;
 		this.ventasAcumuladas = ventasAcumuladas;
 	}
 	
-	public int getId() {
-		return id;
+	public IdArticulo getId() {
+		return idArticulo;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setId(IdArticulo id) {
+		this.idArticulo = id;
 	}
 	public float getPrecio() {
 		return precio;
@@ -57,7 +57,8 @@ public class Articulo {
 		ArticuloDTO dto = new ArticuloDTO();
 
 		dto.setDescripcion(this.descripcion);
-		dto.setIdProducto(this.id);
+		dto.setIdProducto(this.idArticulo.getId());
+		dto.setNombreDeposito(this.idArticulo.getNombreDeposito());
 		dto.setPrecio(this.precio);
 
 		return dto;
@@ -67,7 +68,11 @@ public class Articulo {
 		Articulo articulo = new Articulo();
 
 		articulo.setDescripcion(dto.getDescripcion());
-		articulo.setId(dto.getIdProducto());
+		IdArticulo id = new IdArticulo();
+		id.setId(dto.getIdProducto());
+		id.setNombreDeposito(dto.getNombreDeposito());
+		
+		articulo.setId(id);
 		articulo.setPrecio(dto.getPrecio());
 
 		return articulo;
