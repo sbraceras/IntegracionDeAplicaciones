@@ -90,19 +90,23 @@ public class VentaDTO implements Serializable {
 	}
 
 	public double getLatitud() {
-		return this.cliente.getDireccion().getCoordenada().getLatitud();
+//		return this.cliente.getDireccion().getCoordenada().getLatitud();
+		return latitud;
 	}
 
 	public void setLatitud(double latitud) {
-		this.cliente.getDireccion().getCoordenada().setLatitud(latitud);
+//		this.cliente.getDireccion().getCoordenada().setLatitud(latitud);
+		this.latitud = latitud;
 	}
 
 	public double getLongitud() {
-		return this.cliente.getDireccion().getCoordenada().getLongitud();
+//		return this.cliente.getDireccion().getCoordenada().getLongitud();
+		return longitud;
 	}
 
 	public void setLongitud(double longitud) {
-		this.cliente.getDireccion().getCoordenada().setLongitud(longitud);
+//		this.cliente.getDireccion().getCoordenada().setLongitud(longitud);
+		this.longitud = longitud;
 	}
 
 	public EstadoVenta getEstado() {

@@ -10,8 +10,11 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
 import com.logistica.businessDelegate.BusinessDelegate;
+import com.logistica.dtos.CoordenadaDTO;
+import com.logistica.dtos.DireccionDTO;
 import com.logistica.dtos.LogDTO;
 import com.logistica.dtos.VentaDTO;
+import com.logistica.jsons.DespachoEnviarJSON;
 import com.logistica.jsons.LogJSON;
 
 
@@ -25,6 +28,15 @@ public class Services {
 	@Produces({"text/plain"})		// enviamos un response con la respuesta ('recepcion ok' o bien 'recepcion error: 'mensaje de error'')
 	public String recibirVenta(VentaDTO venta) {
 		try {
+			CoordenadaDTO coordenada = new CoordenadaDTO();
+			coordenada.setLatitud(venta.getLatitud());
+			coordenada.setLongitud(venta.getLongitud());
+
+			DireccionDTO direccion = new DireccionDTO();
+			direccion.setCoordenada(coordenada);
+
+			venta.getCliente().setDireccion(direccion);
+
 			BusinessDelegate.getInstance().registrarVenta(venta);
 
 			return "recepcion ok";

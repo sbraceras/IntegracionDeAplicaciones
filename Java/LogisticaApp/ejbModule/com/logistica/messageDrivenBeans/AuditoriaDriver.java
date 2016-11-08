@@ -46,7 +46,7 @@ public class AuditoriaDriver implements MessageListener {
 
     		System.out.println("Mensaje recibido: " + messageText);
 
-    		al.guardarLog(logDTO); // DEBERIAMOS CONVERTIR 'messageText' de JSON a DTO? ANALIZAR
+//    		al.guardarLog(logDTO); // DEBERIAMOS CONVERTIR 'messageText' de JSON a DTO? ANALIZAR
 
     	} catch (Exception e) {
 //    		Logger.getAnonymousLogger().log(Level.SEVERE, e.getMessage(), e);
