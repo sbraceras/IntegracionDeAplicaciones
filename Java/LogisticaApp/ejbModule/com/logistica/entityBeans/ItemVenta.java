@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -23,7 +24,8 @@ public class ItemVenta {
 	private double cantidad;
 	
 	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="idArticulo")
+//	@JoinColumn(name="idArticulo")
+	@JoinColumns({@JoinColumn(name = "id"),@JoinColumn(name= "nombreDeposito")})
 	private Articulo articulo;
 	
 	public ItemVenta() {

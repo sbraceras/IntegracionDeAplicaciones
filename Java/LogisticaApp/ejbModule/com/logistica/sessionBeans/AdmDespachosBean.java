@@ -1,6 +1,7 @@
 package com.logistica.sessionBeans;
 
 import java.io.BufferedReader;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
@@ -15,17 +16,27 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.apache.commons.io.IOUtils;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.logistica.dtos.DespachoDTO;
 import com.logistica.dtos.EstandarDTO;
 import com.logistica.dtos.VentaDTO;
-import com.logistica.entityBeans.*;
-import com.logistica.enums.*;
-import com.logistica.jsons.*;
+import com.logistica.entityBeans.Cliente;
+import com.logistica.entityBeans.Coordenada;
+import com.logistica.entityBeans.Despacho;
+import com.logistica.entityBeans.Direccion;
+import com.logistica.entityBeans.Estandar;
+import com.logistica.entityBeans.ItemVenta;
+import com.logistica.entityBeans.OrdenDespacho;
+import com.logistica.entityBeans.Venta;
+import com.logistica.enums.EstadoOrdenDespacho;
+import com.logistica.enums.EstadoVenta;
+import com.logistica.enums.TipoModulo;
 import com.logistica.interfaces.StatelessAdmDespachosBeanLocal;
 import com.logistica.interfaces.StatelessAdmDespachosBeanRemote;
+import com.logistica.jsons.DespachoEnviarJSON;
+import com.logistica.jsons.DespachoRespuestaJSON;
+import com.logistica.jsons.GoogleRespuestaJSON;
+import com.logistica.jsons.ItemDespachoEnviarJSON;
 
 /**
  * Session Bean implementation class AdmDespachosBean
@@ -276,7 +287,7 @@ public class AdmDespachosBean implements StatelessAdmDespachosBeanRemote, Statel
 				json.setIdVenta(orden.getVenta().getId());
 				
 				for(ItemVenta itemVenta: orden.getVenta().getItemsVenta()){
-					itemJson = new ItemDespachoEnviarJSON(itemVenta.getArticulo().getId(), itemVenta.getCantidad());
+					itemJson = new ItemDespachoEnviarJSON(itemVenta.getArticulo().getId().getId(), itemVenta.getCantidad());
 					itemsJson.add(itemJson);
 					}
 				json.setDetalles(itemsJson);
@@ -286,7 +297,8 @@ public class AdmDespachosBean implements StatelessAdmDespachosBeanRemote, Statel
 //				url = new URL("http://"+orden.getDespacho().getIp()+":8080/DespachoREST/rest/services/recepcionOrdenDespacho");
 				
 				//ESTO ES PARA PROBAR EN LA CASA DE SOFFIAN
-				url = new URL("http://192.168.0.11:8080/LogisticaREST/rest/services/recepcionOrdenDespacho");
+//				url = new URL("http://192.168.0.11:8080/LogisticaREST/rest/services/recepcionOrdenDespacho");
+				url = new URL("http://10.100.54.228:8080/LogisticaREST/rest/services/recepcionOrdenDespacho");
 
 				urlConnection = (HttpURLConnection) url.openConnection();
 
@@ -298,49 +310,51 @@ public class AdmDespachosBean implements StatelessAdmDespachosBeanRemote, Statel
 				//Convierto el json a string con el JACKSON
 				jsonInString = mapper.writeValueAsString(json);
 				
-				IOUtils.write(jsonInString, urlConnection.getOutputStream()); // Envío de un string en formato Json
+				urlConnection.getOutputStream().write(jsonInString.getBytes());; // Envío de un string en formato Json
 
-				connection = url.openConnection();
-		        connection.setDoOutput(true);
-				
-				OutputStreamWriter out = new OutputStreamWriter(
-                        connection.getOutputStream());
-//					out.write("string=");
-					out.close();
+//				connection = url.openConnection();
+//		        connection.setDoOutput(true);
+//				
+//				OutputStreamWriter out = new OutputStreamWriter(
+//                        connection.getOutputStream());
+////					out.write("string=");
+//					out.close();
 
-				BufferedReader in = new BufferedReader(
-					new InputStreamReader(
-                	connection.getInputStream()));
-					String decodedString;
-					
-				response = new StringBuffer();
+//				BufferedReader in = new BufferedReader(
+//					new InputStreamReader(
+//                	connection.getInputStream()));
+//					String decodedString;
+//					
+				InputStream respuestaPrueba= urlConnection.getInputStream();
 				
-				while ((decodedString = in.readLine()) != null) {
-				response.append(decodedString);
-				}
-				in.close();
-				
+//				response = new StringBuffer();
+//				
+//				while ((decodedString = in.readLine()) != null) {
+//				response.append(decodedString);
+//				}
+//				in.close();
+//				
 
 				
 				mapper = new ObjectMapper();
-		        respuestaDespacho = mapper.readValue(response.toString(), DespachoRespuestaJSON.class);
+//		        respuestaDespacho = mapper.readValue(response.toString(), DespachoRespuestaJSON.class);
 		        
 		      
-		        if(respuestaDespacho.getProcesado().equalsIgnoreCase("true")){
-		        	//El despacho la recibio correctamente
-		        	
-		        	orden.setEstado(EstadoOrdenDespacho.Enviada);
-		        	//Me guardo el Id Externo que me dio el Despacho
-		        	orden.setIdExterna(respuestaDespacho.getIdOrdenDespacho());
-		        	em.merge(orden);
-		        }
-		        
-		        else
-		        {
-		        	//No se pudo procesar el despacho por algun motivo
-		        	orden.setEstado(EstadoOrdenDespacho.Rechazada);
-		        	em.merge(orden);
-		        }
+//		        if(respuestaDespacho.getProcesado().equalsIgnoreCase("true")){
+//		        	//El despacho la recibio correctamente
+//		        	
+//		        	orden.setEstado(EstadoOrdenDespacho.Enviada);
+//		        	//Me guardo el Id Externo que me dio el Despacho
+//		        	orden.setIdExterna(respuestaDespacho.getIdOrdenDespacho());
+//		        	em.merge(orden);
+//		        }
+//		        
+//		        else
+//		        {
+//		        	//No se pudo procesar el despacho por algun motivo
+//		        	orden.setEstado(EstadoOrdenDespacho.Rechazada);
+//		        	em.merge(orden);
+//		        }
 						
 				
 			}
