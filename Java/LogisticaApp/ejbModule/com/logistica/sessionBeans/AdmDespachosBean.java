@@ -327,6 +327,8 @@ public class AdmDespachosBean implements StatelessAdmDespachosBeanRemote, Statel
 //					
 				InputStream respuestaPrueba= urlConnection.getInputStream();
 				
+				//TODO
+				
 //				response = new StringBuffer();
 //				
 //				while ((decodedString = in.readLine()) != null) {
