@@ -6,14 +6,17 @@ import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
+import com.logistica.dtos.BestSellerDTO;
 import com.logistica.dtos.DespachoDTO;
 import com.logistica.dtos.LogDTO;
 import com.logistica.dtos.OrdenDespachoDTO;
+import com.logistica.dtos.RecepcionBestSellerDTO;
 import com.logistica.dtos.VentaDTO;
 import com.logistica.interfaces.FacadeEJBLocal;
 import com.logistica.interfaces.FacadeEJBRemote;
 import com.logistica.sessionBeans.AdministradorAuditoria;
 import com.logistica.sessionBeans.AdministradorDespachos;
+import com.logistica.sessionBeans.AdministradorReportes;
 import com.logistica.sessionBeans.AdministradorVentas;
 
 /**
@@ -31,6 +34,9 @@ public class FacadeEJB implements FacadeEJBLocal, FacadeEJBRemote {
 
 	@EJB
 	AdministradorDespachos ad;
+	
+	@EJB
+	AdministradorReportes ar;
 
 	/**
 	 * Default constructor.
@@ -78,5 +84,14 @@ public class FacadeEJB implements FacadeEJBLocal, FacadeEJBRemote {
 	public void cambiarEstadoOrdenDeDespacho(OrdenDespachoDTO ordenDespacho) throws Exception {
 		ad.cambiarEstadoOrdenDeDespacho(ordenDespacho);
 	}
-
+	
+	@Override
+	public List<RecepcionBestSellerDTO> enviarReporteBestSeller() throws Exception{
+		return ar.enviarReporteBestSeller();
+	}
+	
+	@Override
+	public BestSellerDTO generarBestSellerWeb(){
+		return ar.generarBestSellerWeb();
+	}
 }

@@ -213,8 +213,8 @@ public class AdministradorDespachos {
 		orden.setFecha(Calendar.getInstance().getTime());
 		orden.setVenta(venta);
 		
-		//Se guarda la Nueva Orden de Despacho en la Base sin ID
-		//No vamos a hacer que sea generated, ya que la va a generar el modulo
+		//Se guarda la Nueva Orden de Despacho en la Base sin ID Externa
+		//Esta ID Externa es el id que va a tener el Despacho al que le enviemos
 		//De despacho al que le mandemos y recibimos la pk compuesta que ellos
 		//Digan, analizar si esto va a ser una pk compuesta de nuestro lado.
 		
@@ -250,8 +250,6 @@ public class AdministradorDespachos {
 			HttpURLConnection urlConnection;
 			ObjectMapper mapper;
 			String jsonInString;
-			StringBuffer response;
-			URLConnection connection;
 			DespachoRespuestaJSON respuestaDespacho;
 			
 			//Genero el JSON
@@ -301,31 +299,8 @@ public class AdministradorDespachos {
 
 				urlConnection.getOutputStream().write(jsonInString.getBytes());; // Envío de un string en formato Json
 
-//				connection = url.openConnection();
-//		        connection.setDoOutput(true);
-//				
-//				OutputStreamWriter out = new OutputStreamWriter(
-//                        connection.getOutputStream());
-////					out.write("string=");
-//					out.close();
-
-//				BufferedReader in = new BufferedReader(
-//					new InputStreamReader(
-//                	connection.getInputStream()));
-//					String decodedString;
-//				
-
 				InputStream respuesta = urlConnection.getInputStream();
 
-//				response = new StringBuffer();
-//				
-//				while ((decodedString = in.readLine()) != null) {
-//				response.append(decodedString);
-//				}
-//				in.close();
-//				
-
-//				mapper = new ObjectMapper();
 		        respuestaDespacho = mapper.readValue(respuesta.toString(), DespachoRespuestaJSON.class);
 
 		        if (respuestaDespacho.getProcesado().equalsIgnoreCase("true")) {
@@ -351,7 +326,6 @@ public class AdministradorDespachos {
 	}
 
 	public void cambiarEstadoOrdenDeDespacho(OrdenDespachoDTO ordenDespacho) throws Exception {
-//		OrdenDespacho orden = em.find(OrdenDespacho.class, ordenDespacho.getIdExterna());
 		OrdenDespacho orden = (OrdenDespacho) em.createQuery("select o from OrdenDespacho o where o.idExterna =:idExterna").setParameter("idExterna", ordenDespacho.getIdExterna()).getSingleResult();
 
 		if (orden != null) {

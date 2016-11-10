@@ -14,6 +14,7 @@ import org.apache.commons.io.IOUtils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.logistica.dtos.ArticuloDTO;
+import com.logistica.dtos.BestSellerDTO;
 import com.logistica.dtos.ClienteDTO;
 import com.logistica.dtos.CoordenadaDTO;
 import com.logistica.dtos.DespachoDTO;
@@ -24,12 +25,18 @@ import com.logistica.dtos.VentaDTO;
 import com.logistica.interfaces.FacadeEJBRemote;
 import com.logistica.jsons.GoogleRespuestaJSON;
 import com.logistica.sessionBeans.AdministradorDespachos;
+import com.logistica.sessionBeans.AdministradorReportes;
 
 
 public class Test {
 	
 	@EJB
 	AdministradorDespachos despachos;
+	
+	@EJB
+	AdministradorReportes admReportes;
+	
+	
 
 	public static void main(String[] args) throws Exception {
 
@@ -71,6 +78,127 @@ public class Test {
 		itemDTO.setArticulo(articuloDTO);
 		itemsVenta.add(itemDTO);
 		
+		itemDTO = new ItemVentaDTO();
+		itemDTO.setCantidad(20);
+		articuloDTO= new ArticuloDTO();
+		articuloDTO.setDescripcion("Queso Fresco");
+		articuloDTO.setMarca("Sancor");
+		articuloDTO.setIdProducto(123457);
+		articuloDTO.setNombreDeposito("G01");
+		articuloDTO.setPrecio(50.25F);
+		itemDTO.setArticulo(articuloDTO);
+		itemsVenta.add(itemDTO);
+		
+		itemDTO = new ItemVentaDTO();
+		itemDTO.setCantidad(2);
+		articuloDTO= new ArticuloDTO();
+		articuloDTO.setDescripcion("Salchichas");
+		articuloDTO.setMarca("Vienisima");
+		articuloDTO.setIdProducto(123458);
+		articuloDTO.setNombreDeposito("G01");
+		articuloDTO.setPrecio(24.20F);
+		itemDTO.setArticulo(articuloDTO);
+		itemsVenta.add(itemDTO);
+		
+		itemDTO = new ItemVentaDTO();
+		itemDTO.setCantidad(50);
+		articuloDTO= new ArticuloDTO();
+		articuloDTO.setDescripcion("Agua Mineral");
+		articuloDTO.setMarca("Glaciar");
+		articuloDTO.setIdProducto(122213);
+		articuloDTO.setNombreDeposito("G01");
+		articuloDTO.setPrecio(12.00F);
+		itemDTO.setArticulo(articuloDTO);
+		itemsVenta.add(itemDTO);
+		
+		itemDTO = new ItemVentaDTO();
+		itemDTO.setCantidad(70);
+		articuloDTO= new ArticuloDTO();
+		articuloDTO.setDescripcion("Jamon Cocido");
+		articuloDTO.setMarca("Paladini");
+		articuloDTO.setIdProducto(122214);
+		articuloDTO.setNombreDeposito("G01");
+		articuloDTO.setPrecio(24.00F);
+		itemDTO.setArticulo(articuloDTO);
+		itemsVenta.add(itemDTO);
+		
+		itemDTO = new ItemVentaDTO();
+		itemDTO.setCantidad(5);
+		articuloDTO= new ArticuloDTO();
+		articuloDTO.setDescripcion("Jabon Blanco");
+		articuloDTO.setMarca("Changuito");
+		articuloDTO.setIdProducto(122220);
+		articuloDTO.setNombreDeposito("G01");
+		articuloDTO.setPrecio(8.10F);
+		itemDTO.setArticulo(articuloDTO);
+		itemsVenta.add(itemDTO);
+		
+		itemDTO = new ItemVentaDTO();
+		itemDTO.setCantidad(3);
+		articuloDTO= new ArticuloDTO();
+		articuloDTO.setDescripcion("Pilas AAA");
+		articuloDTO.setMarca("Energiser");
+		articuloDTO.setIdProducto(123333);
+		articuloDTO.setNombreDeposito("G01");
+		articuloDTO.setPrecio(120.00F);
+		itemDTO.setArticulo(articuloDTO);
+		itemsVenta.add(itemDTO);
+		
+		itemDTO = new ItemVentaDTO();
+		itemDTO.setCantidad(30);
+		articuloDTO= new ArticuloDTO();
+		articuloDTO.setDescripcion("Pepsi Light 1.5L");
+		articuloDTO.setMarca("Pepsi");
+		articuloDTO.setIdProducto(129999);
+		articuloDTO.setNombreDeposito("G01");
+		articuloDTO.setPrecio(80.00F);
+		itemDTO.setArticulo(articuloDTO);
+		itemsVenta.add(itemDTO);
+		
+		itemDTO = new ItemVentaDTO();
+		itemDTO.setCantidad(70);
+		articuloDTO= new ArticuloDTO();
+		articuloDTO.setDescripcion("Gomitas de Pelo");
+		articuloDTO.setMarca("La Ventola");
+		articuloDTO.setIdProducto(1321234);
+		articuloDTO.setNombreDeposito("G01");
+		articuloDTO.setPrecio(5.00F);
+		itemDTO.setArticulo(articuloDTO);
+		itemsVenta.add(itemDTO);
+		
+		itemDTO = new ItemVentaDTO();
+		itemDTO.setCantidad(2);
+		articuloDTO= new ArticuloDTO();
+		articuloDTO.setDescripcion("Resma A4");
+		articuloDTO.setMarca("Glaciar");
+		articuloDTO.setIdProducto(171273);
+		articuloDTO.setNombreDeposito("G01");
+		articuloDTO.setPrecio(50.00F);
+		itemDTO.setArticulo(articuloDTO);
+		itemsVenta.add(itemDTO);
+		
+		itemDTO = new ItemVentaDTO();
+		itemDTO.setCantidad(15);
+		articuloDTO= new ArticuloDTO();
+		articuloDTO.setDescripcion("Yerba 1KG");
+		articuloDTO.setMarca("Playadito");
+		articuloDTO.setIdProducto(122210);
+		articuloDTO.setNombreDeposito("G01");
+		articuloDTO.setPrecio(40.00F);
+		itemDTO.setArticulo(articuloDTO);
+		itemsVenta.add(itemDTO);
+		
+		itemDTO = new ItemVentaDTO();
+		itemDTO.setCantidad(4);
+		articuloDTO= new ArticuloDTO();
+		articuloDTO.setDescripcion("Papas 100 gr");
+		articuloDTO.setMarca("Lays");
+		articuloDTO.setIdProducto(123213);
+		articuloDTO.setNombreDeposito("G01");
+		articuloDTO.setPrecio(35.00F);
+		itemDTO.setArticulo(articuloDTO);
+		itemsVenta.add(itemDTO);
+		
 		coordenada.setLatitud(-34.6166938);
 		coordenada.setLongitud(-58.3815892);
 		direccion.setAltura(4444);
@@ -87,7 +215,7 @@ public class Test {
 		 
 		venta.setCliente(cliente);
 		venta.setFechaHoraVenta(Calendar.getInstance().getTime());
-		venta.setId(2);
+		venta.setId(14);
 		venta.setIpModulo("192.168.1.0");
 		venta.setItemsVenta(itemsVenta);
 		venta.setNombrePortal("G10");
@@ -96,7 +224,11 @@ public class Test {
 
 
 		// enviamos la venta al Session Bean!
-		mbr.recepcionDeVenta(venta);
+//		mbr.recepcionDeVenta(venta);
+		
+		BestSellerDTO bestSellerWeb = mbr.generarBestSellerWeb();
+		
+		bestSellerWeb.getItems();
 
 //		mbr.obetenerModulo();
 //		mbr.cargarDespachos();
