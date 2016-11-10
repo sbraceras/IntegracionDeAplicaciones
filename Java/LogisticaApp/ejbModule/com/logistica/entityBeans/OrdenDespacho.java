@@ -15,8 +15,9 @@ import javax.persistence.Table;
 
 import com.logistica.dtos.OrdenDespachoDTO;
 import com.logistica.enums.EstadoOrdenDespacho;
+
 @Entity
-@Table(name="OrdenesDespacho")
+@Table(name = "OrdenesDespacho")
 public class OrdenDespacho {
 	
 	//No vamos a hacer que sea generated, ya que la va a generar el modulo
@@ -27,8 +28,9 @@ public class OrdenDespacho {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	
-	//Esta ID la genera el modulo de despacho
+	// Este ID lo genera el modulo de despacho !!!
 	private int idExterna;
+
 	private Date fecha;
 	private EstadoOrdenDespacho estado;
 	

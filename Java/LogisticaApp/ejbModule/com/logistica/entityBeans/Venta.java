@@ -30,6 +30,7 @@ public class Venta {
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "idVenta")
 	private List<ItemVenta> itemsVenta;
+
 	private Date fechaHora;
 	private float montoTotal;
 

@@ -15,11 +15,11 @@ import com.logistica.entityBeans.Log;
 import com.logistica.enums.TipoLog;
 
 /**
- * Session Bean implementation class AdministradorLog
+ * Session Bean implementation class AdministradorAuditoria
  */
 @Stateless
 @LocalBean
-public class AdministradorLog {
+public class AdministradorAuditoria {
 
 	@PersistenceContext(unitName = "MyPersistenceUnit")
 	private EntityManager em;
@@ -31,7 +31,7 @@ public class AdministradorLog {
 	/**
 	 * Default constructor.
 	 */
-	public AdministradorLog() {
+	public AdministradorAuditoria() {
 
 	}
 

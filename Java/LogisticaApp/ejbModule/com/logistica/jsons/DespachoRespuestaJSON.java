@@ -1,12 +1,12 @@
 package com.logistica.jsons;
 
 public class DespachoRespuestaJSON {
-	
-	
-	private String procesado; //"true"
-	private int idOrdenDespacho; // 1234
-	
+
+	private String procesado;		// "true"
+	private int idOrdenDespacho;	// 1234
+
 	public DespachoRespuestaJSON() {
+		
 	}
 
 	public String getProcesado() {
@@ -25,6 +25,4 @@ public class DespachoRespuestaJSON {
 		this.idOrdenDespacho = idOrdenDespacho;
 	}
 
-	
-	
 }

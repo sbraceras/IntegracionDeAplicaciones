@@ -13,9 +13,13 @@ import com.logistica.businessDelegate.BusinessDelegate;
 import com.logistica.dtos.CoordenadaDTO;
 import com.logistica.dtos.DireccionDTO;
 import com.logistica.dtos.LogDTO;
+import com.logistica.dtos.OrdenDespachoDTO;
 import com.logistica.dtos.VentaDTO;
+import com.logistica.enums.EstadoOrdenDespacho;
 import com.logistica.jsons.DespachoEnviarJSON;
 import com.logistica.jsons.LogJSON;
+import com.logistica.jsons.RecepcionCambioEstadoOrdenJSON;
+import com.logistica.jsons.RespuestaCambioEstadoOrdenJSON;
 
 
 @Path("/services")
@@ -84,11 +88,45 @@ public class Services {
 		}
 	}
 
-	//PRUEBA RECEPCION ORDEN DESPACHO. Simulamos ser modulo Despacho. 
+	@POST
+	@Path("/cambioEstadoOrdenDeDespacho")
+	@Consumes({"application/json"})
+	@Produces({"application/json"})
+	public RespuestaCambioEstadoOrdenJSON cambiarEstadoOrdenDeDespacho(RecepcionCambioEstadoOrdenJSON json) {
+		RespuestaCambioEstadoOrdenJSON respuesta = new RespuestaCambioEstadoOrdenJSON();
+
+		try {
+			OrdenDespachoDTO ordenDespacho = new OrdenDespachoDTO();
+			ordenDespacho.setIdExterna(json.getIdOrdenDespacho());
+			ordenDespacho.setEstado(EstadoOrdenDespacho.Entregada); // SUPONEMOS, POR AHORA, QUE SIEMPRE LLEGARA ESTE ESTADO!!!
+
+			BusinessDelegate.getInstance().cambiarEstadoOrdenDeDespacho(ordenDespacho);
+
+			respuesta.setResultado(true);
+			respuesta.setMessage("Actualizacion de estado exitosa");
+		} catch(Exception e) {
+			respuesta.setResultado(false);
+			respuesta.setMessage(e.getMessage());
+		}
+
+		return respuesta;
+	}
+
+
+
+
+
+
+
+
+
+
+	//////////////////////////////////////////////////////////////////
+	// PRUEBA RECEPCION ORDEN DESPACHO. Simulamos ser modulo Despacho. 
 	@POST
 	@Path("/recepcionOrdenDespacho")
-	@Consumes({ "application/json" })	// Indica que consume (recibe) un objeto Json en el POST. Lo parsea a un objeto de tipo LogDTO
-	@Produces({ "application/json" })
+	@Consumes({"application/json"})	// Indica que consume (recibe) un objeto Json en el POST. Lo parsea a un objeto de tipo LogDTO
+	@Produces({"application/json"})
 	public String recepcionOrdenDespacho(DespachoEnviarJSON despachoEnviar) {
 
 		try {
@@ -96,7 +134,7 @@ public class Services {
 			int i = 0;
 			System.out.println("hola");
 
-			return "{\"procesado\" : \"true\" , \"idOrdenDespacho\" : \"1234\" }";
+			return "{\"procesado\" : \"true\" , \"idOrdenDespacho\" : 1234 }";
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "{\"procesado\" : \"false\" }";

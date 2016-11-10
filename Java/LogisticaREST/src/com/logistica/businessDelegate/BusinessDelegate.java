@@ -8,6 +8,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 
 import com.logistica.dtos.LogDTO;
+import com.logistica.dtos.OrdenDespachoDTO;
 import com.logistica.dtos.VentaDTO;
 import com.logistica.interfaces.FacadeEJBRemote;
 
@@ -56,6 +57,14 @@ public class BusinessDelegate {
 			throw new Exception("Se ha producido un erra. " + e.getMessage());
 		}
 		return logsDTO;
+	}
+
+	public void cambiarEstadoOrdenDeDespacho(OrdenDespachoDTO ordenDespacho) throws Exception {
+		try {
+			stub.cambiarEstadoOrdenDeDespacho(ordenDespacho);
+		} catch (Exception e) {
+			throw new Exception("Se ha producido un error al cambiar el estado de la Orden De Despacho. " + e.getMessage());
+		}
 	}
 
 	private static FacadeEJBRemote getStub() throws Exception {

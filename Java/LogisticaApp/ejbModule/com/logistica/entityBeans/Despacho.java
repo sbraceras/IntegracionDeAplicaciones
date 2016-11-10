@@ -11,7 +11,7 @@ import com.logistica.dtos.DespachoDTO;
 
 @Entity
 @DiscriminatorValue("Des")
-public class Despacho extends Modulo{
+public class Despacho extends Modulo {
 	
 	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	@JoinColumn(name="idDireccion")

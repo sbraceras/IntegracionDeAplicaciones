@@ -18,37 +18,33 @@ import javax.persistence.PersistenceContext;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.logistica.dtos.DespachoDTO;
-import com.logistica.dtos.EstandarDTO;
+import com.logistica.dtos.OrdenDespachoDTO;
 import com.logistica.dtos.VentaDTO;
 import com.logistica.entityBeans.Cliente;
 import com.logistica.entityBeans.Coordenada;
 import com.logistica.entityBeans.Despacho;
 import com.logistica.entityBeans.Direccion;
-import com.logistica.entityBeans.Estandar;
 import com.logistica.entityBeans.ItemVenta;
 import com.logistica.entityBeans.OrdenDespacho;
 import com.logistica.entityBeans.Venta;
 import com.logistica.enums.EstadoOrdenDespacho;
 import com.logistica.enums.EstadoVenta;
 import com.logistica.enums.TipoModulo;
-import com.logistica.interfaces.StatelessAdmDespachosBeanLocal;
-import com.logistica.interfaces.StatelessAdmDespachosBeanRemote;
 import com.logistica.jsons.DespachoEnviarJSON;
 import com.logistica.jsons.DespachoRespuestaJSON;
 import com.logistica.jsons.GoogleRespuestaJSON;
 import com.logistica.jsons.ItemDespachoEnviarJSON;
 
 /**
- * Session Bean implementation class AdmDespachosBean
+ * Session Bean implementation class AdministradorDespachos
  */
 @Stateless
 @LocalBean
-public class AdmDespachosBean implements StatelessAdmDespachosBeanRemote, StatelessAdmDespachosBeanLocal {
+public class AdministradorDespachos {
 
- 
 	@PersistenceContext(unitName="MyPersistenceUnit")
 	private EntityManager em;
-	
+
 	public List<VentaDTO> listarVentasSinOrdenDespacho (){
 		
 		@SuppressWarnings("unchecked")
@@ -68,9 +64,10 @@ public class AdmDespachosBean implements StatelessAdmDespachosBeanRemote, Statel
 	}
 	
 	@SuppressWarnings("unchecked")
-	public DespachoDTO obtenerDespachoCercanoCliente(VentaDTO venta) throws Exception{
-		
+	public DespachoDTO obtenerDespachoCercanoCliente(VentaDTO venta) throws Exception {
+
 		Cliente cliente = em.find(Cliente.class, venta.getCliente().getDni());
+
 		if(cliente != null){
 			//El cliente Existe en nuestra base
 			List<Despacho> despachos = em.createQuery("Select despacho from Despacho despacho where despacho.estado = true").getResultList();
@@ -134,20 +131,9 @@ public class AdmDespachosBean implements StatelessAdmDespachosBeanRemote, Statel
 		//No encontro al cliente en la BD
 		return null;
 	}
-	
-	
-	//Borrar
-	public EstandarDTO obetenerModulo(){
-		
-		Estandar est = em.find(Estandar.class, "Mercadolibre");
-		return null;
-		
-	}
-	
-	//Borrar
-	
-	public void cargarDespachos(){
-		
+
+	// BORRAR
+	public void cargarDespachos() {		
 		Direccion direccion = new Direccion();
 		Despacho despacho = new Despacho();
 		Coordenada coordenada = new Coordenada();
@@ -210,13 +196,11 @@ public class AdmDespachosBean implements StatelessAdmDespachosBeanRemote, Statel
 		direccion.setCoordenada(coordenada);
 		despacho.setDireccion(direccion);
 		
-		
 		em.persist(despacho);
 	}
-	
-	
+
 	//En esta funcionalidad me llega la ventaDTO solo con el ID de la venta y una ordenDespachoDTO dentro de ella con el Despacho Elegido
-	public void emitirOrdenDespacho (VentaDTO dto){
+	public void emitirOrdenDespacho(VentaDTO dto){
 		
 		//Obtengo de la BD la venta Persistente
 		Venta venta = em.find(Venta.class, dto.getId());
@@ -239,23 +223,21 @@ public class AdmDespachosBean implements StatelessAdmDespachosBeanRemote, Statel
 	}
 	
 	
-	public Despacho obtenerModuloPorNombre (String nombre){
-		
+	public Despacho obtenerModuloPorNombre(String nombre) {
 		Despacho despacho = (Despacho) em.createQuery("Select despacho from Despacho despacho where despacho.nombre =:nombre").setParameter("nombre", nombre).getSingleResult();
-		if(despacho != null){
+
+		if (despacho != null) {
 			return despacho;
-		}
-		
+		}		
 		else
 		{
 			//Deberia mandar una exception
 			return null;
 		}
 	}
-	
 
 	@SuppressWarnings({ "unchecked" })
-	public void enviarOrdenesEmitidas () throws Exception{
+	public void enviarOrdenesEmitidas() throws Exception {
 		
 		List<OrdenDespacho> ordenesEmitidas = em.createQuery("Select orden from OrdenDespacho orden where orden.estado =:estado").setParameter("estado", EstadoOrdenDespacho.Emitida).getResultList();
 		
@@ -277,39 +259,46 @@ public class AdmDespachosBean implements StatelessAdmDespachosBeanRemote, Statel
 			DespachoEnviarJSON json;
 			ItemDespachoEnviarJSON itemJson;
 			List<ItemDespachoEnviarJSON> itemsJson = new ArrayList<ItemDespachoEnviarJSON>();
-			for(OrdenDespacho orden: ordenesEmitidas){
+
+			for(OrdenDespacho orden: ordenesEmitidas) {
 				//Ahora le tengo que pegar a cada Rest de los modulos
 				
 				//Cargo el JSON
 				
 				json = new DespachoEnviarJSON();
-				json.setNombrePortal(orden.getVenta().getModulo().getNombre());
+				json.setIdPortal(orden.getVenta().getModulo().getNombre());
 				json.setIdVenta(orden.getVenta().getId());
-				
-				for(ItemVenta itemVenta: orden.getVenta().getItemsVenta()){
-					itemJson = new ItemDespachoEnviarJSON(itemVenta.getArticulo().getId().getId(), itemVenta.getCantidad());
+
+				for(ItemVenta itemVenta : orden.getVenta().getItemsVenta()) {
+					itemJson = new ItemDespachoEnviarJSON();
+					itemJson.setCodArticulo(itemVenta.getArticulo().getIdArticulo().getId());
+					itemJson.setCantidad(itemVenta.getCantidad());
+
 					itemsJson.add(itemJson);
-					}
+				}
+
 				json.setDetalles(itemsJson);
+
+				// Enviamos el JSON al Despacho correspondiente
 				
-				//Enviamos el JSON al Despacho Correspondiente
-				
-//				url = new URL("http://"+orden.getDespacho().getIp()+":8080/DespachoREST/rest/services/recepcionOrdenDespacho");
-				
-				//ESTO ES PARA PROBAR EN LA CASA DE SOFFIAN
+				// ESTO ES PARA PROBAR EN LA CASA DE SOFFIAN
 //				url = new URL("http://192.168.0.11:8080/LogisticaREST/rest/services/recepcionOrdenDespacho");
-				url = new URL("http://10.100.54.228:8080/LogisticaREST/rest/services/recepcionOrdenDespacho");
+				url = new URL("http://localhost:8080/LogisticaREST/rest/services/recepcionOrdenDespacho");
+
+				// DESCOMENTAR EL SABADO Y EL DIA DE LA PRUEBA FINAL
+//				url = new URL("http://" + orden.getDespacho().getIp() + ":8080/DespachoWeb/rest/services/recepcionOrdenDespacho");
 
 				urlConnection = (HttpURLConnection) url.openConnection();
 
 				urlConnection.setDoOutput(true);
 				urlConnection.setRequestMethod("POST");
 				urlConnection.setRequestProperty("Content-Type", "application/json");
+
 				mapper = new ObjectMapper();
-				
-				//Convierto el json a string con el JACKSON
+
+				// Convierto el objeto 'DespachoEnviarJSON' (json) a formato JSON con JACKSON
 				jsonInString = mapper.writeValueAsString(json);
-				
+
 				urlConnection.getOutputStream().write(jsonInString.getBytes());; // Envío de un string en formato Json
 
 //				connection = url.openConnection();
@@ -324,11 +313,10 @@ public class AdmDespachosBean implements StatelessAdmDespachosBeanRemote, Statel
 //					new InputStreamReader(
 //                	connection.getInputStream()));
 //					String decodedString;
-//					
-				InputStream respuestaPrueba= urlConnection.getInputStream();
-				
-				//TODO
-				
+//				
+
+				InputStream respuesta = urlConnection.getInputStream();
+
 //				response = new StringBuffer();
 //				
 //				while ((decodedString = in.readLine()) != null) {
@@ -337,33 +325,42 @@ public class AdmDespachosBean implements StatelessAdmDespachosBeanRemote, Statel
 //				in.close();
 //				
 
-				
-				mapper = new ObjectMapper();
-//		        respuestaDespacho = mapper.readValue(response.toString(), DespachoRespuestaJSON.class);
-		        
-		      
-//		        if(respuestaDespacho.getProcesado().equalsIgnoreCase("true")){
-//		        	//El despacho la recibio correctamente
-//		        	
-//		        	orden.setEstado(EstadoOrdenDespacho.Enviada);
-//		        	//Me guardo el Id Externo que me dio el Despacho
+//				mapper = new ObjectMapper();
+		        respuestaDespacho = mapper.readValue(respuesta.toString(), DespachoRespuestaJSON.class);
+
+		        if (respuestaDespacho.getProcesado().equalsIgnoreCase("true")) {
+		        	// El despacho la recibio correctamente
+		        	orden.setEstado(EstadoOrdenDespacho.Enviada);
+		        	// Me guardo el ID propio de la Base de Datos de Despacho (IdExterna)!
+		        	orden.setIdExterna(respuestaDespacho.getIdOrdenDespacho());
+
+		        	em.merge(orden);
+		        } else {
+		        	// No se pudo procesar el despacho por algun motivo
+		        	orden.setEstado(EstadoOrdenDespacho.Rechazada);
+
 //		        	orden.setIdExterna(respuestaDespacho.getIdOrdenDespacho());
-//		        	em.merge(orden);
-//		        }
-//		        
-//		        else
-//		        {
-//		        	//No se pudo procesar el despacho por algun motivo
-//		        	orden.setEstado(EstadoOrdenDespacho.Rechazada);
-//		        	em.merge(orden);
-//		        }
-						
-				
+
+		        	em.merge(orden);
+		        }
+
 			}
+
 		}
-		
-		
+
 	}
-	
-    
+
+	public void cambiarEstadoOrdenDeDespacho(OrdenDespachoDTO ordenDespacho) throws Exception {
+//		OrdenDespacho orden = em.find(OrdenDespacho.class, ordenDespacho.getIdExterna());
+		OrdenDespacho orden = (OrdenDespacho) em.createQuery("select o from OrdenDespacho o where o.idExterna =:idExterna").setParameter("idExterna", ordenDespacho.getIdExterna()).getSingleResult();
+
+		if (orden != null) {
+			orden.setEstado(ordenDespacho.getEstado());
+
+			em.merge(orden);
+		} else {
+			throw new Exception("No se encontró una orden de despacho con ese identificador.");
+		}
+	}
+
 }

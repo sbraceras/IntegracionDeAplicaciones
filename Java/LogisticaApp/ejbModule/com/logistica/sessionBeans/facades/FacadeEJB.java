@@ -6,11 +6,14 @@ import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
+import com.logistica.dtos.DespachoDTO;
 import com.logistica.dtos.LogDTO;
+import com.logistica.dtos.OrdenDespachoDTO;
 import com.logistica.dtos.VentaDTO;
 import com.logistica.interfaces.FacadeEJBLocal;
 import com.logistica.interfaces.FacadeEJBRemote;
-import com.logistica.sessionBeans.AdministradorLog;
+import com.logistica.sessionBeans.AdministradorAuditoria;
+import com.logistica.sessionBeans.AdministradorDespachos;
 import com.logistica.sessionBeans.AdministradorVentas;
 
 /**
@@ -22,15 +25,12 @@ public class FacadeEJB implements FacadeEJBLocal, FacadeEJBRemote {
 
 	@EJB
 	AdministradorVentas av;
-	
+
 	@EJB
-	AdministradorLog al;
+	AdministradorAuditoria aa;
 
-	// @EJB
-	// DespachosManager dm;
-
-	// @EJB
-	// AuditoriaManager am;
+	@EJB
+	AdministradorDespachos ad;
 
 	/**
 	 * Default constructor.
@@ -45,18 +45,38 @@ public class FacadeEJB implements FacadeEJBLocal, FacadeEJBRemote {
 	}
 
 	@Override
-	public void agregarPortalWeb() {
-		av.agregarPortalWeb();
-	}
-	
-	@Override
 	public void recepcionDeLog(LogDTO logDTO) throws Exception {
-		al.guardarLog(logDTO);
+		aa.guardarLog(logDTO);
 	}
-	
+
 	@Override
-	public List<LogDTO> buscarLogs() throws Exception{
-		return al.buscarLogs();
+	public List<LogDTO> buscarLogs() throws Exception {
+		return aa.buscarLogs();
+	}
+
+	@Override
+	public List<VentaDTO> listarVentasSinOrdenDespacho() {
+		return ad.listarVentasSinOrdenDespacho();
+	}
+
+	@Override
+	public DespachoDTO obtenerDespachoCercanoCliente(VentaDTO venta) throws Exception {
+		return ad.obtenerDespachoCercanoCliente(venta);
+	}
+
+	@Override
+	public void emitirOrdenDespacho(VentaDTO dto) {
+		ad.emitirOrdenDespacho(dto);
+	}
+
+	@Override
+	public void enviarOrdenesEmitidas() throws Exception {
+		ad.enviarOrdenesEmitidas();
+	}
+
+	@Override
+	public void cambiarEstadoOrdenDeDespacho(OrdenDespachoDTO ordenDespacho) throws Exception {
+		ad.cambiarEstadoOrdenDeDespacho(ordenDespacho);
 	}
 
 }

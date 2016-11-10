@@ -21,40 +21,18 @@ import com.logistica.dtos.DireccionDTO;
 import com.logistica.dtos.ItemVentaDTO;
 import com.logistica.dtos.OrdenDespachoDTO;
 import com.logistica.dtos.VentaDTO;
-import com.logistica.entityBeans.ItemVenta;
 import com.logistica.interfaces.FacadeEJBRemote;
-import com.logistica.interfaces.StatelessAdmDespachosBeanRemote;
 import com.logistica.jsons.GoogleRespuestaJSON;
-import com.logistica.sessionBeans.AdmDespachosBean;
+import com.logistica.sessionBeans.AdministradorDespachos;
 
 
 public class Test {
-
 	
 	@EJB
-	AdmDespachosBean despachos;
+	AdministradorDespachos despachos;
+
 	public static void main(String[] args) throws Exception {
 
-		
-		final Hashtable jndiProperties2 = new Hashtable();
-		jndiProperties2.put(Context.URL_PKG_PREFIXES, "org.jboss.ejb.client.naming");
-		jndiProperties2.put("jboss.naming.client.ejb.context", true);
-
-		final Context context2 = new InitialContext(jndiProperties2);
-		final String earName2 = "LogisticaAppEAR";
-		final String ejbModuleName2 = "LogisticaApp";
-		final String distinctName2 = "";
-		final String ejbClassName2 = "AdmDespachosBean";
-		final String fullInterfaceName2 = StatelessAdmDespachosBeanRemote.class.getName();
-
-		String lookupName2 = "ejb:" + earName2 + "/" + ejbModuleName2 + "/" + distinctName2 + "/" + ejbClassName2 + "!"
-				+ fullInterfaceName2;
-
-		System.out.println("Conectando a " + lookupName2);
-		
-		StatelessAdmDespachosBeanRemote mbr2 = (StatelessAdmDespachosBeanRemote) context2.lookup(lookupName2);
-
-		
 		final Hashtable jndiProperties = new Hashtable();
 		jndiProperties.put(Context.URL_PKG_PREFIXES, "org.jboss.ejb.client.naming");
 		jndiProperties.put("jboss.naming.client.ejb.context", true);
@@ -70,16 +48,12 @@ public class Test {
 				+ fullInterfaceName;
 
 		System.out.println("Conectando a " + lookupName);
-		
+
 		FacadeEJBRemote mbr = (FacadeEJBRemote) context.lookup(lookupName);
 
-//		mbr2.enviarOrdenesEmitidas();
-		
-		//Borrar!!
+//		mbr.enviarOrdenesEmitidas();
 		
 //		mbr.agregarPortalWeb();
-		
-				
 
 		VentaDTO venta = new VentaDTO();
 		ClienteDTO cliente = new ClienteDTO();
@@ -123,27 +97,25 @@ public class Test {
 
 		// enviamos la venta al Session Bean!
 		mbr.recepcionDeVenta(venta);
-//		mbr2.obetenerModulo();
-//		mbr2.cargarDespachos();
-		//Levanto las ventas sin Orden Asociada
-//		List<VentaDTO> ventasSinDespacho = mbr2.listarVentasSinOrdenDespacho();
-		
-		
+
+//		mbr.obetenerModulo();
+//		mbr.cargarDespachos();
+
+		// levanto las ventas sin Orden Asociada
+//		List<VentaDTO> ventasSinDespacho = mbr.listarVentasSinOrdenDespacho();
+
 		OrdenDespachoDTO ordenDTO = new OrdenDespachoDTO();
 		DespachoDTO despachoDTO = new DespachoDTO();
 		despachoDTO.setNombre("DESPACHO_GRUPO_5");
 		ordenDTO.setDespacho(despachoDTO);
-		
-		venta.setOrdenDespacho(ordenDTO);
-		
-//		mbr2.emitirOrdenDespacho(venta);
 
-		
-			
-		DespachoDTO despacho = mbr2.obtenerDespachoCercanoCliente(venta);
+		venta.setOrdenDespacho(ordenDTO);
+
+//		mbr.emitirOrdenDespacho(venta);
+
+		DespachoDTO despacho = mbr.obtenerDespachoCercanoCliente(venta);
 		String auxiliar = despacho.getIp();
-		
-		
+
 		String apiKey= "AIzaSyBrrSMBrm1CLgq1bgBjOM_Zyp6xwUHLVko";
 		String latitudOrigen= "-34.610359";
 		String longitudOrigen= "-58.374992";

@@ -10,7 +10,7 @@ import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.TextMessage;
 
-import com.logistica.sessionBeans.AdministradorLog; // AuditoriaManager
+import com.logistica.sessionBeans.AdministradorAuditoria; // AuditoriaManager
 
 /**
  * Message-Driven Bean implementation class for: AuditoriaDriver
@@ -21,7 +21,7 @@ import com.logistica.sessionBeans.AdministradorLog; // AuditoriaManager
 public class AuditoriaDriver implements MessageListener {
 
 	@EJB
-	AdministradorLog al;
+	AdministradorAuditoria al;
 
 	/**
 	 * Default constructor.

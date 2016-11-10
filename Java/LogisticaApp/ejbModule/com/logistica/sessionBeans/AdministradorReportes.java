@@ -1,9 +1,7 @@
 package com.logistica.sessionBeans;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -19,22 +17,19 @@ import com.logistica.entityBeans.Articulo;
 import com.logistica.entityBeans.Modulo;
 import com.logistica.enums.TipoModulo;
 import com.logistica.jsons.BestSellerJSON;
-import com.logistica.jsons.DespachoRespuestaJSON;
 import com.logistica.jsons.ItemBestSellerJSON;
 import com.logistica.jsons.RecepcionBestSellerJSON;
 
 @Stateless
 @LocalBean
-public class AdministradorReportes implements AdministradorReportesRemote, AdministradorReportesLocal {
+public class AdministradorReportes {
 
 	@PersistenceContext(unitName="MyPersistenceUnit")
 	private EntityManager em;
-	
-	
-	public List<RecepcionBestSellerJSON> enviarReporteBestSeller() throws IOException{
-		
+
+	public List<RecepcionBestSellerJSON> enviarReporteBestSeller() throws Exception {
 		//Levanto los 10 Productos mas vendidos
-		
+
 		@SuppressWarnings("unchecked")
 		List<Articulo> articulosVendidos = em.createQuery("Select articulo from Articulo articulo order by articulo.ventasAcumuladas desc").setFirstResult(0).setMaxResults(10).getResultList();
 		
@@ -47,8 +42,8 @@ public class AdministradorReportes implements AdministradorReportesRemote, Admin
 				itemBestSellerJSON = new ItemBestSellerJSON();
 				
 //				itemBestSellerJSON.setCodigo(articulo.getId().toString()); //Esto es si llegan a querer el codigo compuesto, pero en el Excel no se veia asi
-				itemBestSellerJSON.setCodigo(articulo.getId().getId());
-				itemBestSellerJSON.setNombreDeposito(articulo.getId().getNombreDeposito());
+				itemBestSellerJSON.setCodigo(articulo.getIdArticulo().getId());
+				itemBestSellerJSON.setNombreDeposito(articulo.getIdArticulo().getNombreDeposito());
 				itemBestSellerJSON.setPosicion(posicion);
 				posicion++;
 				itemsJSON.add(itemBestSellerJSON);
@@ -114,6 +109,8 @@ public class AdministradorReportes implements AdministradorReportesRemote, Admin
 			//Habria que lanzar una exception
 			return null;
 		}
+
+		return null;
 	}
 
 }
