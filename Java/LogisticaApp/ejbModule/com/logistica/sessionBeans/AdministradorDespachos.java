@@ -96,27 +96,25 @@ public class AdministradorDespachos {
 				//Hago la peticion a Google Maps
 				HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
 
+		        URLConnection connection = url.openConnection();
+		        connection.setDoOutput(true);
 
-			        URLConnection connection = url.openConnection();
-			        connection.setDoOutput(true);
+		        OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream());
+		        out.write("string=");
+		        out.close();
 
-			        OutputStreamWriter out = new OutputStreamWriter(
-			                                         connection.getOutputStream());
-			        out.write("string=");
-			        out.close();
+		        BufferedReader in = new BufferedReader(
+		                                    new InputStreamReader(connection.getInputStream()));
 
-			        BufferedReader in = new BufferedReader(
-			                                    new InputStreamReader(
-			                                    connection.getInputStream()));
-			        String decodedString;
-			        StringBuffer response = new StringBuffer();
-			        while ((decodedString = in.readLine()) != null) {
-			            response.append(decodedString);
-			        }
-			        in.close();
-				
-			        ObjectMapper mapper = new ObjectMapper();
-			        GoogleRespuestaJSON maps = mapper.readValue(response.toString(), GoogleRespuestaJSON.class);
+		        String decodedString;
+		        StringBuffer response = new StringBuffer();
+		        while ((decodedString = in.readLine()) != null) {
+		            response.append(decodedString);
+		        }
+		        in.close();
+			
+		        ObjectMapper mapper = new ObjectMapper();
+		        GoogleRespuestaJSON maps = mapper.readValue(response.toString(), GoogleRespuestaJSON.class);
 			        
 				//Controlo si es el primer Despacho que recorri o si es otro que esta mas cercano
 				if((cercano == null) || (maps.getRows()[0].getElements()[0].getDistance().getValue() < distanciaMenor)){

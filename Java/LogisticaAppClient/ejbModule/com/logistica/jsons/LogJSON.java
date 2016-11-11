@@ -6,7 +6,7 @@ public class LogJSON {
 
 	private Date fecha; // "2002-05-30T09:00:00"
 	private String tipo; // "Portal"
-	private String modulo; // "PortalWebAmazon"
+	private String modulo; // "GXX"
 	private String descripcion; // "Descripcion del evento"
 
 	public LogJSON() {

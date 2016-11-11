@@ -3,7 +3,7 @@ package com.logistica.dtos;
 import java.io.Serializable;
 import java.util.Date;
 
-import com.logistica.enums.TipoLog;
+import com.logistica.enums.TipoModulo;
 
 public class LogDTO implements Serializable {
 
@@ -11,10 +11,13 @@ public class LogDTO implements Serializable {
 
 	private int id;
 	private Date fecha;
-	private TipoLog tipo;
-	private String descripcion;
-	private String ip;
+	private TipoModulo tipoModulo;
 	private String nombreModulo;
+	private String descripcion;
+
+	public LogDTO() {
+		
+	}
 
 	public int getId() {
 		return id;
@@ -32,28 +35,12 @@ public class LogDTO implements Serializable {
 		this.fecha = fecha;
 	}
 
-	public TipoLog getTipo() {
-		return tipo;
+	public TipoModulo getTipoModulo() {
+		return tipoModulo;
 	}
 
-	public void setTipo(TipoLog tipo) {
-		this.tipo = tipo;
-	}
-
-	public String getDescripcion() {
-		return descripcion;
-	}
-
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
-
-	public String getIp() {
-		return ip;
-	}
-
-	public void setIp(String ip) {
-		this.ip = ip;
+	public void setTipoModulo(TipoModulo tipoModulo) {
+		this.tipoModulo = tipoModulo;
 	}
 
 	public String getNombreModulo() {
@@ -62,6 +49,14 @@ public class LogDTO implements Serializable {
 
 	public void setNombreModulo(String nombreModulo) {
 		this.nombreModulo = nombreModulo;
+	}
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 
 }
