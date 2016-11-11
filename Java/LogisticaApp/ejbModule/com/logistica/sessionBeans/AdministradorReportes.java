@@ -15,8 +15,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.logistica.dtos.BestSellerDTO;
 import com.logistica.dtos.ItemBestSellerDTO;
 import com.logistica.dtos.RecepcionBestSellerDTO;
+import com.logistica.dtos.VentaDTO;
 import com.logistica.entityBeans.Articulo;
 import com.logistica.entityBeans.Modulo;
+import com.logistica.entityBeans.Venta;
 import com.logistica.enums.TipoModulo;
 import com.logistica.jsons.BestSellerJSON;
 import com.logistica.jsons.ItemBestSellerJSON;
@@ -151,6 +153,32 @@ public class AdministradorReportes {
 		bestSeller.setItems(itemsBest);
 		return bestSeller;
 		
+	}
+	
+	//Este lo utiliza la Web para hacer el Reporte de Ventas Recibidas
+	public List<VentaDTO> obtenerVentasRecibidas() throws Exception{
+		
+		@SuppressWarnings("unchecked")
+		//Obtengo las ventas de la BD
+		List<Venta> ventas = em.createQuery("Select venta from Venta venta").getResultList();
+		
+		//Verifico si devolvio algo
+		if(ventas != null){
+			
+			List<VentaDTO> devolver = new ArrayList<VentaDTO>();
+			//Las convierto a DTO
+			for(Venta venta: ventas){
+				devolver.add(venta.toDTO());
+			}
+			
+			return devolver;
+			
+		}
+		//No encontro nada, entonces tiro exception
+		else
+		{
+			throw new Exception("No se han encontrado Ventas");
+		}
 	}
 
 }
