@@ -328,8 +328,11 @@ public class AdministradorDespachos {
 
 		if (orden != null) {
 			orden.setEstado(ordenDespacho.getEstado());
-
 			em.merge(orden);
+			//Ahora se actualiza el estado de la venta
+			Venta venta = orden.getVenta();
+			venta.setEstado(EstadoVenta.Finalizada);
+			em.merge(venta);
 		} else {
 			throw new Exception("No se encontró una orden de despacho con ese identificador.");
 		}

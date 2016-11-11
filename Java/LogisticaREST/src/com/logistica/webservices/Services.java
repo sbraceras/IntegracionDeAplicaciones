@@ -20,6 +20,7 @@ import com.logistica.jsons.DespachoEnviarJSON;
 import com.logistica.jsons.LogJSON;
 import com.logistica.jsons.RecepcionCambioEstadoOrdenJSON;
 import com.logistica.jsons.RespuestaCambioEstadoOrdenJSON;
+import com.logistica.jsons.RespuestaRecepcionVentaJSON;
 
 
 @Path("/services")
@@ -29,8 +30,10 @@ public class Services {
 	@POST
 	@Path("/envioVenta")
 	@Consumes({"application/json"})	// consumimos (recibimos) una venta como JSON. Luego se parsea automaticamente a un objeto de tipo VentaDTO
-	@Produces({"text/plain"})		// enviamos un response con la respuesta ('recepcion ok' o bien 'recepcion error: 'mensaje de error'')
-	public String recibirVenta(VentaDTO venta) {
+	@Produces({"application/json"})		// enviamos un response con la respuesta ('recepcion ok' o bien 'recepcion error: 'mensaje de error'')
+	public RespuestaRecepcionVentaJSON recibirVenta(VentaDTO venta) {
+		
+		RespuestaRecepcionVentaJSON respuesta = new RespuestaRecepcionVentaJSON();
 		try {
 			CoordenadaDTO coordenada = new CoordenadaDTO();
 			coordenada.setLatitud(venta.getLatitud());
@@ -42,13 +45,17 @@ public class Services {
 			venta.getCliente().setDireccion(direccion);
 
 			BusinessDelegate.getInstance().registrarVenta(venta);
-
-			return "recepcion ok";
+			
+			respuesta.setResultado(true);
+			respuesta.setMessage("Recepcion de venta exitosa");
+			
+			return respuesta;
 
 		} catch (Exception e) {
 			e.printStackTrace();
-
-			return "recepcion error: " + e.getMessage();
+			respuesta.setResultado(false);
+			respuesta.setMessage("Error en la recepcion");
+			return respuesta;
 		}
 	}
 	
