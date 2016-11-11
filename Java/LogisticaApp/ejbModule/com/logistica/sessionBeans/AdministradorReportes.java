@@ -171,8 +171,7 @@ public class AdministradorReportes {
 				devolver.add(venta.toDTO());
 			}
 			
-			return devolver;
-			
+			return devolver;			
 		}
 		//No encontro nada, entonces tiro exception
 		else
