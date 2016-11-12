@@ -21,10 +21,10 @@ public class ItemVenta {
 	@Column(name = "idItemVenta")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
+
 	private double cantidad;
 
 	@ManyToOne(fetch = FetchType.EAGER)
-//	@JoinColumn(name = "idArticulo")
 	@JoinColumns({ @JoinColumn(name = "id"), @JoinColumn(name = "nombreDeposito") })
 	private Articulo articulo;
 

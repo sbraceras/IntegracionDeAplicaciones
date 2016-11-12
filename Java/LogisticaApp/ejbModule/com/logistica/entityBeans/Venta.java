@@ -6,10 +6,12 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -23,12 +25,11 @@ import com.logistica.enums.EstadoVenta;
 @Table(name = "Ventas")
 public class Venta {
 
-	@Id
-	@Column(name = "idVenta")
-	private int id;
+	@EmbeddedId
+	private IDVenta id;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "idVenta")
+	@JoinColumns({ @JoinColumn(name = "idVenta"), @JoinColumn(name = "idModulo") })
 	private List<ItemVenta> itemsVenta;
 
 	private Date fechaHora;
@@ -38,35 +39,32 @@ public class Venta {
 	private OrdenDespacho ordenDespacho;
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "idModulo")
-	private Modulo modulo;
-
-	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "idCliente")
 	private Cliente cliente;
+
 	private EstadoVenta estado;
 
 	public Venta() {
 
 	}
 
-	public Venta(int id, ArrayList<ItemVenta> itemsVenta, Date fechaHora, float montoTotal, OrdenDespacho ordenDespacho,
-			Modulo modulo, Cliente cliente, EstadoVenta estado) {
+	public Venta(IDVenta id, List<ItemVenta> itemsVenta, Date fechaHora, float montoTotal, OrdenDespacho ordenDespacho,
+			Cliente cliente, EstadoVenta estado) {
+		super();
 		this.id = id;
 		this.itemsVenta = itemsVenta;
 		this.fechaHora = fechaHora;
 		this.montoTotal = montoTotal;
 		this.ordenDespacho = ordenDespacho;
-		this.modulo = modulo;
 		this.cliente = cliente;
 		this.estado = estado;
 	}
 
-	public int getId() {
+	public IDVenta getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(IDVenta id) {
 		this.id = id;
 	}
 
@@ -102,14 +100,6 @@ public class Venta {
 		this.ordenDespacho = ordenDespacho;
 	}
 
-	public Modulo getModulo() {
-		return modulo;
-	}
-
-	public void setModulo(Modulo modulo) {
-		this.modulo = modulo;
-	}
-
 	public Cliente getCliente() {
 		return cliente;
 	}
@@ -128,12 +118,13 @@ public class Venta {
 
 	public VentaDTO toDTO() {
 		VentaDTO ventaDTO = new VentaDTO();
+
+		ventaDTO.setId(this.id.getId());
 		ventaDTO.setCliente(cliente.toDTO());
 		ventaDTO.setEstado(this.estado);
-		ventaDTO.setFechaHoraVenta(this.fechaHora);
-		ventaDTO.setId(this.id);
-		String ip = "" + this.modulo.getIp();
-		ventaDTO.setIpModulo(ip);
+		ventaDTO.setFechaHoraVenta(this.fechaHora); 
+		ventaDTO.setIpModulo(this.id.getModulo().getIp());
+
 		ItemVentaDTO itemVentaDTO;
 		List<ItemVentaDTO> itemsVentaDTO = new ArrayList<ItemVentaDTO>();
 		for (ItemVenta item : this.itemsVenta) {
@@ -142,7 +133,7 @@ public class Venta {
 			itemsVentaDTO.add(itemVentaDTO);
 		}
 		ventaDTO.setItemsVenta(itemsVentaDTO);
-		ventaDTO.setNombrePortal(this.getModulo().getNombre());
+		ventaDTO.setNombrePortal(this.id.getModulo().getNombre());
 		ventaDTO.setMonto(this.montoTotal);
 		if(this.ordenDespacho!=null)
 			ventaDTO.setOrdenDespacho(ordenDespacho.toDTO());
@@ -155,7 +146,12 @@ public class Venta {
 		venta.setCliente(cliente);
 		venta.setFechaHora(dto.getFechaHoraVenta());
 		venta.setMontoTotal(dto.getMonto());
-		venta.setId(dto.getId());
+
+		IDVenta id = new IDVenta();
+		id.setId(dto.getId());
+		id.setModulo(null);
+		venta.setId(id);
+
 		List<ItemVenta> items = new ArrayList<ItemVenta>();
 		ItemVenta item;
 

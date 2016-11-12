@@ -262,8 +262,8 @@ public class AdministradorDespachos {
 				//Cargo el JSON
 				
 				json = new DespachoEnviarJSON();
-				json.setIdPortal(orden.getVenta().getModulo().getNombre());
-				json.setIdVenta(orden.getVenta().getId());
+				json.setIdPortal(orden.getVenta().getId().getModulo().getNombre());
+				json.setIdVenta(orden.getVenta().getId().getId());
 
 				for(ItemVenta itemVenta : orden.getVenta().getItemsVenta()) {
 					itemJson = new ItemDespachoEnviarJSON();

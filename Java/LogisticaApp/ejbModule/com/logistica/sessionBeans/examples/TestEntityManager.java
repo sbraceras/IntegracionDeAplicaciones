@@ -6,7 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import com.logistica.entityBeans.Articulo;
-import com.logistica.entityBeans.IdArticulo;
+import com.logistica.entityBeans.IDArticulo;
 import com.logistica.interfaces.TestEntityManagerLocal;
 import com.logistica.interfaces.TestEntityManagerRemote;
 
@@ -28,7 +28,7 @@ public class TestEntityManager implements TestEntityManagerRemote, TestEntityMan
 	}
 
 	public void nuevoArticulo() {
-		IdArticulo idArticulo = new IdArticulo();
+		IDArticulo idArticulo = new IDArticulo();
 		idArticulo.setId(100);
 		idArticulo.setNombreDeposito("G06");
 

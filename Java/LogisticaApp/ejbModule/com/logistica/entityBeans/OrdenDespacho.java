@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -34,14 +35,14 @@ public class OrdenDespacho {
 	private Date fecha;
 	private EstadoOrdenDespacho estado;
 	
-	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="idModulo")
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="idDespacho")
 	private Despacho despacho;
-	
-	@OneToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name = "idVenta") 
+
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumns({ @JoinColumn(name = "idVenta"), @JoinColumn(name = "idModulo") })
 	private Venta venta;
-	
+
 	public OrdenDespacho() {
 		this.idExterna = -1;
 	}
@@ -98,12 +99,14 @@ public class OrdenDespacho {
 
 	public OrdenDespachoDTO toDTO(){
 		OrdenDespachoDTO ordenDespachoDTO = new OrdenDespachoDTO();
+
 		ordenDespachoDTO.setDespacho(this.despacho.toDTO());
 		ordenDespachoDTO.setEstado(this.estado);
 		ordenDespachoDTO.setFecha(this.fecha);
 		ordenDespachoDTO.setId(this.id);
-		ordenDespachoDTO.setVenta(this.venta.getId());
+		ordenDespachoDTO.setVenta(this.venta.getId().getId());
 		ordenDespachoDTO.setIdExterna(this.idExterna);
+
 		return ordenDespachoDTO;
 	}
 	
