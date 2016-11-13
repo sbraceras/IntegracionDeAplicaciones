@@ -10,7 +10,7 @@ import com.logistica.dtos.VentaDTO;
 import com.logistica.entityBeans.Articulo;
 import com.logistica.entityBeans.Cliente;
 import com.logistica.entityBeans.Estandar;
-import com.logistica.entityBeans.IdArticulo;
+import com.logistica.entityBeans.IDArticulo;
 import com.logistica.entityBeans.Modulo;
 import com.logistica.entityBeans.Venta;
 import com.logistica.enums.EstadoVenta;
@@ -57,9 +57,9 @@ public class AdministradorVentas {
 				em.merge(cliente);
 			}
 			
-			IdArticulo idArticulo;
+			IDArticulo idArticulo;
 			for(ItemVentaDTO item: ventaDTO.getItemsVenta()){
-				idArticulo = new IdArticulo();
+				idArticulo = new IDArticulo();
 				idArticulo.setId(item.getArticulo().getIdProducto());
 				idArticulo.setNombreDeposito(item.getArticulo().getNombreDeposito());
 				Articulo articulo = em.find(Articulo.class, idArticulo);
