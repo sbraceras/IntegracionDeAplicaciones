@@ -9,6 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import com.logistica.dtos.LogDTO;
+import com.logistica.entityBeans.Articulo;
 import com.logistica.entityBeans.Despacho;
 import com.logistica.entityBeans.Estandar;
 import com.logistica.entityBeans.Log;
@@ -26,7 +27,7 @@ public class AdministradorAuditoria {
 
 	private static String busquedaModulosDepositos = "SELECT d FROM Despacho d WHERE d.nombre LIKE :descripcionDespacho";
 	private static String busquedaModulosEstandars = "SELECT e FROM Estandar e WHERE e.nombre LIKE :descripcionEstandar";
-	private static String busquedaLogs = "SELECT l FROM Log l";
+	private static String busquedaLogs = "SELECT l FROM Log l ORDER BY l.fecha desc";
 
 	/**
 	 * Default constructor.
@@ -85,7 +86,7 @@ public class AdministradorAuditoria {
 
 	@SuppressWarnings("unchecked")
 	public List<Log> buscarLogsQuery() {
-		return em.createQuery(busquedaLogs).getResultList();
+		return em.createQuery(busquedaLogs).setFirstResult(0).setMaxResults(10).getResultList();
 	}
 
 }

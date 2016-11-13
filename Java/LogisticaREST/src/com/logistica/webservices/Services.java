@@ -10,14 +10,17 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
 import com.logistica.businessDelegate.BusinessDelegate;
+import com.logistica.dtos.BestSellerDTO;
 import com.logistica.dtos.CoordenadaDTO;
 import com.logistica.dtos.DireccionDTO;
 import com.logistica.dtos.LogDTO;
 import com.logistica.dtos.OrdenDespachoDTO;
 import com.logistica.dtos.VentaDTO;
 import com.logistica.enums.EstadoOrdenDespacho;
+import com.logistica.jsons.BestSellerJSON;
 import com.logistica.jsons.DespachoEnviarJSON;
 import com.logistica.jsons.LogJSON;
+import com.logistica.jsons.RecepcionBestSellerJSON;
 import com.logistica.jsons.RecepcionCambioEstadoOrdenJSON;
 import com.logistica.jsons.RespuestaCambioEstadoOrdenJSON;
 import com.logistica.jsons.RespuestaRecepcionVentaJSON;
@@ -122,24 +125,20 @@ public class Services {
 
 
 
-
-
-
-
-
+	
+	
+	
 
 	//////////////////////////////////////////////////////////////////
 	// PRUEBA RECEPCION ORDEN DESPACHO. Simulamos ser modulo Despacho. 
 	@POST
 	@Path("/recepcionOrdenDespacho")
 	@Consumes({"application/json"})	// Indica que consume (recibe) un objeto Json en el POST. Lo parsea a un objeto de tipo LogDTO
-	@Produces({"application/json"})
+	@Produces({"text/plain"})
 	public String recepcionOrdenDespacho(DespachoEnviarJSON despachoEnviar) {
 
 		try {
-//			throw new Exception();
-			int i = 0;
-			System.out.println("hola");
+//			throw new Exception("EEE LOCOOOO");
 
 			return "{\"procesado\" : \"true\" , \"idOrdenDespacho\" : 1234 }";
 		} catch (Exception e) {
@@ -148,5 +147,36 @@ public class Services {
 		}
 
 	}
+	
+	
+//////////////////////////////////////////////////////////////////
+// PRUEBA RECEPCION Ranking Best Sellers. Simulamos ser modulo Portal Web. 
+	@POST
+	@Path("/recibirBestSeller")
+	@Consumes({"application/json"})	// Indica que consume (recibe) un objeto Json en el POST. Lo parsea a un objeto de tipo LogDTO
+	@Produces({"application/json"})
+	public RecepcionBestSellerJSON enviarReporteBestSellers(BestSellerJSON bestSeller) {
+
+		RecepcionBestSellerJSON recepcion = new RecepcionBestSellerJSON();
+		try {
+//			throw new Exception("E LOCOOO");
+			int i = 0;
+			System.out.println("hola");
+			
+			recepcion.setEstado("OK");
+			recepcion.setMensaje("Actualizacion exitosa");
+			return recepcion;
+			
+		} catch (Exception e) {
+
+			recepcion.setEstado("ERROR");
+			recepcion.setMensaje(e.getMessage());
+			e.printStackTrace();
+			return recepcion;
+		}
+
+	}
+	
+	
 
 }
