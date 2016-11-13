@@ -224,11 +224,11 @@ public class Test {
 
 
 		// enviamos la venta al Session Bean!
-		mbr.recepcionDeVenta(venta);
+//		mbr.recepcionDeVenta(venta);
 		
-		BestSellerDTO bestSellerWeb = mbr.generarReporteBestSeller();
+//		BestSellerDTO bestSellerWeb = mbr.generarReporteBestSeller();
 		
-		bestSellerWeb.getItems();
+//		bestSellerWeb.getItems();
 
 //		mbr.obetenerModulo();
 //		mbr.cargarDespachos();
@@ -238,12 +238,14 @@ public class Test {
 
 		OrdenDespachoDTO ordenDTO = new OrdenDespachoDTO();
 		DespachoDTO despachoDTO = new DespachoDTO();
-		despachoDTO.setNombre("DESPACHO_GRUPO_5");
+		despachoDTO.setNombre("G05");
 		ordenDTO.setDespacho(despachoDTO);
 
 		venta.setOrdenDespacho(ordenDTO);
 
-//		mbr.emitirOrdenDespacho(venta);
+		mbr.emitirOrdenDespacho(venta);
+
+		mbr.enviarOrdenesEmitidas();
 
 		DespachoDTO despacho = mbr.obtenerDespachoCercanoCliente(venta);
 		String auxiliar = despacho.getIp();
