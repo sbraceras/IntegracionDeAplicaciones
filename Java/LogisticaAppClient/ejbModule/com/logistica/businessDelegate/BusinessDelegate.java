@@ -7,8 +7,10 @@ import java.util.List;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 
+import com.logistica.dtos.BestSellerDTO;
 import com.logistica.dtos.LogDTO;
 import com.logistica.dtos.OrdenDespachoDTO;
+import com.logistica.dtos.RecepcionBestSellerDTO;
 import com.logistica.dtos.VentaDTO;
 import com.logistica.interfaces.FacadeEJBRemote;
 
@@ -66,6 +68,15 @@ public class BusinessDelegate {
 			throw new Exception("Se ha producido un error al cambiar el estado de la Orden De Despacho. " + e.getMessage());
 		}
 	}
+	
+	public List<RecepcionBestSellerDTO> enviarReporteBestSeller() throws Exception{
+		return stub.enviarReporteBestSeller();
+	}
+	
+	public BestSellerDTO generarReporteBestSeller(){
+		return stub.generarReporteBestSeller();
+	}
+	
 
 	private static FacadeEJBRemote getStub() throws Exception {
 		final Hashtable jndiProperties = new Hashtable();

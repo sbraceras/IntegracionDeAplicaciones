@@ -7,6 +7,7 @@ public class RecepcionBestSellerDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	String estado;
 	String mensaje;
+	String nombrePortal;
 	
 	public RecepcionBestSellerDTO() {
 	}
@@ -26,5 +27,14 @@ public class RecepcionBestSellerDTO implements Serializable{
 	public void setMensaje(String mensaje) {
 		this.mensaje = mensaje;
 	}
+
+	public String getNombrePortal() {
+		return nombrePortal;
+	}
+
+	public void setNombrePortal(String nombrePortal) {
+		this.nombrePortal = nombrePortal;
+	}
+
 	
 }

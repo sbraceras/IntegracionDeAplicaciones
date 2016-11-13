@@ -91,7 +91,7 @@ public class FacadeEJB implements FacadeEJBLocal, FacadeEJBRemote {
 	}
 	
 	@Override
-	public BestSellerDTO generarBestSellerWeb(){
-		return ar.generarBestSellerWeb();
+	public BestSellerDTO generarReporteBestSeller(){
+		return ar.generarReporteBestSeller();
 	}
 }

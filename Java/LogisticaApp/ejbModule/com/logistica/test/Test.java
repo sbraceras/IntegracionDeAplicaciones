@@ -224,9 +224,9 @@ public class Test {
 
 
 		// enviamos la venta al Session Bean!
-//		mbr.recepcionDeVenta(venta);
+		mbr.recepcionDeVenta(venta);
 		
-		BestSellerDTO bestSellerWeb = mbr.generarBestSellerWeb();
+		BestSellerDTO bestSellerWeb = mbr.generarReporteBestSeller();
 		
 		bestSellerWeb.getItems();
 

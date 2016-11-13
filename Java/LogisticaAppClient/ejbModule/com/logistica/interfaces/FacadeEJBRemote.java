@@ -41,9 +41,9 @@ public interface FacadeEJBRemote {
 
 	// METODOS QUE IMPLEMENTA EL SESSION BEAN 'AdministradorReportes'
 
+	public List<RecepcionBestSellerDTO> enviarReporteBestSeller() throws Exception;
+	
+	public BestSellerDTO generarReporteBestSeller();
 	// ************************************************************
 	 
-	public List<RecepcionBestSellerDTO> enviarReporteBestSeller() throws Exception;
-
-	public BestSellerDTO generarBestSellerWeb();
 }

@@ -40,4 +40,33 @@ public class IDVenta implements Serializable {
 		this.modulo = modulo;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		result = prime * result + ((modulo == null) ? 0 : modulo.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		IDVenta other = (IDVenta) obj;
+		if (id != other.id)
+			return false;
+		if (modulo == null) {
+			if (other.modulo != null)
+				return false;
+		} else if (!modulo.equals(other.modulo))
+			return false;
+		return true;
+	}
+
+	
 }

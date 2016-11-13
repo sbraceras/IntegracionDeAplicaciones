@@ -35,7 +35,7 @@ public class AdministradorReportes {
 		//Levanto los 10 Productos mas vendidos
 
 		
-			BestSellerJSON bestSeller = generarReporteBestSeller ();
+			BestSellerJSON bestSeller = generarBestSellerJSON();
 			
 			if(bestSeller != null){
 				
@@ -88,6 +88,7 @@ public class AdministradorReportes {
 				        recepcionPortalDTO = new RecepcionBestSellerDTO();
 				        recepcionPortalDTO.setEstado(recepcionPortal.getEstado());
 				        recepcionPortalDTO.setMensaje(recepcionPortal.getMensaje());
+				        recepcionPortalDTO.setNombrePortal(modulo.getNombre());
 				        estadoRecepciones.add(recepcionPortalDTO);
 				        
 						}
@@ -110,47 +111,48 @@ public class AdministradorReportes {
 				}
 	}
 	
-	public BestSellerJSON generarReporteBestSeller (){
+	public BestSellerDTO generarReporteBestSeller (){
 		
 		
 		@SuppressWarnings("unchecked")
 		List<Articulo> articulosVendidos = em.createQuery("Select articulo from Articulo articulo order by articulo.ventasAcumuladas desc").setFirstResult(0).setMaxResults(10).getResultList();
 		
-		BestSellerJSON bestSeller = new BestSellerJSON();
+		BestSellerDTO bestSeller = new BestSellerDTO();
 		
-		List<ItemBestSellerJSON> itemsJSON = new ArrayList<ItemBestSellerJSON>();
-		ItemBestSellerJSON itemBestSellerJSON;
+		List<ItemBestSellerDTO> itemsDTO = new ArrayList<ItemBestSellerDTO>();
+		ItemBestSellerDTO itemBestSellerDTO;
 		int posicion = 1;
 		for(Articulo articulo: articulosVendidos){
-			itemBestSellerJSON = new ItemBestSellerJSON();
+			itemBestSellerDTO = new ItemBestSellerDTO();
 			
 //			itemBestSellerJSON.setCodigo(articulo.getId().toString()); //Esto es si llegan a querer el codigo compuesto, pero en el Excel no se veia asi
-			itemBestSellerJSON.setCodigo(articulo.getIdArticulo().getId());
-			itemBestSellerJSON.setNombreDeposito(articulo.getIdArticulo().getNombreDeposito());
-			itemBestSellerJSON.setPosicion(posicion);
+			itemBestSellerDTO.setCodigo(articulo.getIdArticulo().getId());
+			itemBestSellerDTO.setNombreDeposito(articulo.getIdArticulo().getNombreDeposito());
+			itemBestSellerDTO.setPosicion(posicion);
+			itemBestSellerDTO.setVentasAcumuladas(articulo.getVentasAcumuladas());
 			posicion++;
-			itemsJSON.add(itemBestSellerJSON);
+			itemsDTO.add(itemBestSellerDTO);
 		}
 		
-		bestSeller.setRanking(itemsJSON);
+		bestSeller.setItems(itemsDTO);
 		return bestSeller;
 	}
 	
-	public BestSellerDTO generarBestSellerWeb(){
+	public BestSellerJSON generarBestSellerJSON(){
 		
-		BestSellerJSON json = generarReporteBestSeller();
+		BestSellerDTO dto = generarReporteBestSeller();
 		
-		BestSellerDTO bestSeller = new BestSellerDTO();
-		List<ItemBestSellerDTO> itemsBest = new ArrayList<ItemBestSellerDTO>();
-		ItemBestSellerDTO itemDTO;
-		for(ItemBestSellerJSON itemJson: json.getRanking()){
-			itemDTO = new ItemBestSellerDTO();
-			itemDTO.setCodigo(itemJson.getCodigo());
-			itemDTO.setNombreDeposito(itemJson.getNombreDeposito());
-			itemDTO.setPosicion(itemJson.getPosicion());
-			itemsBest.add(itemDTO);
+		BestSellerJSON bestSeller = new BestSellerJSON();
+		List<ItemBestSellerJSON> itemsBest = new ArrayList<ItemBestSellerJSON>();
+		ItemBestSellerJSON itemJSON;	
+		for(ItemBestSellerDTO itemDTO: dto.getItems()){
+			itemJSON = new ItemBestSellerJSON();
+			itemJSON.setCodigo(itemDTO.getCodigo());
+			itemJSON.setNombreDeposito(itemDTO.getNombreDeposito());
+			itemJSON.setPosicion(itemDTO.getPosicion());
+			itemsBest.add(itemJSON);
 		}
-		bestSeller.setItems(itemsBest);
+		bestSeller.setRanking(itemsBest);
 		return bestSeller;
 		
 	}

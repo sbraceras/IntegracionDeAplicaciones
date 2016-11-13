@@ -6,7 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 @Embeddable
-public class IDArticulo implements Serializable {
+public class IdArticulo implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -16,7 +16,7 @@ public class IDArticulo implements Serializable {
 	@Column(nullable = false)
 	private String nombreDeposito;
 	
-	public IDArticulo() {
+	public IdArticulo() {
 	}
 
 	public String getNombreDeposito() {
@@ -53,7 +53,7 @@ public class IDArticulo implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		IDArticulo other = (IDArticulo) obj;
+		IdArticulo other = (IdArticulo) obj;
 		if (id != other.id)
 			return false;
 		if (nombreDeposito == null) {
@@ -63,8 +63,5 @@ public class IDArticulo implements Serializable {
 			return false;
 		return true;
 	}
-	
-	
-	
-	
+
 }

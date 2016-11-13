@@ -5,11 +5,9 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
@@ -43,7 +41,8 @@ public class Venta {
 	private Cliente cliente;
 
 	private EstadoVenta estado;
-
+	
+	
 	public Venta() {
 
 	}
@@ -149,9 +148,12 @@ public class Venta {
 
 		IDVenta id = new IDVenta();
 		id.setId(dto.getId());
+		
+		//Esto se setea desde afuera
 		id.setModulo(null);
+		
 		venta.setId(id);
-
+		
 		List<ItemVenta> items = new ArrayList<ItemVenta>();
 		ItemVenta item;
 

@@ -9,6 +9,7 @@ public class ItemBestSellerDTO implements Serializable{
 	private int codigo;
 	private String nombreDeposito;
 	private int posicion;
+	private double ventasAcumuladas;
 	
 	public ItemBestSellerDTO() {
 	}
@@ -36,6 +37,13 @@ public class ItemBestSellerDTO implements Serializable{
 	public void setPosicion(int posicion) {
 		this.posicion = posicion;
 	}
-	
+
+	public double getVentasAcumuladas() {
+		return ventasAcumuladas;
+	}
+
+	public void setVentasAcumuladas(double ventasAcumuladas) {
+		this.ventasAcumuladas = ventasAcumuladas;
+	}
 	
 }

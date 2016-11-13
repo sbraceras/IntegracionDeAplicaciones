@@ -4,9 +4,11 @@ import java.util.List;
 
 import javax.ejb.Local;
 
+import com.logistica.dtos.BestSellerDTO;
 import com.logistica.dtos.DespachoDTO;
 import com.logistica.dtos.LogDTO;
 import com.logistica.dtos.OrdenDespachoDTO;
+import com.logistica.dtos.RecepcionBestSellerDTO;
 import com.logistica.dtos.VentaDTO;
 
 @Local
@@ -39,6 +41,9 @@ public interface FacadeEJBLocal {
 
 	// METODOS QUE IMPLEMENTA EL SESSION BEAN 'AdministradorReportes'
 
+	public List<RecepcionBestSellerDTO> enviarReporteBestSeller() throws Exception;
+	
+	public BestSellerDTO generarReporteBestSeller();
 	// ************************************************************
-
+	 
 }

@@ -11,7 +11,7 @@ import com.logistica.dtos.ArticuloDTO;
 public class Articulo {
 
 	@EmbeddedId
-	private IDArticulo idArticulo;
+	private IdArticulo idArticulo;
 
 	private float precio;
 	private String descripcion;
@@ -21,18 +21,18 @@ public class Articulo {
 		
 	}
 
-	public Articulo(IDArticulo id, float precio, String descripcion, double ventasAcumuladas) {
+	public Articulo(IdArticulo id, float precio, String descripcion, double ventasAcumuladas) {
 		this.idArticulo = id;
 		this.precio = precio;
 		this.descripcion = descripcion;
 		this.ventasAcumuladas = ventasAcumuladas;
 	}
 
-	public IDArticulo getIdArticulo() {
+	public IdArticulo getIdArticulo() {
 		return idArticulo;
 	}
 
-	public void setIdArticulo(IDArticulo id) {
+	public void setIdArticulo(IdArticulo id) {
 		this.idArticulo = id;
 	}
 
@@ -74,7 +74,7 @@ public class Articulo {
 	public static Articulo fromDTO(ArticuloDTO dto) {
 		Articulo articulo = new Articulo();
 
-		IDArticulo id = new IDArticulo();
+		IdArticulo id = new IdArticulo();
 		id.setId(dto.getIdProducto());
 		id.setNombreDeposito(dto.getNombreDeposito());
 
