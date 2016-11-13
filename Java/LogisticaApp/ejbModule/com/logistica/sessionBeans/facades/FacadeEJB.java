@@ -94,4 +94,9 @@ public class FacadeEJB implements FacadeEJBLocal, FacadeEJBRemote {
 	public BestSellerDTO generarReporteBestSeller(){
 		return ar.generarReporteBestSeller();
 	}
+	
+	@Override
+	public List<DespachoDTO> obtenerDespachosActivos () throws Exception{
+		return ad.obtenerDespachosActivos();
+	}
 }

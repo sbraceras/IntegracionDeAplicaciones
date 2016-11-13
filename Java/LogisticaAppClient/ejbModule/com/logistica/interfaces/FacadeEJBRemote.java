@@ -36,6 +36,8 @@ public interface FacadeEJBRemote {
 	public void enviarOrdenesEmitidas () throws Exception;
 
 	public void cambiarEstadoOrdenDeDespacho(OrdenDespachoDTO ordenDespacho) throws Exception;
+	
+	public List<DespachoDTO> obtenerDespachosActivos () throws Exception;
 	// ************************************************************
 
 

@@ -337,5 +337,27 @@ public class AdministradorDespachos {
 			throw new Exception("No se encontró una orden de despacho con ese identificador.");
 		}
 	}
+	
+	public List<DespachoDTO> obtenerDespachosActivos () throws Exception{
+		
+		@SuppressWarnings("unchecked")
+		List<Despacho> despachos = em.createQuery("Select despacho from Despacho despacho where despacho.estado =:estado").setParameter("estado", true).getResultList();
+		
+		if(despachos != null){
+
+			List<DespachoDTO> dtos = new ArrayList<DespachoDTO>();
+			for(Despacho despacho: despachos){
+				
+				dtos.add(despacho.toDTO());
+			}
+			
+			return dtos;
+		}
+		else
+		{
+			throw new Exception("No hay despachos activos");
+		}
+		
+	}
 
 }

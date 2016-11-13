@@ -8,6 +8,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 
 import com.logistica.dtos.BestSellerDTO;
+import com.logistica.dtos.DespachoDTO;
 import com.logistica.dtos.LogDTO;
 import com.logistica.dtos.OrdenDespachoDTO;
 import com.logistica.dtos.RecepcionBestSellerDTO;
@@ -75,6 +76,15 @@ public class BusinessDelegate {
 	
 	public BestSellerDTO generarReporteBestSeller(){
 		return stub.generarReporteBestSeller();
+	}
+	
+	public List<DespachoDTO> obtenerDespachosActivos () throws Exception{
+		try{
+			return stub.obtenerDespachosActivos();
+		}
+		catch(Exception e){
+			throw new Exception("Se ha producido un error al obtener Despachos activos" + e.getMessage());
+		}
 	}
 	
 
