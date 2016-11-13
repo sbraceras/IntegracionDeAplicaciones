@@ -6,7 +6,19 @@ import javax.persistence.Entity;
 @Entity
 @DiscriminatorValue("Est")
 public class Estandar extends Modulo {
-	
-	//Charlar el DTO
-	
+
+	private String urlEnvioRankingBestSellers; // Solo aplicaria para los Portales Web
+
+	public Estandar() {
+		
+	}
+
+	public String getUrlEnvioRankingBestSellers() {
+		return urlEnvioRankingBestSellers;
+	}
+
+	public void setUrlEnvioRankingBestSellers(String urlEnvioRankingBestSellers) {
+		this.urlEnvioRankingBestSellers = urlEnvioRankingBestSellers;
+	}
+
 }

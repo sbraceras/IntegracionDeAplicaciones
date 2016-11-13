@@ -19,11 +19,11 @@ import com.logistica.enums.TipoModulo;
 @DiscriminatorColumn(name = "tipo", discriminatorType = DiscriminatorType.STRING)
 public abstract class Modulo {
 
-	
 	@Id
 	@Column(name = "idModulo")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	protected int id;
+
 	protected String nombre;
 	protected String ip;
 	protected TipoModulo tipoModulo;

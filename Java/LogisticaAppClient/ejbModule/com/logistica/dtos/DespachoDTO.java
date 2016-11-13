@@ -2,7 +2,7 @@ package com.logistica.dtos;
 
 import java.io.Serializable;
 
-public class DespachoDTO implements Serializable{
+public class DespachoDTO implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -10,10 +10,12 @@ public class DespachoDTO implements Serializable{
 	private DireccionDTO direccion;
 	private String descripcion;
 	private boolean estado;
+	private String urlEnvioOrdenDespacho;
 	private String ip;
 	private String nombre;
-	
+
 	public DespachoDTO() {
+		
 	}
 
 	public int getId() {
@@ -63,7 +65,13 @@ public class DespachoDTO implements Serializable{
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	
-	
+
+	public String getUrlEnvioOrdenDespacho() {
+		return urlEnvioOrdenDespacho;
+	}
+
+	public void setUrlEnvioOrdenDespacho(String urlEnvioOrdenDespacho) {
+		this.urlEnvioOrdenDespacho = urlEnvioOrdenDespacho;
+	}
 	
 }

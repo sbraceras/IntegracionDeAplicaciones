@@ -18,19 +18,11 @@ public class Despacho extends Modulo {
 	private Direccion direccion;
 	private String descripcion;
 	private boolean estado;
-	
-	
-	public Despacho(Direccion direccion, String descripcion,
-			boolean estado) {
-		this.direccion = direccion;
-		this.descripcion = descripcion;
-		this.estado = estado;
-	}
-
+	private String urlEnvioOrdenDespacho;	
 
 	public Despacho() {
+		
 	}
-
 
 	public Direccion getDireccion() {
 		return direccion;
@@ -61,13 +53,25 @@ public class Despacho extends Modulo {
 		this.estado = estado;
 	}
 	
-	public DespachoDTO toDTO(){
+	public String getUrlEnvioOrdenDespacho() {
+		return urlEnvioOrdenDespacho;
+	}
+
+
+	public void setUrlEnvioOrdenDespacho(String urlEnvioOrdenDespacho) {
+		this.urlEnvioOrdenDespacho = urlEnvioOrdenDespacho;
+	}
+
+	public DespachoDTO toDTO() {
 		DespachoDTO dto = new DespachoDTO();
+
 		dto.setDescripcion(this.descripcion);
 		dto.setDireccion(direccion.toDTO());
 		dto.setEstado(this.estado);
 		dto.setIp(this.ip);
 		dto.setNombre(super.getNombre());
+		dto.setUrlEnvioOrdenDespacho(this.urlEnvioOrdenDespacho);
+
 		return dto;
 	}
 	
