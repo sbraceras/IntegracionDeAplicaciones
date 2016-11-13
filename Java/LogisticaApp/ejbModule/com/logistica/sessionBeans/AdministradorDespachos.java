@@ -24,7 +24,9 @@ import com.logistica.entityBeans.Cliente;
 import com.logistica.entityBeans.Coordenada;
 import com.logistica.entityBeans.Despacho;
 import com.logistica.entityBeans.Direccion;
+import com.logistica.entityBeans.IDVenta;
 import com.logistica.entityBeans.ItemVenta;
+import com.logistica.entityBeans.Modulo;
 import com.logistica.entityBeans.OrdenDespacho;
 import com.logistica.entityBeans.Venta;
 import com.logistica.enums.EstadoOrdenDespacho;
@@ -201,11 +203,15 @@ public class AdministradorDespachos {
 	public void emitirOrdenDespacho(VentaDTO dto){
 		
 		//Obtengo de la BD la venta Persistente
-		Venta venta = em.find(Venta.class, dto.getId());
-		
+		IDVenta idVenta = new IDVenta();
+		idVenta.setId(dto.getId());
+		idVenta.setModulo(obtenerModuloPorNombre(dto.getNombrePortal()));
+
+		Venta venta = em.find(Venta.class, idVenta);
+
 		//Creo la orden de Despacho en Estado Emitida
 		OrdenDespacho orden = new OrdenDespacho();
-		Despacho despacho = obtenerModuloPorNombre(dto.getOrdenDespacho().getDespacho().getNombre());
+		Despacho despacho = (Despacho) obtenerModuloPorNombre(dto.getOrdenDespacho().getDespacho().getNombre());
 		orden.setDespacho(despacho);
 		orden.setEstado(EstadoOrdenDespacho.Emitida);
 		orden.setFecha(Calendar.getInstance().getTime());
@@ -221,11 +227,11 @@ public class AdministradorDespachos {
 	}
 	
 	
-	public Despacho obtenerModuloPorNombre(String nombre) {
-		Despacho despacho = (Despacho) em.createQuery("Select despacho from Despacho despacho where despacho.nombre =:nombre").setParameter("nombre", nombre).getSingleResult();
+	public Modulo obtenerModuloPorNombre(String nombre) {
+		Modulo modulo = (Modulo) em.createQuery("Select m from Modulo m where m.nombre = :nombre").setParameter("nombre", nombre).getSingleResult();
 
-		if (despacho != null) {
-			return despacho;
+		if (modulo != null) {
+			return modulo;
 		}		
 		else
 		{
@@ -239,28 +245,24 @@ public class AdministradorDespachos {
 		
 		List<OrdenDespacho> ordenesEmitidas = em.createQuery("Select orden from OrdenDespacho orden where orden.estado =:estado").setParameter("estado", EstadoOrdenDespacho.Emitida).getResultList();
 		
-		if(ordenesEmitidas != null){
-			
-			
+		if (ordenesEmitidas != null) {
+
 			//Genero el contenido necesario para enviar JSON
-			
 			URL url;
 			HttpURLConnection urlConnection;
 			ObjectMapper mapper;
 			String jsonInString;
 			DespachoRespuestaJSON respuestaDespacho;
-			
+
 			//Genero el JSON
-			
 			DespachoEnviarJSON json;
 			ItemDespachoEnviarJSON itemJson;
 			List<ItemDespachoEnviarJSON> itemsJson = new ArrayList<ItemDespachoEnviarJSON>();
 
 			for(OrdenDespacho orden: ordenesEmitidas) {
 				//Ahora le tengo que pegar a cada Rest de los modulos
-				
+
 				//Cargo el JSON
-				
 				json = new DespachoEnviarJSON();
 				json.setIdPortal(orden.getVenta().getId().getModulo().getNombre());
 				json.setIdVenta(orden.getVenta().getId().getId());
@@ -279,10 +281,10 @@ public class AdministradorDespachos {
 				
 				// ESTO ES PARA PROBAR EN LA CASA DE SOFFIAN
 //				url = new URL("http://192.168.0.11:8080/LogisticaREST/rest/services/recepcionOrdenDespacho");
-				url = new URL("http://localhost:8080/LogisticaREST/rest/services/recepcionOrdenDespacho");
+//				url = new URL("http://localhost:8080/LogisticaREST/rest/services/recepcionOrdenDespacho");
 
 				// DESCOMENTAR EL SABADO Y EL DIA DE LA PRUEBA FINAL
-//				url = new URL("http://" + orden.getDespacho().getIp() + ":8080/DespachoWeb/rest/services/recepcionOrdenDespacho");
+				url = new URL("http://" + orden.getDespacho().getIp() + ":8080/" + orden.getDespacho().getUrlEnvioOrdenDespacho());
 
 				urlConnection = (HttpURLConnection) url.openConnection();
 
