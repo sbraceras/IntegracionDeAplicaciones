@@ -73,5 +73,33 @@ public class DespachoDTO implements Serializable {
 	public void setUrlEnvioOrdenDespacho(String urlEnvioOrdenDespacho) {
 		this.urlEnvioOrdenDespacho = urlEnvioOrdenDespacho;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((descripcion == null) ? 0 : descripcion.hashCode());
+		result = prime * result
+				+ ((direccion == null) ? 0 : direccion.hashCode());
+		result = prime * result + (estado ? 1231 : 1237);
+		result = prime * result + id;
+		result = prime * result + ((ip == null) ? 0 : ip.hashCode());
+		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
+		result = prime
+				* result
+				+ ((urlEnvioOrdenDespacho == null) ? 0 : urlEnvioOrdenDespacho
+						.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if(this.id == ((DespachoDTO) obj).getId())
+			return true;
+		return false;
+	}
+	
+	
 	
 }

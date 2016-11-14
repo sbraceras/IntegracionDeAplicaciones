@@ -4,6 +4,7 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.ejb.LocalBean;
@@ -13,10 +14,14 @@ import javax.persistence.PersistenceContext;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.logistica.dtos.BestSellerDTO;
+import com.logistica.dtos.EstandarDTO;
 import com.logistica.dtos.ItemBestSellerDTO;
 import com.logistica.dtos.RecepcionBestSellerDTO;
+import com.logistica.dtos.ResumenPortalDTO;
 import com.logistica.dtos.VentaDTO;
 import com.logistica.entityBeans.Articulo;
+import com.logistica.entityBeans.Estandar;
+import com.logistica.entityBeans.IDVenta;
 import com.logistica.entityBeans.Modulo;
 import com.logistica.entityBeans.Venta;
 import com.logistica.enums.TipoModulo;
@@ -179,6 +184,101 @@ public class AdministradorReportes {
 		else
 		{
 			throw new Exception("No se han encontrado Ventas");
+		}
+	}
+	
+	
+	public List<VentaDTO> obtenerUltimasVentas() throws Exception{
+		@SuppressWarnings("unchecked")
+		List<Venta> ultimasVentas = em.createQuery("Select venta from Venta venta order by venta.fechaHora desc").setFirstResult(0).setMaxResults(10).getResultList();
+		if(ultimasVentas != null){
+			List<VentaDTO> devolver = new ArrayList<VentaDTO>();
+			
+			for(Venta venta: ultimasVentas){
+				devolver.add(venta.toDTO());
+			}
+			
+			return devolver;
+		}
+		else
+		{
+			throw new Exception("No hay Ventas en el Sistema");
+		}
+	}
+	
+	public List<ResumenPortalDTO> obtenerVentasPortal (){
+		
+		
+		List<ResumenPortalDTO> resumenPortales = new ArrayList<ResumenPortalDTO>();
+		float totalPortal;
+		
+		@SuppressWarnings("unchecked")
+		List<Estandar> portalesWeb = em.createQuery("Select modulo From Modulo modulo where modulo.tipoModulo =:tipoModulo").setParameter("tipoModulo", TipoModulo.PortalWeb).getResultList();
+		ResumenPortalDTO resumenPortal;
+		EstandarDTO portalDTO;
+		for(Estandar portal: portalesWeb){
+			totalPortal = 0.0F;
+			resumenPortal = new ResumenPortalDTO();
+			portalDTO = new EstandarDTO();
+			resumenPortal.setVentas(obtenerVentasPortal(portal));
+			portalDTO.setNombre(portal.getNombre());
+			resumenPortal.setPortal(portalDTO);
+			
+			for(VentaDTO venta: resumenPortal.getVentas()){
+				totalPortal = totalPortal + venta.getMonto();
+			}
+			
+			resumenPortal.setMontoTotal(totalPortal);
+			
+			resumenPortales.add(resumenPortal);
+		}
+		
+		return resumenPortales;
+	}
+	
+	
+	private List<VentaDTO> obtenerVentasPortal (Estandar portal){
+		
+		
+		@SuppressWarnings("unchecked")
+		List<Venta> ventas = (List<Venta>) em.createQuery("Select venta from Venta venta where venta.id.modulo.nombre =:modulo").setParameter("modulo", portal.getNombre()).getResultList();
+	
+	
+		List<VentaDTO> devolver = new ArrayList<VentaDTO>();
+		
+		for(Venta venta: ventas){
+			devolver.add(venta.toDTO());
+		}
+		
+		return devolver;
+	}
+	
+	public VentaDTO obtenerVenta (VentaDTO dto){
+		
+		
+		IDVenta id = new IDVenta();
+		id.setId(dto.getId());
+		Modulo modulo = buscarModuloPorNombre(dto.getNombrePortal());
+		id.setModulo(modulo);
+		
+		Venta venta = em.find(Venta.class, id);
+		
+		if(venta != null){
+			return venta.toDTO();
+		}
+		
+		return null;
+	}
+	
+	private Modulo buscarModuloPorNombre (String nombre){
+		
+		Modulo modulo =  (Modulo) em.createQuery("Select modulo from Modulo modulo where modulo.nombre =:nombre").setParameter("nombre", nombre).getSingleResult();
+		if(modulo != null){
+			return modulo;
+		}
+		
+		else{
+			return null;
 		}
 	}
 

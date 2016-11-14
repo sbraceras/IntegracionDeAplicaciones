@@ -215,7 +215,7 @@ public class Test {
 		 
 		venta.setCliente(cliente);
 		venta.setFechaHoraVenta(Calendar.getInstance().getTime());
-		venta.setId(14);
+		venta.setId(18);
 		venta.setIpModulo("192.168.1.0");
 		venta.setItemsVenta(itemsVenta);
 		venta.setNombrePortal("G10");
@@ -224,7 +224,7 @@ public class Test {
 
 
 		// enviamos la venta al Session Bean!
-//		mbr.recepcionDeVenta(venta);
+		mbr.recepcionDeVenta(venta);
 		
 //		BestSellerDTO bestSellerWeb = mbr.generarReporteBestSeller();
 		
@@ -236,45 +236,47 @@ public class Test {
 		// levanto las ventas sin Orden Asociada
 //		List<VentaDTO> ventasSinDespacho = mbr.listarVentasSinOrdenDespacho();
 
-		OrdenDespachoDTO ordenDTO = new OrdenDespachoDTO();
-		DespachoDTO despachoDTO = new DespachoDTO();
-		despachoDTO.setNombre("G05");
-		ordenDTO.setDespacho(despachoDTO);
+//		OrdenDespachoDTO ordenDTO = new OrdenDespachoDTO();
+//		DespachoDTO despachoDTO = new DespachoDTO();
+//		despachoDTO.setNombre("G05");
+//		ordenDTO.setDespacho(despachoDTO);
 
-		venta.setOrdenDespacho(ordenDTO);
+//		venta.setOrdenDespacho(ordenDTO);
 
-		mbr.emitirOrdenDespacho(venta);
+//		mbr.emitirOrdenDespacho(venta);
 
-		mbr.enviarOrdenesEmitidas();
+//		mbr.enviarOrdenesEmitidas();
+		
+//		mbr.enviarReporteBestSeller();
 
-		DespachoDTO despacho = mbr.obtenerDespachoCercanoCliente(venta);
-		String auxiliar = despacho.getIp();
-
-		String apiKey= "AIzaSyBrrSMBrm1CLgq1bgBjOM_Zyp6xwUHLVko";
-		String latitudOrigen= "-34.610359";
-		String longitudOrigen= "-58.374992";
-		String latitudDestino= "-34.610583";
-		String longitudDestino="-58.379535";
-		String medioTransporte= "driving";
+//		DespachoDTO despacho = mbr.obtenerDespachoCercanoCliente(venta);
+//		String auxiliar = despacho.getIp();
+//
+//		String apiKey= "AIzaSyBrrSMBrm1CLgq1bgBjOM_Zyp6xwUHLVko";
+//		String latitudOrigen= "-34.610359";
+//		String longitudOrigen= "-58.374992";
+//		String latitudDestino= "-34.610583";
+//		String longitudDestino="-58.379535";
+//		String medioTransporte= "driving";
 //		String medioTransporte= "walking";
 
-		URL url = new URL("https://maps.googleapis.com/maps/api/distancematrix/json?"
-				+ "origins=" + latitudOrigen + ",%20" + longitudOrigen + "&"
-				+ "destinations=" + latitudDestino + ",%20" + longitudDestino + "&"
-				+ "language=es" + "&"
-				+ "mode=" + medioTransporte + "&"
-				+ "key=" + apiKey);
-
-		HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-
-		if(urlConnection.getResponseCode() != 200) {
-			throw new RuntimeException("Error de conexión: " + urlConnection.getResponseCode());
-		}
-
-		ObjectMapper mapper = new ObjectMapper();
-		String response = IOUtils.toString(urlConnection.getInputStream());
-		GoogleRespuestaJSON maps = mapper.readValue(response, GoogleRespuestaJSON.class);
-		System.out.println("La distancia es: "+ maps.getRows()[0].getElements()[0].getDistance().getValue());	
+//		URL url = new URL("https://maps.googleapis.com/maps/api/distancematrix/json?"
+//				+ "origins=" + latitudOrigen + ",%20" + longitudOrigen + "&"
+//				+ "destinations=" + latitudDestino + ",%20" + longitudDestino + "&"
+//				+ "language=es" + "&"
+//				+ "mode=" + medioTransporte + "&"
+//				+ "key=" + apiKey);
+//
+//		HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+//
+//		if(urlConnection.getResponseCode() != 200) {
+//			throw new RuntimeException("Error de conexión: " + urlConnection.getResponseCode());
+//		}
+//
+//		ObjectMapper mapper = new ObjectMapper();
+//		String response = IOUtils.toString(urlConnection.getInputStream());
+//		GoogleRespuestaJSON maps = mapper.readValue(response, GoogleRespuestaJSON.class);
+//		System.out.println("La distancia es: "+ maps.getRows()[0].getElements()[0].getDistance().getValue());	
 		
 	}
 
