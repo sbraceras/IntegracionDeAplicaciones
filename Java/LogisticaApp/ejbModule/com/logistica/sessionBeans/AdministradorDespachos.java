@@ -36,6 +36,7 @@ import com.logistica.jsons.DespachoEnviarJSON;
 import com.logistica.jsons.DespachoRespuestaJSON;
 import com.logistica.jsons.GoogleRespuestaJSON;
 import com.logistica.jsons.ItemDespachoEnviarJSON;
+import com.logistica.utils.RESTManager;
 
 /**
  * Session Bean implementation class AdministradorDespachos
@@ -242,27 +243,17 @@ public class AdministradorDespachos {
 
 	@SuppressWarnings({ "unchecked" })
 	public void enviarOrdenesEmitidas() throws Exception {
-		
+
 		List<OrdenDespacho> ordenesEmitidas = em.createQuery("Select orden from OrdenDespacho orden where orden.estado =:estado").setParameter("estado", EstadoOrdenDespacho.Emitida).getResultList();
-		
+
 		if (ordenesEmitidas != null) {
-
-			//Genero el contenido necesario para enviar JSON
-			URL url;
-			HttpURLConnection urlConnection;
-			ObjectMapper mapper;
-			String jsonInString;
-			DespachoRespuestaJSON respuestaDespacho;
-
-			//Genero el JSON
+			// Genero el JSON
 			DespachoEnviarJSON json;
 			ItemDespachoEnviarJSON itemJson;
 			List<ItemDespachoEnviarJSON> itemsJson = new ArrayList<ItemDespachoEnviarJSON>();
 
 			for(OrdenDespacho orden: ordenesEmitidas) {
-				//Ahora le tengo que pegar a cada Rest de los modulos
-
-				//Cargo el JSON
+				// Ahora le tengo que pegar a cada Rest de los modulos
 				json = new DespachoEnviarJSON();
 				json.setIdPortal(orden.getVenta().getId().getModulo().getNombre());
 				json.setIdVenta(orden.getVenta().getId().getId());
@@ -277,31 +268,13 @@ public class AdministradorDespachos {
 
 				json.setDetalles(itemsJson);
 
-				// Enviamos el JSON al Despacho correspondiente
-				
 				// ESTO ES PARA PROBAR EN LA CASA DE SOFFIAN
 //				url = new URL("http://192.168.0.11:8080/LogisticaREST/rest/services/recepcionOrdenDespacho");
 //				url = new URL("http://localhost:8080/LogisticaREST/rest/services/recepcionOrdenDespacho");
 
-				// DESCOMENTAR EL SABADO Y EL DIA DE LA PRUEBA FINAL
-				url = new URL("http://" + orden.getDespacho().getIp() + ":8080/" + orden.getDespacho().getUrlEnvioOrdenDespacho());
-
-				urlConnection = (HttpURLConnection) url.openConnection();
-
-				urlConnection.setDoOutput(true);
-				urlConnection.setRequestMethod("POST");
-				urlConnection.setRequestProperty("Content-Type", "application/json");
-
-				mapper = new ObjectMapper();
-
-				// Convierto el objeto 'DespachoEnviarJSON' (json) a formato JSON con JACKSON
-				jsonInString = mapper.writeValueAsString(json);
-
-				urlConnection.getOutputStream().write(jsonInString.getBytes());; // Envío de un string en formato Json
-
-				InputStream respuesta = urlConnection.getInputStream();
-
-		        respuestaDespacho = mapper.readValue(respuesta.toString(), DespachoRespuestaJSON.class);
+				// Enviamos el JSON al Despacho correspondiente
+				DespachoRespuestaJSON respuestaDespacho = (DespachoRespuestaJSON) RESTManager.send(
+						"http://" + orden.getDespacho().getIp() + ":8080/" + orden.getDespacho().getUrlEnvioOrdenDespacho(), json, DespachoRespuestaJSON.class);
 
 		        if (respuestaDespacho.getProcesado().equalsIgnoreCase("true")) {
 		        	// El despacho la recibio correctamente

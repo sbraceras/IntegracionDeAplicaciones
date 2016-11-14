@@ -11,6 +11,7 @@ SELECT * FROM ItemsVenta
 SELECT * FROM Articulos
 
 SELECT * FROM OrdenesDespacho
+-- DELETE FROM OrdenesDespacho
 
 SELECT * FROM Clientes C
 	INNER JOIN Direcciones D ON C.idDireccion = D.idDireccion
