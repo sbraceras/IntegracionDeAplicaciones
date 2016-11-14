@@ -11,6 +11,7 @@ import com.logistica.dtos.DespachoDTO;
 import com.logistica.dtos.LogDTO;
 import com.logistica.dtos.OrdenDespachoDTO;
 import com.logistica.dtos.RecepcionBestSellerDTO;
+import com.logistica.dtos.ResumenPortalDTO;
 import com.logistica.dtos.VentaDTO;
 import com.logistica.interfaces.FacadeEJBLocal;
 import com.logistica.interfaces.FacadeEJBRemote;
@@ -76,8 +77,8 @@ public class FacadeEJB implements FacadeEJBLocal, FacadeEJBRemote {
 	}
 
 	@Override
-	public void enviarOrdenesEmitidas() throws Exception {
-		ad.enviarOrdenesEmitidas();
+	public List<OrdenDespachoDTO> enviarOrdenesEmitidas() throws Exception{
+		return ad.enviarOrdenesEmitidas();
 	}
 
 	@Override
@@ -93,5 +94,22 @@ public class FacadeEJB implements FacadeEJBLocal, FacadeEJBRemote {
 	@Override
 	public BestSellerDTO generarReporteBestSeller(){
 		return ar.generarReporteBestSeller();
+	}
+	
+	@Override
+	public List<DespachoDTO> obtenerDespachosActivos () throws Exception{
+		return ad.obtenerDespachosActivos();
+	}
+	@Override
+	public List<VentaDTO> obtenerUltimasVentas() throws Exception{
+		return ar.obtenerUltimasVentas();
+	}
+	
+	public List<ResumenPortalDTO> obtenerVentasPortal (){
+		return ar.obtenerVentasPortal();
+	}
+	
+	public VentaDTO obtenerVenta (VentaDTO dto){
+		return ar.obtenerVenta(dto);
 	}
 }

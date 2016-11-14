@@ -9,6 +9,7 @@ import com.logistica.dtos.DespachoDTO;
 import com.logistica.dtos.LogDTO;
 import com.logistica.dtos.OrdenDespachoDTO;
 import com.logistica.dtos.RecepcionBestSellerDTO;
+import com.logistica.dtos.ResumenPortalDTO;
 import com.logistica.dtos.VentaDTO;
 
 @Local
@@ -33,9 +34,11 @@ public interface FacadeEJBLocal {
 
 	public void emitirOrdenDespacho (VentaDTO dto);
 
-	public void enviarOrdenesEmitidas () throws Exception;
+	public List<OrdenDespachoDTO> enviarOrdenesEmitidas() throws Exception;
 
 	public void cambiarEstadoOrdenDeDespacho(OrdenDespachoDTO ordenDespacho) throws Exception;
+
+	public List<DespachoDTO> obtenerDespachosActivos () throws Exception;
 	// ************************************************************
 
 
@@ -44,6 +47,12 @@ public interface FacadeEJBLocal {
 	public List<RecepcionBestSellerDTO> enviarReporteBestSeller() throws Exception;
 	
 	public BestSellerDTO generarReporteBestSeller();
+	
+	public List<VentaDTO> obtenerUltimasVentas() throws Exception;
+	
+	public List<ResumenPortalDTO> obtenerVentasPortal ();
+	
+	public VentaDTO obtenerVenta (VentaDTO dto);
 	// ************************************************************
 	 
 }

@@ -51,7 +51,16 @@ public class AdministradorDespachos {
 	public List<VentaDTO> listarVentasSinOrdenDespacho (){
 		
 		@SuppressWarnings("unchecked")
-		List<Venta> ventas = em.createQuery("Select venta from Venta venta where venta.estado =:estado").setParameter("estado", EstadoVenta.EnProceso).getResultList();
+		List<Venta> obtenidas = em.createQuery("Select venta from Venta venta where venta.estado =:estado").setParameter("estado", EstadoVenta.EnProceso).getResultList();
+
+		List<Venta> ventas = new ArrayList<Venta>();
+		
+		for(Venta v: obtenidas){
+			if(v.getOrdenDespacho()==null){
+				ventas.add(v);
+			}
+		}
+		
 		if(ventas != null){
 			//Encontro ventas
 			List<VentaDTO> devolver = new ArrayList<VentaDTO>();
@@ -223,7 +232,10 @@ public class AdministradorDespachos {
 		//De despacho al que le mandemos y recibimos la pk compuesta que ellos
 		//Digan, analizar si esto va a ser una pk compuesta de nuestro lado.
 		
-		em.persist(orden);		
+		em.persist(orden);
+		em.flush();
+		venta.setOrdenDespacho(orden);
+		em.merge(venta);
 		
 	}
 	
@@ -242,7 +254,7 @@ public class AdministradorDespachos {
 	}
 
 	@SuppressWarnings({ "unchecked" })
-	public void enviarOrdenesEmitidas() throws Exception {
+	public List<OrdenDespachoDTO> enviarOrdenesEmitidas() throws Exception {
 
 		List<OrdenDespacho> ordenesEmitidas = em.createQuery("Select orden from OrdenDespacho orden where orden.estado =:estado").setParameter("estado", EstadoOrdenDespacho.Emitida).getResultList();
 
@@ -251,7 +263,7 @@ public class AdministradorDespachos {
 			DespachoEnviarJSON json;
 			ItemDespachoEnviarJSON itemJson;
 			List<ItemDespachoEnviarJSON> itemsJson = new ArrayList<ItemDespachoEnviarJSON>();
-
+			List<OrdenDespachoDTO> devolver = new ArrayList<OrdenDespachoDTO>();
 			for(OrdenDespacho orden: ordenesEmitidas) {
 				// Ahora le tengo que pegar a cada Rest de los modulos
 				json = new DespachoEnviarJSON();
@@ -283,6 +295,7 @@ public class AdministradorDespachos {
 		        	orden.setIdExterna(respuestaDespacho.getIdOrdenDespacho());
 
 		        	em.merge(orden);
+
 		        } else {
 		        	// No se pudo procesar el despacho por algun motivo
 		        	orden.setEstado(EstadoOrdenDespacho.Rechazada);
@@ -292,9 +305,14 @@ public class AdministradorDespachos {
 		        	em.merge(orden);
 		        }
 
+		        devolver.add(orden.toDTO());
+
 			}
 
+			return devolver;
 		}
+
+		throw new Exception("No hay Ordenes para Enviar");
 
 	}
 
@@ -311,6 +329,28 @@ public class AdministradorDespachos {
 		} else {
 			throw new Exception("No se encontró una orden de despacho con ese identificador.");
 		}
+	}
+	
+	public List<DespachoDTO> obtenerDespachosActivos() throws Exception {
+		
+		@SuppressWarnings("unchecked")
+		List<Despacho> despachos = em.createQuery("Select despacho from Despacho despacho where despacho.estado =:estado").setParameter("estado", true).getResultList();
+		
+		if(despachos != null){
+
+			List<DespachoDTO> dtos = new ArrayList<DespachoDTO>();
+			for(Despacho despacho: despachos){
+				
+				dtos.add(despacho.toDTO());
+			}
+			
+			return dtos;
+		}
+		else
+		{
+			throw new Exception("No hay despachos activos");
+		}
+		
 	}
 
 }

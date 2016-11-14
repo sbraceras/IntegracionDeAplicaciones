@@ -65,6 +65,7 @@ public class Despacho extends Modulo {
 	public DespachoDTO toDTO() {
 		DespachoDTO dto = new DespachoDTO();
 
+		dto.setId(this.id);
 		dto.setDescripcion(this.descripcion);
 		dto.setDireccion(direccion.toDTO());
 		dto.setEstado(this.estado);
