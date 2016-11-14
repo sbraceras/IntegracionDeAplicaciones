@@ -4,33 +4,50 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-<link rel="stylesheet"
-	href="https://fonts.googleapis.com/icon?family=Material+Icons">
-<link rel="stylesheet"
-	href="https://code.getmdl.io/1.2.1/material.indigo-pink.min.css">
-<script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
 
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-	crossorigin="anonymous">
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+	<link rel="stylesheet"
+		href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet"
+		href="https://code.getmdl.io/1.2.1/material.indigo-pink.min.css">
+	<script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
 
-<!-- Optional theme -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
-	integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
-	crossorigin="anonymous">
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+		integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+		crossorigin="anonymous">
+	
+	<!-- Optional theme -->
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+		integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+		crossorigin="anonymous">
+	
+	<!-- Latest compiled and minified JavaScript -->
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+		integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+		crossorigin="anonymous">
+	</script>
 
-<!-- Latest compiled and minified JavaScript -->
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-	crossorigin="anonymous"></script>
-<title>Informes Auditoria</title>
+	<title>Informes Auditoria</title>
+
+	<script type="text/javascript" src="./scripts/ajax.js"></script>
+
+	<script type="text/javascript">
+
+		setInterval(function() { listarInformes() }, 3000);
+
+		function listarInformes() {
+			sendRequestGet("InformesAuditoria");
+		}
+
+	</script>
+
 </head>
+
 <body>
 	<!-- Always shows a header, even in smaller screens. -->
 	<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
@@ -58,34 +75,13 @@
 			</nav>
 		</div>
 		<main class="mdl-layout__content table-responsive"> 
+
 		<!-- Your content goes here -->
-			<table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp"
-				style="margin: 0 auto; top: 40px">
-				<thead>
-					<tr>
-						<th class="mdl-data-table__cell--non-numeric">Valor String</th>
-						<th class="mdl-data-table__cell--non-numeric">Valor String</th>
-						<th class="mdl-data-table__cell--non-numeric">Valor String</th>
-						<th class="mdl-data-table__cell--non-numeric">Valor String</th>
-						<th class="mdl-data-table__cell--non-numeric">Valor String</th>
-						<th class="mdl-data-table__cell--non-numeric">Valor String</th>
-						<th class="mdl-data-table__cell--non-numeric">Valor String</th>
-					</tr>
-				</thead>
-				<tbody>
-					<c:forEach var="wrap" items="${prueba}">
-						<tr>
-							<td class="mdl-data-table__cell--non-numeric">${wrap}</td>
-							<td class="mdl-data-table__cell--non-numeric">${wrap}</td>
-							<td class="mdl-data-table__cell--non-numeric">${wrap}</td>
-							<td class="mdl-data-table__cell--non-numeric">${wrap}</td>
-							<td class="mdl-data-table__cell--non-numeric">${wrap}</td>
-							<td class="mdl-data-table__cell--non-numeric">${wrap}</td>
-							<td class="mdl-data-table__cell--non-numeric">${wrap}</td>
-						</tr>
-					</c:forEach>
-				</tbody>
-			</table>
+
+			<div id="contenedorTabla">
+
+			</div>
+
 	</main>
 	<footer style="line-height: 50px;padding: 0 20px;margin-bottom: 40px;">
 	<form action="InformesAuditoria" method="post">
