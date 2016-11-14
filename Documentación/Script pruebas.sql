@@ -8,7 +8,7 @@ SELECT L.*, M.nombre, M.descripcion FROM Logs L INNER JOIN Modulos M ON L.idModu
 SELECT V.*, M.nombre, M.descripcion FROM Ventas V INNER JOIN Modulos M ON V.idModulo = M.idModulo
 SELECT * FROM ItemsVenta
 
-SELECT * FROM Articulos
+SELECT * FROM Articulos ORDER BY ventasAcumuladas DESC
 
 SELECT * FROM OrdenesDespacho
 -- DELETE FROM OrdenesDespacho

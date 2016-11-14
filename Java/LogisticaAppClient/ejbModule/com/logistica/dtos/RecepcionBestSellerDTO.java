@@ -2,14 +2,16 @@ package com.logistica.dtos;
 
 import java.io.Serializable;
 
-public class RecepcionBestSellerDTO implements Serializable{
-	
+public class RecepcionBestSellerDTO implements Serializable {
+
 	private static final long serialVersionUID = 1L;
+
 	String estado;
 	String mensaje;
 	String nombrePortal;
-	
+
 	public RecepcionBestSellerDTO() {
+		
 	}
 
 	public String getEstado() {
@@ -36,5 +38,4 @@ public class RecepcionBestSellerDTO implements Serializable{
 		this.nombrePortal = nombrePortal;
 	}
 
-	
 }

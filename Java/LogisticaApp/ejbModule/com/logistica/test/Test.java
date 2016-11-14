@@ -58,8 +58,6 @@ public class Test {
 
 		FacadeEJBRemote mbr = (FacadeEJBRemote) context.lookup(lookupName);
 
-//		mbr.enviarOrdenesEmitidas();
-		
 //		mbr.agregarPortalWeb();
 
 		VentaDTO venta = new VentaDTO();
@@ -224,7 +222,7 @@ public class Test {
 
 
 		// enviamos la venta al Session Bean!
-		mbr.recepcionDeVenta(venta);
+//		mbr.recepcionDeVenta(venta);
 		
 //		BestSellerDTO bestSellerWeb = mbr.generarReporteBestSeller();
 		
@@ -247,7 +245,7 @@ public class Test {
 
 //		mbr.enviarOrdenesEmitidas();
 		
-//		mbr.enviarReporteBestSeller();
+		mbr.enviarReporteBestSeller();
 
 //		DespachoDTO despacho = mbr.obtenerDespachoCercanoCliente(venta);
 //		String auxiliar = despacho.getIp();

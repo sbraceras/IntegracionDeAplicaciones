@@ -1,10 +1,8 @@
 package com.logistica.sessionBeans;
 
 import java.io.BufferedReader;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -60,19 +58,15 @@ public class AdministradorDespachos {
 				ventas.add(v);
 			}
 		}
-		
-		if(ventas != null){
-			//Encontro ventas
-			List<VentaDTO> devolver = new ArrayList<VentaDTO>();
-			//Las convierte a DTO para devolver
-			for(Venta aux: ventas){
-				devolver.add(aux.toDTO());
-			}
-			
-			return devolver;
+
+		//Encontro ventas
+		List<VentaDTO> devolver = new ArrayList<VentaDTO>();
+		//Las convierte a DTO para devolver
+		for(Venta aux: ventas){
+			devolver.add(aux.toDTO());
 		}
-		//No encontro ventas
-		return null;
+		
+		return devolver;
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -105,9 +99,7 @@ public class AdministradorDespachos {
 						+ "mode=" + medioTransporte + "&"
 						+ "key=" + apiKey);
 
-				//Hago la peticion a Google Maps
-				HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-
+				// Hago la peticion a Google Maps
 		        URLConnection connection = url.openConnection();
 		        connection.setDoOutput(true);
 
@@ -115,8 +107,7 @@ public class AdministradorDespachos {
 		        out.write("string=");
 		        out.close();
 
-		        BufferedReader in = new BufferedReader(
-		                                    new InputStreamReader(connection.getInputStream()));
+		        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 
 		        String decodedString;
 		        StringBuffer response = new StringBuffer();
@@ -264,6 +255,7 @@ public class AdministradorDespachos {
 			ItemDespachoEnviarJSON itemJson;
 			List<ItemDespachoEnviarJSON> itemsJson = new ArrayList<ItemDespachoEnviarJSON>();
 			List<OrdenDespachoDTO> devolver = new ArrayList<OrdenDespachoDTO>();
+
 			for(OrdenDespacho orden: ordenesEmitidas) {
 				// Ahora le tengo que pegar a cada Rest de los modulos
 				json = new DespachoEnviarJSON();
@@ -285,7 +277,7 @@ public class AdministradorDespachos {
 //				url = new URL("http://localhost:8080/LogisticaREST/rest/services/recepcionOrdenDespacho");
 
 				// Enviamos el JSON al Despacho correspondiente
-				DespachoRespuestaJSON respuestaDespacho = (DespachoRespuestaJSON) RESTManager.send(
+				DespachoRespuestaJSON respuestaDespacho = (DespachoRespuestaJSON) RESTManager.sendPOST(
 						"http://" + orden.getDespacho().getIp() + ":8080/" + orden.getDespacho().getUrlEnvioOrdenDespacho(), json, DespachoRespuestaJSON.class);
 
 		        if (respuestaDespacho.getProcesado().equalsIgnoreCase("true")) {

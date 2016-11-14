@@ -15,7 +15,7 @@ public class RESTManager {
 
 	private static ObjectMapper mapper = new ObjectMapper();
 
-	public static Object send(String urlREST, Object jsonObject, Class<?> responseClass) {
+	public static Object sendPOST(String urlREST, Object jsonObject, Class<?> responseClass) {
 
 		try {
 			URL url = new URL(urlREST);

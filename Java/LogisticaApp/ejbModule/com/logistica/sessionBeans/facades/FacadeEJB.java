@@ -43,7 +43,7 @@ public class FacadeEJB implements FacadeEJBLocal, FacadeEJBRemote {
 	 * Default constructor.
 	 */
 	public FacadeEJB() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	@Override
