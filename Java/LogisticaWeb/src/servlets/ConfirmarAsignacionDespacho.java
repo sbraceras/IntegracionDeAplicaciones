@@ -44,16 +44,23 @@ public class ConfirmarAsignacionDespacho extends HttpServlet {
 		// TODO Auto-generated method stub
 		//doGet(request, response);
 		//Metodod de BD para asignarle el despacho a la venta con los parametros idVenta y idDespacho
-		System.out.println(request.getParameter("idVenta"));
-		System.out.println(request.getParameter("combo"));
 		VentaDTO venta = new VentaDTO();
+		String coordenada = request.getParameter("combo");
+		String intermedio = null;
 		OrdenDespachoDTO ordenDespacho = new OrdenDespachoDTO();
 		DespachoDTO despachoDTO = new DespachoDTO();
-		
+		try {
+			for(DespachoDTO iterador : BusinessDelegate.getInstance().obtenerDespachosActivos()){
+				intermedio = iterador.getDireccion().getCoordenada().getLatitud()+","+iterador.getDireccion().getCoordenada().getLongitud();
+				if(intermedio.equalsIgnoreCase(coordenada))
+					despachoDTO.setNombre(iterador.getNombre());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		venta.setId((Integer.parseInt(request.getParameter("idVenta"))));
 		venta.setNombrePortal(request.getParameter("nombrePortal"));
-		despachoDTO.setNombre(request.getParameter("combo"));
 		ordenDespacho.setDespacho(despachoDTO);
 		venta.setOrdenDespacho(ordenDespacho);
 		BusinessDelegate.getInstance().emitirOrdenDespacho(venta);

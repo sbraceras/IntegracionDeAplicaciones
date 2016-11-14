@@ -36,27 +36,33 @@
 	}
 </script>
 <script>
-		      function initMap() {
+		      function initMap(data) {
+				if(typeof data != 'undefined' && data != null){
+			    	var coord = data.split(',',2);
+			        var coordenadasDespacho = {lat: parseFloat(coord[0]), lng: parseFloat(coord[1])};
+				}
 				var bounds = new google.maps.LatLngBounds();
-		        var coordenadasDespacho = {lat: ${despachoCercano.direccion.coordenada.latitud}, lng: ${despachoCercano.direccion.coordenada.latitud}};
-		        var coordenadasCliente = {lat: ${ventaSeleccionada.cliente.direccion.coordenada.latitud}, lng: ${ventaSeleccionada.cliente.direccion.coordenada.longitud}};
+				var coordenadasCliente = {lat: ${ventaSeleccionada.cliente.direccion.coordenada.latitud}, lng: ${ventaSeleccionada.cliente.direccion.coordenada.longitud}};
 		        var map = new google.maps.Map(document.getElementById('map'), {
 		          zoom: 15,
 // 		          center: coordenadasDespacho
 		        });
-		        var markerDespacho = new google.maps.Marker({
-		          position: coordenadasDespacho,
-		          map: map
-		        });
+		        if(typeof data != 'undefined' && data != null){
+			        var markerDespacho = new google.maps.Marker({
+			          position: coordenadasDespacho,
+			          map: map
+			        });
+		        	bounds.extend(markerDespacho.position);
+		        }
 		        var markerCliente = new google.maps.Marker({
 			      position: coordenadasCliente,
 			      map: map
 			    });
-		        bounds.extend(markerDespacho.position);
 		        bounds.extend(markerCliente.position);
 				map.fitBounds(bounds);
 		      }
 		    </script>
+
 <script async defer
 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAgyt5OuhzUnYTYVaYC0TZDwXjN_Ha4uH8&callback=initMap">
 </script>
@@ -109,9 +115,9 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAgyt5OuhzUnYTYVaYC0TZDwXj
 						<td class="mdl-data-table__cell--non-numeric">${ventaSeleccionada.cliente.nombre}</td>
 						<td class="mdl-data-table__cell--non-numeric">${ventaSeleccionada.nombrePortal}</td>
 						<td class="mdl-data-table__cell--non-numeric">
-							<select name="combo" onchange="">
+							<select name="combo" onchange="initMap($(this).find('option:selected').val())">
 								<c:forEach var="despacho" items="${comboDespachos}">
-										<option value="${despacho.nombre}">${despacho.descripcion} - ${despacho.direccion.calle} ${despacho.direccion.altura}</option>
+										<option id="selectedComboValue" value="${despacho.direccion.coordenada.latitud},${despacho.direccion.coordenada.longitud}">${despacho.descripcion} - ${despacho.direccion.calle} ${despacho.direccion.altura}</option>
 								</c:forEach>
 							</select>
 						</td>
