@@ -27,7 +27,7 @@ public class AdministradorAuditoria {
 
 	private static String busquedaModulosDepositos = "SELECT d FROM Despacho d WHERE d.nombre LIKE :descripcionDespacho";
 	private static String busquedaModulosEstandars = "SELECT e FROM Estandar e WHERE e.nombre LIKE :descripcionEstandar";
-	private static String busquedaLogs = "SELECT l FROM Log l ORDER BY l.fecha desc";
+	private static String busquedaLogs = "SELECT l FROM Log l ORDER BY l.fecha DESC";
 
 	/**
 	 * Default constructor.

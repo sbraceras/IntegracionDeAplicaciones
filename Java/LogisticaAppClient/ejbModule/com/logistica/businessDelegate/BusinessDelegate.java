@@ -56,9 +56,8 @@ public class BusinessDelegate {
 		List<LogDTO> logsDTO = new ArrayList<LogDTO>();
 		try {
 			logsDTO = stub.buscarLogs();
-			
 		} catch (Exception e) {
-			throw new Exception("Se ha producido un erra. " + e.getMessage());
+			throw new Exception("Se ha producido un error. " + e.getMessage());
 		}
 		return logsDTO;
 	}
