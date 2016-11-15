@@ -56,13 +56,12 @@
 		</header>
 		<div class="mdl-layout__drawer">
 			<span class="mdl-layout-title">Menu</span>
-			<nav class="mdl-navigation"> <a class="mdl-navigation__link"
-				onclick="window.location.href='Test'">Ordenes de Despacho</a> <a
-				class="mdl-navigation__link"
-				onclick="window.location.href='BestSellers'">Best Sellers</a> <a
-				class="mdl-navigation__link" onclick="window.location.href='Test'">Reporte
-				de ventas</a> <a class="mdl-navigation__link"
-				onclick="window.location.href='Test'">Reporte de auditoria</a> </nav>
+			<nav class="mdl-navigation">
+				<a class="mdl-navigation__link" onclick="window.location.href='VentasSinDespacho'">Ordenes de Despacho</a>
+				<a class="mdl-navigation__link" onclick="window.location.href='BestSellers'">Best Sellers</a>
+				<a class="mdl-navigation__link" onclick="window.location.href='ListadoVentas'">Reporte de ventas</a>
+				<a class="mdl-navigation__link" onclick="window.location.href='InformesAuditoria'">Reporte de auditoria</a>
+			</nav>
 		</div>
 		<main class="mdl-layout__content table-responsive"> 
 		<!-- Your content goes here -->

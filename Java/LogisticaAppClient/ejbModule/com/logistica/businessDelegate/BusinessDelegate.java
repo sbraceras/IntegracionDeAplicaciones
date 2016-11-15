@@ -107,7 +107,7 @@ public class BusinessDelegate {
 	public List<OrdenDespachoDTO> enviarOrdenesEmitidas() throws Exception{
 		
 		try{
-			return enviarOrdenesEmitidas();
+			return stub.enviarOrdenesEmitidas();
 		}
 		catch(Exception e){
 			throw new Exception("Se ha producido un error al enviar la Ordenes de Despacho Emitidas" + e.getMessage());

@@ -65,8 +65,8 @@ public class Services {
 	@POST
 	@Path("/guardarLog")
 	@Consumes({ "application/json" })	// Indica que consume (recibe) un objeto Json en el POST. Lo parsea a un objeto de tipo LogDTO
-	@Produces({"text/plain"})
-	public String guardarLog(LogJSON log){
+//	@Produces({"text/plain"})
+	public void guardarLog(LogJSON log){
 		try {
 			LogDTO logDTO = new LogDTO();
 
@@ -76,10 +76,10 @@ public class Services {
 
 			BusinessDelegate.getInstance().registrarLog(logDTO);
 
-			return  "Log guardado correctamente";
+//			return  "Log guardado correctamente";
 		} catch (Exception e) {
 			e.printStackTrace();
-			return "El log no pudo guardarse correctamente debido a: " + e.getMessage();
+//			return "El log no pudo guardarse correctamente debido a: " + e.getMessage();
 		}
 	}
 

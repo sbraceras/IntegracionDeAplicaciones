@@ -90,7 +90,10 @@ public class Log {
 		logDTO.setFecha(this.fecha);
 		logDTO.setId(this.id);
 		logDTO.setNombreModulo(this.modulo.getNombre());
-
+		if(this.modulo != null){
+			logDTO.setTipoModulo(this.modulo.getTipoModulo());
+		}
+		
 		return logDTO;
 	}
 

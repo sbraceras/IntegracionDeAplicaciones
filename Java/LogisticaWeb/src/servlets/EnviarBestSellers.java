@@ -49,34 +49,35 @@ public class EnviarBestSellers extends HttpServlet {
 		BusinessDelegate bd= BusinessDelegate.getInstance();
 		List<RecepcionBestSellerDTO> resultadoBestSeller;
 		try {
-//			resultadoBestSeller = bd.enviarReporteBestSeller();
+			
+			resultadoBestSeller = bd.enviarReporteBestSeller();
 			
 			//Borrar esto es solo para simular comportamiento
 			
 			
-			resultadoBestSeller = new ArrayList<RecepcionBestSellerDTO>();
-			RecepcionBestSellerDTO resumen1 = new RecepcionBestSellerDTO();
-			RecepcionBestSellerDTO resumen2 = new RecepcionBestSellerDTO();
-			RecepcionBestSellerDTO resumen3 = new RecepcionBestSellerDTO();
-			RecepcionBestSellerDTO resumen4 = new RecepcionBestSellerDTO();
-			
-			resumen1.setEstado("OK");
-			resumen1.setMensaje("Actualizacion Exitosa");
-			resumen1.setNombrePortal("G03");
-			resumen2.setEstado("OK");
-			resumen2.setMensaje("Actualizacion Exitosa");
-			resumen2.setNombrePortal("G07");
-			resumen3.setEstado("OK");
-			resumen3.setNombrePortal("G10");
-			resumen3.setMensaje("Actualizacion Exitosa");
-			resumen4.setEstado("ERROR");
-			resumen4.setMensaje("Se rompio todo :)");
-			resumen4.setNombrePortal("G13");
-			
-			resultadoBestSeller.add(resumen1);
-			resultadoBestSeller.add(resumen2);
-			resultadoBestSeller.add(resumen3);
-			resultadoBestSeller.add(resumen4);
+//			resultadoBestSeller = new ArrayList<RecepcionBestSellerDTO>();
+//			RecepcionBestSellerDTO resumen1 = new RecepcionBestSellerDTO();
+//			RecepcionBestSellerDTO resumen2 = new RecepcionBestSellerDTO();
+//			RecepcionBestSellerDTO resumen3 = new RecepcionBestSellerDTO();
+//			RecepcionBestSellerDTO resumen4 = new RecepcionBestSellerDTO();
+//			
+//			resumen1.setEstado("OK");
+//			resumen1.setMensaje("Actualizacion Exitosa");
+//			resumen1.setNombrePortal("G03");
+//			resumen2.setEstado("OK");
+//			resumen2.setMensaje("Actualizacion Exitosa");
+//			resumen2.setNombrePortal("G07");
+//			resumen3.setEstado("OK");
+//			resumen3.setNombrePortal("G10");
+//			resumen3.setMensaje("Actualizacion Exitosa");
+//			resumen4.setEstado("ERROR");
+//			resumen4.setMensaje("Se rompio todo :)");
+//			resumen4.setNombrePortal("G13");
+//			
+//			resultadoBestSeller.add(resumen1);
+//			resultadoBestSeller.add(resumen2);
+//			resultadoBestSeller.add(resumen3);
+//			resultadoBestSeller.add(resumen4);
 			request.setAttribute("resultadoBestSeller", resultadoBestSeller);
 			
 			request.getRequestDispatcher("jsp/ResumenEnviobestSellers.jsp").forward(request, response);

@@ -34,14 +34,14 @@
 
 	<title>Informes Auditoria</title>
 
-	<script type="text/javascript" src="./scripts/ajax.js"></script>
+	<script type="text/javascript" src="../scripts/ajax.js"></script>
 
 	<script type="text/javascript">
 
 		setInterval(function() { listarInformes() }, 3000);
 
 		function listarInformes() {
-			sendRequestGet("InformesAuditoria");
+			sendRequestGet("/LogisticaWeb/InformesAuditoria");
 		}
 
 	</script>
@@ -78,11 +78,11 @@
 
 		<!-- Your content goes here -->
 
-			<div id="contenedorTabla">
+		<div id="contenedorTabla">
 
-			</div>
+		</div>
 
-	</main>
+		</main>
 	<footer style="line-height: 50px;padding: 0 20px;margin-bottom: 40px;">
 	<form action="InformesAuditoria" method="post">
 		<button id="tt3" style="float: right" type="submit"

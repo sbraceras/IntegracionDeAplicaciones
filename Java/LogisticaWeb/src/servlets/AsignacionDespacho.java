@@ -60,6 +60,9 @@ public class AsignacionDespacho extends HttpServlet {
 			List<DespachoDTO> despachos = BusinessDelegate.getInstance().obtenerDespachosActivos();
 			
 			despachoCercano = BusinessDelegate.getInstance().obtenerDespachoCercanoCliente(ventaSeleccionada);
+			
+			//Esto esta hecho asi porque el proxy nos bloquea la señal
+//			despachoCercano = despachos.get(0);
 			comboDespachos.add(despachoCercano);
 			
 			for(DespachoDTO despacho: despachos){

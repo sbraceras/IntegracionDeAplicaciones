@@ -213,7 +213,7 @@ public class Test {
 		 
 		venta.setCliente(cliente);
 		venta.setFechaHoraVenta(Calendar.getInstance().getTime());
-		venta.setId(18);
+		venta.setId(20);
 		venta.setIpModulo("192.168.1.0");
 		venta.setItemsVenta(itemsVenta);
 		venta.setNombrePortal("G10");
@@ -222,7 +222,7 @@ public class Test {
 
 
 		// enviamos la venta al Session Bean!
-//		mbr.recepcionDeVenta(venta);
+		mbr.recepcionDeVenta(venta);
 		
 //		BestSellerDTO bestSellerWeb = mbr.generarReporteBestSeller();
 		

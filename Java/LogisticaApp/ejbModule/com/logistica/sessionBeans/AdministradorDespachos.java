@@ -279,25 +279,31 @@ public class AdministradorDespachos {
 				// Enviamos el JSON al Despacho correspondiente
 				DespachoRespuestaJSON respuestaDespacho = (DespachoRespuestaJSON) RESTManager.sendPOST(
 						"http://" + orden.getDespacho().getIp() + ":8080/" + orden.getDespacho().getUrlEnvioOrdenDespacho(), json, DespachoRespuestaJSON.class);
-
-		        if (respuestaDespacho.getProcesado().equalsIgnoreCase("true")) {
-		        	// El despacho la recibio correctamente
-		        	orden.setEstado(EstadoOrdenDespacho.Enviada);
-		        	// Me guardo el ID propio de la Base de Datos de Despacho (IdExterna)!
-		        	orden.setIdExterna(respuestaDespacho.getIdOrdenDespacho());
-
-		        	em.merge(orden);
-
-		        } else {
-		        	// No se pudo procesar el despacho por algun motivo
-		        	orden.setEstado(EstadoOrdenDespacho.Rechazada);
-
-//		        	orden.setIdExterna(respuestaDespacho.getIdOrdenDespacho());
-
-		        	em.merge(orden);
-		        }
-
-		        devolver.add(orden.toDTO());
+				
+				if(respuestaDespacho != null){
+			        if (respuestaDespacho.getProcesado().equalsIgnoreCase("true")) {
+			        	// El despacho la recibio correctamente
+			        	orden.setEstado(EstadoOrdenDespacho.Enviada);
+			        	// Me guardo el ID propio de la Base de Datos de Despacho (IdExterna)!
+			        	orden.setIdExterna(respuestaDespacho.getIdOrdenDespacho());
+	
+			        	em.merge(orden);
+			        	em.flush();
+	
+			        } else {
+			        	// No se pudo procesar el despacho por algun motivo
+			        	orden.setEstado(EstadoOrdenDespacho.Rechazada);
+	
+	//		        	orden.setIdExterna(respuestaDespacho.getIdOrdenDespacho());
+	
+			        	em.merge(orden);
+			        }
+			        devolver.add(orden.toDTO());
+				}
+				else
+				{
+					orden.setEstado(EstadoOrdenDespacho.Rechazada);
+				}
 
 			}
 
