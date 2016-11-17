@@ -56,9 +56,9 @@ public class InformesAuditoria extends HttpServlet {
 			out.println("<tr>");
 
 			out.println("<th class=\"mdl-data-table__cell--non-numeric\">Fecha/Hora</th>");
-			out.println("<th class=\"mdl-data-table__cell--non-numeric\">Tipo Módulo</th>");
-			out.println("<th class=\"mdl-data-table__cell--non-numeric\">Nombre Módulo</th>");
-			out.println("<th class=\"mdl-data-table__cell--non-numeric\">Descripción</th>");
+			out.println("<th class=\"mdl-data-table__cell--non-numeric\">Tipo Modulo</th>");
+			out.println("<th class=\"mdl-data-table__cell--non-numeric\">Nombre Modulo</th>");
+			out.println("<th class=\"mdl-data-table__cell--non-numeric\">Descripcion</th>");
 
 			out.println("</tr>");
 
