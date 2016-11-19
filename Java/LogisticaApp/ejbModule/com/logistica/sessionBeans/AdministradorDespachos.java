@@ -253,14 +253,15 @@ public class AdministradorDespachos {
 			// Genero el JSON
 			DespachoEnviarJSON json;
 			ItemDespachoEnviarJSON itemJson;
-			List<ItemDespachoEnviarJSON> itemsJson = new ArrayList<ItemDespachoEnviarJSON>();
 			List<OrdenDespachoDTO> devolver = new ArrayList<OrdenDespachoDTO>();
-
+			List<ItemDespachoEnviarJSON> itemsJson;
+			
 			for(OrdenDespacho orden: ordenesEmitidas) {
 				// Ahora le tengo que pegar a cada Rest de los modulos
 				json = new DespachoEnviarJSON();
 				json.setIdPortal(orden.getVenta().getId().getModulo().getNombre());
 				json.setIdVenta(orden.getVenta().getId().getId());
+				itemsJson = new ArrayList<ItemDespachoEnviarJSON>();
 
 				for(ItemVenta itemVenta : orden.getVenta().getItemsVenta()) {
 					itemJson = new ItemDespachoEnviarJSON();

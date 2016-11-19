@@ -45,16 +45,24 @@ public class AdministradorReportes {
 			if (portales != null) {
 
 				for (Modulo modulo: portales) {
-					RecepcionBestSellerJSON recepcionPortal = (RecepcionBestSellerJSON) RESTManager.sendPOST(
-						"http://" + modulo.getIp() + ":8080/" + ((Estandar) modulo).getUrlEnvioRankingBestSellers(), bestSeller, RecepcionBestSellerJSON.class);
-
-			        // Lo paso a DTO para mandar la respuesta al sitio web!
-			        RecepcionBestSellerDTO recepcionPortalDTO = new RecepcionBestSellerDTO();
-			        recepcionPortalDTO.setEstado(recepcionPortal.getEstado());
-			        recepcionPortalDTO.setMensaje(recepcionPortal.getMensaje());
-			        recepcionPortalDTO.setNombrePortal(modulo.getNombre());
-
-			        estadoRecepciones.add(recepcionPortalDTO);			        
+					if(((Estandar) modulo).getUrlEnvioRankingBestSellers() != null){
+						RecepcionBestSellerJSON recepcionPortal = (RecepcionBestSellerJSON) RESTManager.sendPOST(
+							"http://" + modulo.getIp() + ":8080/" + ((Estandar) modulo).getUrlEnvioRankingBestSellers(), bestSeller, RecepcionBestSellerJSON.class);
+	
+				        // Lo paso a DTO para mandar la respuesta al sitio web!
+				        RecepcionBestSellerDTO recepcionPortalDTO = new RecepcionBestSellerDTO();
+				        
+				        if(recepcionPortal != null){
+					        recepcionPortalDTO.setEstado(recepcionPortal.getEstado());
+					        recepcionPortalDTO.setMensaje(recepcionPortal.getMensaje());
+				        }else{
+				        	recepcionPortalDTO.setEstado("ERROR");
+				        	recepcionPortalDTO.setMensaje("ERROR");
+				        }
+				        recepcionPortalDTO.setNombrePortal(modulo.getNombre());
+	
+				        estadoRecepciones.add(recepcionPortalDTO);	
+					}
 				}
 
 				// Devuelvo el resultado de las Recepciones
