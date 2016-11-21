@@ -65,61 +65,63 @@
 		</div>
 		<main class="mdl-layout__content table-responsive"> 
 		<!-- Your content goes here -->
-		<% for(ResumenPortalDTO resumen: resumenPortales){%>
+		<% for(ResumenPortalDTO resumen: resumenPortales) { %>
 			<br>
 			<br>
-			<br>
-			<table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp"
-				style="margin: 0 auto; top: 40px">
-				<thead>
-					<tr>
-						<th class="mdl-data-table__cell--non-numeric">Portal</th>
-						<th class="mdl-data-table__cell--non-numeric">Total</th>
-					</tr>
-				</thead>
-				<tbody>
-				<tr>
+				<table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" style="margin: 0 auto; top: 40px">
+					<thead>
+						<tr>
+							<th class="mdl-data-table__cell--non-numeric">Portal Web</th>
+							<th class="mdl-data-table__cell--non-numeric">Total</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
 							<td class="mdl-data-table__cell--non-numeric"><%=resumen.getPortal().getNombre()%></td>
 							<td class="mdl-data-table__cell--non-numeric"><%=resumen.getMontoTotal()%></td>
-				</tr>	
-				</tbody>
-				</table>		
-				<%for(VentaDTO venta: resumen.getVentas()){%>
-				
-				<table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp"
-				style="margin: 0 auto; top: 40px">
-				<thead>
-					<tr>
-						<th class="mdl-data-table__cell--non-numeric">IDVenta</th>
-						<th class="mdl-data-table__cell--non-numeric">Visualizar</th>
-					</tr>
-				</thead>
-						<tr>
-						
-						<form action="VisualizarVenta" method="post">
-						<input type="text" name="idVenta" value="<%=venta.getId()%>" hidden>
-						<input type="text" name="nombrePortal" value="<%=venta.getNombrePortal()%>" hidden>
-						<td class="mdl-data-table__cell--non-numeric"><%=venta.getNombrePortal()+venta.getId()%></td>
-						
-						<td class="mdl-data-table__cell--non-numeric">
-							<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" type="submit">Visualizar</button>
-						</td>
-						
-					</form>
-						</tr>
-						<%}}%>
-				</tbody>
-			</table>
+						</tr>	
+					</tbody>
+				</table>
+		
+				<% for (VentaDTO venta: resumen.getVentas()) { %>				
+					<table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" style="margin: 0 auto; top: 40px">
+						<thead>
+							<tr>
+								<th class="mdl-data-table__cell--non-numeric">ID Venta</th>
+								<th class="mdl-data-table__cell--non-numeric"></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>					
+								<form action="VisualizarVenta" method="post">
+									<input type="text" name="idVenta" value="<%=venta.getId()%>" hidden>
+									<input type="text" name="nombrePortal" value="<%=venta.getNombrePortal()%>" hidden>
+
+									<td class="mdl-data-table__cell--non-numeric"><%=venta.getNombrePortal() + '.' + venta.getId()%></td>
+									
+									<td class="mdl-data-table__cell--non-numeric">
+										<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" type="submit">Visualizar</button>
+									</td>						
+								</form>
+							</tr>
+						</tbody>
+					</table>
+				<% } %>				
+			<% } %>
+
 	</main>
+
 	<footer style="line-height: 50px;padding: 0 20px;margin-bottom: 40px;">
-	<form action="EnviarBestSellers" method="post">
-		<button id="tt3" style="float: right" type="submit"
-			class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
-			<i class="material-icons">add</i>
-		</button>
-	</form>
-	<div class="mdl-tooltip" data-mdl-for="tt3">Volver al Menu</div>
+		<form action="EnviarBestSellers" method="post">
+			<button id="tt3" style="float: right" type="submit"
+				class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
+				<i class="material-icons">add</i>
+			</button>
+		</form>
+	
+		<div class="mdl-tooltip" data-mdl-for="tt3">Volver al Menu</div>
 	</footer>
+
 	</div>
 </body>
 </html>

@@ -1,3 +1,4 @@
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="com.logistica.enums.EstadoOrdenDespacho"%>
 <%@page import="com.logistica.dtos.VentaDTO"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -30,12 +31,18 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
 	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-	crossorigin="anonymous"></script>
+	crossorigin="anonymous">
+</script>
+
 <title>Visualizar Venta</title>
+
 </head>
+
 <body>
 <%
-	VentaDTO venta = (VentaDTO) request.getAttribute("ventaReal");	
+	VentaDTO venta = (VentaDTO) request.getAttribute("ventaReal");
+	SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+	SimpleDateFormat formatoHora  = new SimpleDateFormat("hh:mm:ss");
 %>
 	<!-- Always shows a header, even in smaller screens. -->
 	<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
@@ -46,7 +53,8 @@
 			<!-- Add spacer, to align navigation to the right -->
 			<div class="mdl-layout-spacer"></div>
 			<!-- Navigation. We hide it in small screens. -->
-			<nav class="mdl-navigation mdl-layout--large-screen-only"> <!-- 					<a class="mdl-navigation__link" onclick="window.location.href='Test'">Ordenes de Despacho</a> -->
+			<nav class="mdl-navigation mdl-layout--large-screen-only">
+			<!-- 					<a class="mdl-navigation__link" onclick="window.location.href='Test'">Ordenes de Despacho</a> -->
 			<!-- 					<a class="mdl-navigation__link" onclick="window.location.href='Test'">Best Sellers</a> -->
 			<!-- 					<a class="mdl-navigation__link" onclick="window.location.href='Test'">Reporte de ventas</a> -->
 			<!-- 					<a class="mdl-navigation__link" onclick="window.location.href='Test'">Reporte de auditoria</a> -->
@@ -68,25 +76,40 @@
 				style="margin: 0 auto; top: 40px">
 				<thead>
 					<tr>
-						<th class="mdl-data-table__cell--non-numeric">IDVenta</th>
+						<th class="mdl-data-table__cell--non-numeric">ID Venta</th>
 						<th class="mdl-data-table__cell--non-numeric">Fecha</th>
 						<th class="mdl-data-table__cell--non-numeric">Hora</th>
-						<th class="mdl-data-table__cell--non-numeric">Total</th>
-						<th class="mdl-data-table__cell--non-numeric">Tiene Orden Despacho</th>
+						<th class="mdl-data-table__cell--non-numeric">Monto Total</th>
 						<th class="mdl-data-table__cell--non-numeric">Estado Orden Despacho</th>
 					</tr>
 				</thead>
 				<tbody>
-						<tr>
-							<td class="mdl-data-table__cell--non-numeric"><%=venta.getNombrePortal()+venta.getId()%></td>
-							<td class="mdl-data-table__cell--non-numeric"><%=venta.getFechaHoraVenta().getDay()+"/"+venta.getFechaHoraVenta().getMonth()+"/"+venta.getFechaHoraVenta().getYear()%></td>
-							<td class="mdl-data-table__cell--non-numeric"><%=venta.getFechaHoraVenta().getHours()+":"+venta.getFechaHoraVenta().getMinutes()%></td>
-							<td class="mdl-data-table__cell--non-numeric"><%=venta.getMonto()%></td>
-							<td class="mdl-data-table__cell--non-numeric"><%if(venta.getOrdenDespacho()!=null){%><img src="images/tildeVerde.png" /><%}else{ %><img src="images/cruzRoja.png" /><%}%></td>
-							<td class="mdl-data-table__cell--non-numeric"><%if(venta.getOrdenDespacho()!=null){if(venta.getOrdenDespacho().getEstado()== EstadoOrdenDespacho.Enviada){%><img src="images/tildeVerde.png" /><%}else{%>
-							
-							<img src="images/cruzRoja.png" /><%}}%></td>
-						</tr>
+					<tr>
+						<td class="mdl-data-table__cell--non-numeric"><%=venta.getNombrePortal() + '.' + venta.getId()%></td>
+						<td class="mdl-data-table__cell--non-numeric"><%=formatoFecha.format(venta.getFechaHoraVenta())%></td>
+						<td class="mdl-data-table__cell--non-numeric"><%=formatoHora.format(venta.getFechaHoraVenta())%></td>
+						<td class="mdl-data-table__cell--non-numeric"><%=venta.getMonto()%></td>
+						<td class="mdl-data-table__cell--non-numeric">
+							<div id=<%=venta.getNombrePortal() + '.' + venta.getId()%> align="center">
+								<% String estadoOrdenDespacho = ""; %>
+	
+								<% if (venta.getOrdenDespacho() != null) {
+									estadoOrdenDespacho = venta.getOrdenDespacho().getEstado().name();
+	
+									if (venta.getOrdenDespacho().getEstado() == EstadoOrdenDespacho.Enviada) { %>
+										<img src="images/tildeVerde.png" alt=<%=estadoOrdenDespacho%> align="middle"/>
+									<% } else { %>
+										<img src="images/cruzRoja.png" alt=<%=estadoOrdenDespacho%> align="middle"/>
+									<% } %>
+								<% } else {
+									estadoOrdenDespacho = "Sin Orden de Despacho"; %>
+									<img src="images/cruzRoja.png" alt=<%=estadoOrdenDespacho%> align="middle"/>
+								<% } %>
+							</div>
+
+							<span for=<%=venta.getNombrePortal() + '.' + venta.getId()%> class="mdl-tooltip"><%=estadoOrdenDespacho%></span>
+						</td>
+					</tr>
 				</tbody>
 			</table>
 	</main>

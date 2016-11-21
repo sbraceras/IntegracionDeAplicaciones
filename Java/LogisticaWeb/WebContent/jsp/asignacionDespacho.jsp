@@ -28,62 +28,84 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
 	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-	crossorigin="anonymous"></script>
+	crossorigin="anonymous">
+</script>
+
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
 <script>
 	function testModal(){
 		$('#table1').hide();
 	}
 </script>
+
 <script>
-		      function initMap(data) {
-				if(typeof data != 'undefined' && data != null){
-			    	var coord = data.split(',',2);
-			        var coordenadasDespacho = {lat: parseFloat(coord[0]), lng: parseFloat(coord[1])};
-				}
-				var bounds = new google.maps.LatLngBounds();
-				var coordenadasCliente = {lat: ${ventaSeleccionada.cliente.direccion.coordenada.latitud}, lng: ${ventaSeleccionada.cliente.direccion.coordenada.longitud}};
-		        var map = new google.maps.Map(document.getElementById('map'), {
-		          zoom: 15,
-// 		          center: coordenadasDespacho
-		        });
-		        if(typeof data != 'undefined' && data != null){
-			        var markerDespacho = new google.maps.Marker({
-			          position: coordenadasDespacho,
-			          map: map
-			        });
-		        	bounds.extend(markerDespacho.position);
-		        }
-		        var markerCliente = new google.maps.Marker({
-			      position: coordenadasCliente,
-			      map: map
-			    });
-		        bounds.extend(markerCliente.position);
-				map.fitBounds(bounds);
-		      }
-		    </script>
+
+	function initMap(data) {
+
+		if (typeof data != 'undefined' && data != null) {
+			var coord = data.split(',',2);
+			var coordenadasDespacho = {lat: parseFloat(coord[0]), lng: parseFloat(coord[1])};
+		}
+
+		var bounds = new google.maps.LatLngBounds();
+
+		var coordenadasCliente = {
+			lat: $(ventaSeleccionada.cliente.direccion.coordenada.latitud),
+			lng: $(ventaSeleccionada.cliente.direccion.coordenada.longitud)
+		};
+
+		var map = new google.maps.Map(document.getElementById('map'), {
+			zoom: 15,
+// 			center: coordenadasDespacho
+		});
+
+		if (typeof data != 'undefined' && data != null) {
+			var markerDespacho = new google.maps.Marker({
+				position: coordenadasDespacho,
+				map: map,
+				title: 'Direccion Despacho'
+			});
+
+			bounds.extend(markerDespacho.position);
+		}
+
+		var markerCliente = new google.maps.Marker({
+			position: coordenadasCliente,
+			map: map,
+			title: 'Direccion Cliente'
+		});
+
+		bounds.extend(markerCliente.position);
+		map.fitBounds(bounds);
+	}
+
+</script>
 
 <script async defer
-src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAgyt5OuhzUnYTYVaYC0TZDwXjN_Ha4uH8&callback=initMap">
+	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAgyt5OuhzUnYTYVaYC0TZDwXjN_Ha4uH8&callback=initMap">
 </script>
+
 <style>
 	#map {
 	  height: 400px;
-	  width: 100%;
+	  width: 60%;
 	 }
 </style>
+
 <title>Asignar Despacho</title>
+
 </head>
 <body>
 	<!-- Always shows a header, even in smaller screens. -->
 	<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
 		<header class="mdl-layout__header">
-		<div class="mdl-layout__header-row">
-			<!-- Title -->
-			<span class="mdl-layout-title">Asignar Despacho</span>
-			<!-- Add spacer, to align navigation to the right -->
-			<div class="mdl-layout-spacer"></div>
-		</div>
+			<div class="mdl-layout__header-row">
+				<!-- Title -->
+				<span class="mdl-layout-title">Asignar Despacho</span>
+				<!-- Add spacer, to align navigation to the right -->
+				<div class="mdl-layout-spacer"></div>
+			</div>
 		</header>
 		<div class="mdl-layout__drawer">
 			<span class="mdl-layout-title">Menu</span>
@@ -94,6 +116,7 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAgyt5OuhzUnYTYVaYC0TZDwXj
 				<a class="mdl-navigation__link" onclick="window.location.href='InformesAuditoria'">Reporte de auditoria</a>
 			</nav>
 		</div>
+
 		<main class="mdl-layout__content table-responsive"> 
 		<!-- Your content goes here -->
 			<table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp"
@@ -117,7 +140,7 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAgyt5OuhzUnYTYVaYC0TZDwXj
 						<td class="mdl-data-table__cell--non-numeric">
 							<select name="combo" onchange="initMap($(this).find('option:selected').val())">
 								<c:forEach var="despacho" items="${comboDespachos}">
-										<option id="selectedComboValue" value="${despacho.direccion.coordenada.latitud},${despacho.direccion.coordenada.longitud}">${despacho.descripcion} - ${despacho.direccion.calle} ${despacho.direccion.altura}</option>
+									<option id="selectedComboValue" value="${despacho.direccion.coordenada.latitud},${despacho.direccion.coordenada.longitud}">${despacho.descripcion} - ${despacho.direccion.calle} ${despacho.direccion.altura}</option>
 								</c:forEach>
 							</select>
 						</td>
@@ -131,17 +154,22 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAgyt5OuhzUnYTYVaYC0TZDwXj
 			<br>
 			<br>
 			<br>
+
 			<h3>Ubicacion origen venta y despacho seleccionado</h3>
+
 		    <div id="map"></div>
-	</main>
-	<footer style="line-height: 50px;padding: 0 20px;margin-bottom: 60px;">
-		<button id="tt3" style="float: right; margin-top: 10px" type="submit"
-			class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
-			<i class="material-icons">add</i>
-		</button>
-	</form>
-	<div class="mdl-tooltip" data-mdl-for="tt3">Establecer Despacho</div>
-	</footer>
+
+		</main>
+
+		<footer style="line-height: 50px;padding: 0 20px;margin-bottom: 60px;">
+			<button id="tt3" style="float: right; margin-top: 10px" type="submit"
+				class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
+				<i class="material-icons">add</i>
+			</button>
+	
+			<div class="mdl-tooltip" data-mdl-for="tt3">Establecer Despacho</div>
+		</footer>
+
 	</div>
 </body>
 </html>
