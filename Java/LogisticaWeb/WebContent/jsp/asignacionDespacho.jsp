@@ -51,8 +51,8 @@
 		var bounds = new google.maps.LatLngBounds();
 
 		var coordenadasCliente = {
-			lat: $(ventaSeleccionada.cliente.direccion.coordenada.latitud),
-			lng: $(ventaSeleccionada.cliente.direccion.coordenada.longitud)
+			lat: ${ventaSeleccionada.cliente.direccion.coordenada.latitud},
+			lng: ${ventaSeleccionada.cliente.direccion.coordenada.longitud}
 		};
 
 		var map = new google.maps.Map(document.getElementById('map'), {
@@ -162,12 +162,12 @@
 		</main>
 
 		<footer style="line-height: 50px;padding: 0 20px;margin-bottom: 60px;">
-			<button id="tt3" style="float: right; margin-top: 10px" type="submit"
+			<button id="tt3" style="float: right; margin-top: 10px" onclick="window.location.href='index.html'"
 				class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
 				<i class="material-icons">add</i>
 			</button>
 	
-			<div class="mdl-tooltip" data-mdl-for="tt3">Establecer Despacho</div>
+			<div class="mdl-tooltip" data-mdl-for="tt3">Volver al Menu</div>
 		</footer>
 
 	</div>
